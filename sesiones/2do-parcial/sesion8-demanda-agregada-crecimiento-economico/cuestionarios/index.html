@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Exámenes de práctica sobre Demanda Agregada y Crecimiento Económico - Sesión 8 CBC UBA">
+    <meta name="keywords" content="demanda agregada, multiplicador, Keynes, ciclos económicos, crecimiento, productividad, inversión, política fiscal CBC">
+    <meta name="author" content="Economía CBC - UBA">
+    <title>Exámenes de Práctica - Sesión 8 CBC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4f46e5 0%, #a78bfa 100%);
+        }
+        .quiz-button {
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .quiz-button:hover {
+            background-color: #4338ca;
+            transform: translateY(-2px);
+        }
+        .quiz-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .answer-button {
+            width: 100%;
+            background-color: #e5e7eb;
+            color: #1f2937;
+            text-align: left;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .answer-button:hover:not(:disabled) {
+            background-color: #d1d5db;
+        }
+        .answer-button.correct {
+            background-color: #10b981;
+            color: white;
+            animation: pulse-correct 0.8s;
+        }
+        .answer-button.incorrect {
+            background-color: #ef4444;
+            color: white;
+            animation: shake 0.5s;
+        }
+        .explanation {
+            background-color: #f0f4f8;
+            border-left: 4px solid #4f46e5;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+        }
+        @keyframes pulse-correct {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div id="app" class="container bg-white p-8 rounded-2xl shadow-xl w-full">
+        <!-- Pantalla de selección de cuestionarios -->
+        <div id="quiz-selection-screen">
+            <h1 class="text-3xl font-bold text-center mb-4 text-indigo-700">Selecciona un Examen de Práctica</h1>
+            <p class="text-center text-gray-600 mb-8">Cada examen contiene 20 preguntas aleatorias que abarcan Demanda Agregada y Crecimiento Económico. ¡Mucha suerte!</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                <button onclick="startQuiz(0)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 1</button>
+                <button onclick="startQuiz(1)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 2</button>
+                <button onclick="startQuiz(2)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 3</button>
+                <button onclick="startQuiz(3)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 4</button>
+                <button onclick="startQuiz(4)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 5</button>
+                <button onclick="startQuiz(5)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 6</button>
+                <button onclick="startQuiz(6)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 7</button>
+                <button onclick="startQuiz(7)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 8</button>
+                <button onclick="startQuiz(8)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 9</button>
+                <button onclick="startQuiz(9)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 10</button>
+            </div>
+        </div>
+
+        <!-- Pantalla del cuestionario -->
+        <div id="quiz-screen" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <div class="text-lg font-semibold text-gray-700">Pregunta <span id="current-question-number"></span> de 20</div>
+                <div class="text-lg font-semibold text-gray-700">Puntaje: <span id="score">0</span></div>
+            </div>
+            <div class="card p-6 mb-6">
+                <h2 id="question" class="text-xl font-semibold text-gray-900 mb-6"></h2>
+                <div id="options-container" class="space-y-4"></div>
+            </div>
+            <div id="feedback-message" class="text-center p-4 my-4 rounded-lg font-semibold hidden"></div>
+            <button id="next-button" class="quiz-button w-full py-4 mt-6 gradient-bg text-white font-bold text-lg rounded-lg shadow-md focus:outline-none" onclick="nextQuestion()" disabled>Siguiente</button>
+        </div>
+
+        <!-- Pantalla de resultados -->
+        <div id="results-screen" class="hidden text-center">
+            <h1 class="text-3xl font-bold text-indigo-700 mb-4">¡Examen Completo!</h1>
+            <p class="text-xl text-gray-700 mb-6">Tu puntaje final es:</p>
+            <div class="text-5xl font-extrabold text-white gradient-bg p-8 rounded-full inline-block shadow-lg mb-8">
+                <span id="final-score"></span>
+                <span class="block text-2xl font-normal mt-2">de 20</span>
+            </div>
+            <p class="text-lg text-gray-600 mb-4">¡Sigue practicando para dominar los conceptos de Demanda Agregada y Crecimiento Económico!</p>
+            <button class="quiz-button py-4 px-8 mt-4 bg-indigo-600 text-white font-bold text-lg rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none" onclick="restartQuiz()">Volver a la selección</button>
+        </div>
+    </div>
+
+    <script>
+        // Base de preguntas sobre Demanda Agregada y Crecimiento Económico
+        const allQuestions = [
+            {
+                question: "¿Qué evento histórico dio origen a la revolución keynesiana?",
+                options: [
+                    "La crisis del petróleo de 1973 que afectó la economía mundial",
+                    "La Gran Depresión de 1929 con caída de producción y alto desempleo",
+                    "La Segunda Guerra Mundial y sus efectos en la economía europea",
+                    "La hiperinflación alemana de 1923 que destruyó la moneda"
+                ],
+                answer: 1,
+                explanation: "La Gran Depresión de 1929, con su grave caída del nivel de producción y crecimiento del desempleo, dio origen a la revolución keynesiana."
+            },
+            {
+                question: "¿Qué problema central busca explicar el modelo keynesiano?",
+                options: [
+                    "La inflación estructural causada por emisión monetaria excesiva",
+                    "Las crisis generadas por problemas de demanda efectiva",
+                    "El crecimiento económico de largo plazo de países desarrollados",
+                    "La distribución del ingreso entre factores de producción"
+                ],
+                answer: 1,
+                explanation: "Keynes explica que las crisis o fluctuaciones en el nivel de producción son generadas por problemas de demanda efectiva."
+            },
+            {
+                question: "¿Por qué los precios se consideran constantes en el modelo del multiplicador?",
+                options: [
+                    "Porque la inflación está controlada por el banco central",
+                    "Porque hay desempleo de factores y capacidad ociosa",
+                    "Porque los salarios nominales están fijados por ley",
+                    "Porque el gobierno controla estrictamente todos los precios"
+                ],
+                answer: 1,
+                explanation: "Con desempleo de factores y capacidad ociosa, el producto puede aumentar con cambios mínimos en los precios."
+            },
+            {
+                question: "¿Cómo se calcula el equilibrio en el mercado de bienes keynesiano?",
+                options: [
+                    "Cuando el producto (ingreso) es igual a la demanda agregada",
+                    "Cuando la oferta agregada iguala al producto potencial",
+                    "Cuando el ahorro privado es igual al gasto público",
+                    "Cuando la inversión real iguala a la inversión planeada"
+                ],
+                answer: 0,
+                explanation: "El equilibrio en el mercado de bienes se obtiene cuando el producto (Ingreso) es igual al conjunto de bienes que se desea demandar."
+            },
+            {
+                question: "¿Qué representa el consumo autónomo (C0) en la función consumo?",
+                options: [
+                    "El consumo promedio de las familias durante el año",
+                    "El consumo que existe aun cuando el ingreso es nulo",
+                    "El porcentaje del ingreso destinado al consumo familiar",
+                    "El consumo mínimo de subsistencia establecido por ley"
+                ],
+                answer: 1,
+                explanation: "El consumo autónomo es el nivel de consumo que existe incluso cuando el ingreso es cero, financiado con ahorros o préstamos."
+            },
+            {
+                question: "¿Qué valores puede tomar la propensión marginal a consumir (pmc)?",
+                options: [
+                    "Cualquier valor positivo según el nivel de ingreso",
+                    "Valores entre 0 y 1, incluidos ambos extremos",
+                    "Solo valores superiores a 1 en economías desarrolladas",
+                    "Valores negativos durante las recesiones económicas"
+                ],
+                answer: 1,
+                explanation: "La pmc toma valores entre 0 y 1 incluidos, ya que lo máximo que puede destinarse a consumo del ingreso adicional es 100%."
+            },
+            {
+                question: "¿Qué indica una propensión marginal a consumir de 0.8?",
+                options: [
+                    "El 80% del ingreso total se destina al consumo",
+                    "Por cada peso adicional de ingreso, $0.80 se consumen",
+                    "El consumo autónomo representa el 80% del ingreso",
+                    "La tasa de ahorro promedio es del 80% anual"
+                ],
+                answer: 1,
+                explanation: "Una pmc de 0.8 significa que por cada peso adicional de ingreso, se destinan $0.80 al consumo y $0.20 al ahorro."
+            },
+            {
+                question: "¿Qué relación existe entre pmc y pms (propensión marginal a ahorrar)?",
+                options: [
+                    "La suma de pmc y pms siempre es igual a 1",
+                    "La pmc es siempre mayor que la pms en equilibrio",
+                    "Ambas son independientes y no tienen relación matemática",
+                    "El producto de pmc por pms es igual a 1"
+                ],
+                answer: 0,
+                explanation: "Por definición, pmc + pms = 1, ya que todo ingreso adicional se destina a consumo o ahorro."
+            },
+            {
+                question: "¿Qué sucede en el punto de nivelación de la función consumo?",
+                options: [
+                    "El ahorro iguala a la inversión total de la economía",
+                    "El consumo es igual al ingreso y el ahorro es cero",
+                    "La propensión marginal a consumir alcanza su máximo",
+                    "El ingreso disponible iguala al consumo autónomo"
+                ],
+                answer: 1,
+                explanation: "En el punto de nivelación, el consumo es igual al ingreso (C=Y), por lo que no hay ahorro ni desahorro."
+            },
+            {
+                question: "¿Cómo consideran los clásicos a la función de inversión?",
+                options: [
+                    "Depende directamente del nivel de ingreso nacional",
+                    "Es función únicamente de la tasa de interés",
+                    "Está determinada por las expectativas empresariales",
+                    "Se iguala automáticamente al ahorro privado"
+                ],
+                answer: 1,
+                explanation: "Para los clásicos, la inversión es función únicamente de la tasa de interés, que representa el costo de oportunidad de invertir."
+            },
+            {
+                question: "Según Keynes, ¿qué determina la inversión además de la tasa de interés?",
+                options: [
+                    "La oferta monetaria controlada por el banco central",
+                    "La Eficiencia Marginal del Capital y las expectativas empresariales",
+                    "El nivel de impuestos sobre las ganancias corporativas",
+                    "La disponibilidad de mano de obra calificada"
+                ],
+                answer: 1,
+                explanation: "Keynes afirmaba que la inversión está determinada por la tasa de interés y por la Eficiencia Marginal del Capital (expectativas)."
+            },
+            {
+                question: "¿Cómo se representa gráficamente la inversión autónoma?",
+                options: [
+                    "Como una recta con pendiente positiva respecto del ingreso",
+                    "Como una línea horizontal constante frente al ingreso",
+                    "Como una curva con pendiente negativa y decreciente",
+                    "Como una función exponencial del nivel de producto"
+                ],
+                answer: 1,
+                explanation: "La inversión autónoma se representa como una línea horizontal (constante) ya que no depende del nivel de ingreso."
+            },
+            {
+                question: "¿Cómo se obtiene la función de demanda agregada simple?",
+                options: [
+                    "Restando el ahorro del ingreso disponible total",
+                    "Sumando la función de consumo más la inversión",
+                    "Multiplicando el producto por la propensión a consumir",
+                    "Igualando el gasto público con la recaudación tributaria"
+                ],
+                answer: 1,
+                explanation: "En una economía cerrada sin gobierno, la demanda agregada (DA) es la suma del consumo (C) y la inversión (I)."
+            },
+            {
+                question: "¿Qué representa la recta de 45° en el modelo keynesiano?",
+                options: [
+                    "La función de producción con rendimientos constantes a escala",
+                    "Todos los puntos donde el eje de ordenadas iguala al de abscisas",
+                    "La relación directa entre consumo e ingreso disponible",
+                    "La pendiente de la función de demanda agregada"
+                ],
+                answer: 1,
+                explanation: "La recta de 45° asegura que en todos sus puntos el eje de las ordenadas es igual al eje de las abscisas."
+            },
+            {
+                question: "En equilibrio macroeconómico, ¿qué identidad se cumple siempre?",
+                options: [
+                    "El consumo privado iguala al gasto gubernamental",
+                    "El ahorro medido es idéntico a la inversión medida",
+                    "Las exportaciones igualan a las importaciones netas",
+                    "La propensión a consumir iguala a la tasa impositiva"
+                ],
+                answer: 1,
+                explanation: "Por definición contable, en equilibrio el ahorro medido debe ser exactamente igual a la inversión medida (S=I)."
+            },
+            {
+                question: "¿Qué sucede si la economía está por debajo del equilibrio?",
+                options: [
+                    "Las empresas acumulan stocks y reducen la producción",
+                    "La demanda supera al producto y las empresas aumentan producción",
+                    "Se genera inflación por exceso de oferta agregada",
+                    "El gobierno debe aumentar los impuestos inmediatamente"
+                ],
+                answer: 1,
+                explanation: "Por debajo del equilibrio, la demanda agregada supera al ingreso, los stocks disminuyen y las empresas incrementan la producción."
+            },
+            {
+                question: "¿Por qué el incremento del ingreso es mayor al de la inversión?",
+                options: [
+                    "Porque los precios aumentan proporcionalmente al gasto",
+                    "Por el efecto multiplicador del consumo inducido",
+                    "Porque el ahorro se invierte automáticamente",
+                    "Por la intervención estabilizadora del banco central"
+                ],
+                answer: 1,
+                explanation: "El efecto multiplicador hace que cada peso de inversión adicional genere consumo inducido, multiplicando el impacto en el ingreso."
+            },
+            {
+                question: "¿Cómo se calcula el multiplicador keynesiano (k)?",
+                options: [
+                    "Multiplicando la propensión a consumir por el ingreso",
+                    "Dividiendo 1 entre la propensión marginal a ahorrar",
+                    "Restando la tasa impositiva de la unidad",
+                    "Sumando todas las variaciones sucesivas del consumo"
+                ],
+                answer: 1,
+                explanation: "El multiplicador keynesiano k se calcula como la inversa de la propensión marginal a ahorrar: k = 1/pms."
+            },
+            {
+                question: "Si pmc = 0.8, ¿cuál es el valor del multiplicador?",
+                options: [
+                    "El multiplicador es 0.8 veces la inversión",
+                    "El multiplicador es 5 (k = 1/0.2 = 5)",
+                    "El multiplicador es 1.25 por definición",
+                    "El multiplicador es 0.2 igual a la pms"
+                ],
+                answer: 1,
+                explanation: "Si pmc=0.8, entonces pms=0.2, y el multiplicador k=1/0.2=5. Cada peso de inversión genera $5 de ingreso adicional."
+            },
+            {
+                question: "¿Qué componente se agrega al modelo con sector público?",
+                options: [
+                    "Las transferencias internacionales del Fondo Monetario",
+                    "El gasto público (G) en bienes y servicios",
+                    "Los dividendos distribuidos por empresas públicas",
+                    "Las reservas internacionales del banco central"
+                ],
+                answer: 1,
+                explanation: "Con sector público se agrega el gasto público (G) como componente autónomo de la demanda agregada."
+            },
+            {
+                question: "¿Cómo afectan los impuestos al modelo keynesiano?",
+                options: [
+                    "Aumentan directamente la demanda agregada total",
+                    "Reducen el ingreso disponible y disminuyen el consumo",
+                    "Eliminan el efecto multiplicador de la economía",
+                    "Modifican únicamente la inversión bruta privada"
+                ],
+                answer: 1,
+                explanation: "Los impuestos reducen el ingreso disponible (Yd=Y-T), disminuyendo la capacidad de consumo de las familias."
+            },
+            {
+                question: "¿Qué es la tasa impositiva (t) en el modelo?",
+                options: [
+                    "La proporción del gasto público financiada con impuestos",
+                    "La relación o cociente entre impuestos e ingreso (T/Y)",
+                    "El porcentaje de ahorro destinado a pagar tributos",
+                    "La diferencia entre recaudación y gasto gubernamental"
+                ],
+                answer: 1,
+                explanation: "La tasa impositiva (t) es el cociente entre los impuestos y el ingreso: t=T/Y, tomando valores entre 0 y 1."
+            },
+            {
+                question: "Con impuestos proporcionales, ¿cómo se expresa el ingreso disponible?",
+                options: [
+                    "Yd = Y - T, donde T es una suma fija",
+                    "Yd = (1 - t) × Y, considerando la tasa impositiva",
+                    "Yd = Y + G - T según el presupuesto público",
+                    "Yd = C + S restando consumo del ingreso bruto"
+                ],
+                answer: 1,
+                explanation: "Con impuestos proporcionales, Yd=(1-t)×Y, donde t es la tasa impositiva y (1-t) es el ingreso disponible por peso de ingreso."
+            },
+            {
+                question: "¿Cómo afectan los impuestos proporcionales al multiplicador?",
+                options: [
+                    "Aumentan el valor del multiplicador proporcionalmente",
+                    "Reducen el multiplicador porque disminuye la pendiente de DA",
+                    "No afectan el multiplicador si el presupuesto está equilibrado",
+                    "Duplican el efecto multiplicador sobre la inversión"
+                ],
+                answer: 1,
+                explanation: "Los impuestos proporcionales reducen la pendiente de DA a pmc×(1-t), disminuyendo el valor del multiplicador."
+            },
+            {
+                question: "¿Qué herramientas componen la política fiscal?",
+                options: [
+                    "La tasa de interés y la oferta monetaria controladas",
+                    "El gasto público (G) y la tasa impositiva (t)",
+                    "Las reservas bancarias y el encaje legal obligatorio",
+                    "El tipo de cambio nominal y las barreras arancelarias"
+                ],
+                answer: 1,
+                explanation: "Las herramientas de política fiscal son el gasto público (G) y la tasa impositiva (t), que afectan la demanda agregada."
+            },
+            {
+                question: "¿Cómo se implementa una política fiscal expansiva?",
+                options: [
+                    "Reduciendo el gasto público y aumentando los impuestos",
+                    "Aumentando el gasto público o disminuyendo la tasa impositiva",
+                    "Elevando la tasa de interés para estimular el ahorro",
+                    "Devaluando la moneda para mejorar las exportaciones"
+                ],
+                answer: 1,
+                explanation: "Una política fiscal expansiva se logra aumentando G (desplaza DA hacia arriba) o disminuyendo t (aumenta la pendiente de DA)."
+            },
+            {
+                question: "¿Cuándo se utiliza una política fiscal contractiva?",
+                options: [
+                    "Durante recesiones profundas con alto desempleo",
+                    "Durante expansiones con tensiones inflacionarias cerca del pleno empleo",
+                    "Cuando la balanza comercial presenta déficit persistente",
+                    "Cuando el tipo de cambio real se aprecia excesivamente"
+                ],
+                answer: 1,
+                explanation: "Una política contractiva se utiliza durante expansiones con tensiones inflacionarias, para reducir la demanda agregada y el ingreso."
+            },
+            {
+                question: "¿Qué caracteriza a un ciclo de negocios?",
+                options: [
+                    "Crecimiento uniforme y constante del producto nacional",
+                    "Fluctuaciones del producto, ingreso y empleo que duran 2-10 años",
+                    "Variaciones estacionales predecibles de la actividad económica",
+                    "Cambios estructurales permanentes en la tecnología productiva"
+                ],
+                answer: 1,
+                explanation: "Los ciclos de negocios son fluctuaciones del producto, ingreso y empleo que duran de 2 a 10 años, con expansiones y contracciones."
+            },
+            {
+                question: "¿Cómo define la NBER una recesión en Estados Unidos?",
+                options: [
+                    "Dos trimestres consecutivos de caída del PIB real",
+                    "Baja significativa en actividad económica que dura más de unos meses",
+                    "Aumento del desempleo por encima del 10% anual",
+                    "Caída de la inversión privada superior al 20% trimestral"
+                ],
+                answer: 1,
+                explanation: "La NBER define recesión como una baja significativa en la actividad económica que se extiende a toda la economía durante varios meses."
+            },
+            {
+                question: "¿Qué teorías buscan causas del ciclo fuera del sistema económico?",
+                options: [
+                    "Las teorías de ciclos internos o endógenos",
+                    "Las teorías de ciclos exógenos como guerras o innovaciones",
+                    "Las teorías monetaristas del banco central",
+                    "Las teorías keynesianas de demanda efectiva"
+                ],
+                answer: 1,
+                explanation: "Las teorías exógenas encuentran las fuentes del ciclo en factores externos como guerras, revoluciones, precios del petróleo o innovaciones."
+            },
+            {
+                question: "¿Qué caracteriza a las teorías de ciclos internos?",
+                options: [
+                    "Explican fluctuaciones por eventos impredecibles del clima",
+                    "Toda expansión alimenta la recesión y viceversa dentro del sistema",
+                    "Requieren intervención del Fondo Monetario Internacional",
+                    "Dependen exclusivamente de políticas fiscales anticíclicas"
+                ],
+                answer: 1,
+                explanation: "Las teorías internas buscan mecanismos dentro del sistema: toda expansión alimenta la recesión y toda contracción alimenta la expansión."
+            },
+            {
+                question: "¿Qué es una crisis financiera según el patrón histórico?",
+                options: [
+                    "Aumento súbito de la inflación por expansión monetaria",
+                    "Explosión especulativa seguida de pánico, quiebras y recesión",
+                    "Déficit fiscal persistente que genera deuda insostenible",
+                    "Devaluación brusca de la moneda por déficit comercial"
+                ],
+                answer: 1,
+                explanation: "Las crisis financieras siguen un patrón de especulación frenética, seguida de pánico, quiebras bancarias y recesión económica."
+            },
+            {
+                question: "¿Qué fue la burbuja de la 'nueva economía' de los 90?",
+                options: [
+                    "Explosión de precios de commodities agrícolas y minerales",
+                    "Explosión especulativa en acciones de empresas tecnológicas y punto.com",
+                    "Aumento descontrolado de precios de viviendas residenciales",
+                    "Crisis de deuda soberana en mercados emergentes"
+                ],
+                answer: 1,
+                explanation: "La burbuja de la nueva economía fue una explosión especulativa en acciones de software, internet y empresas punto.com a finales de los 90."
+            },
+            {
+                question: "¿Qué son las hipotecas 'subprime' que causaron la crisis de 2007?",
+                options: [
+                    "Hipotecas preferenciales para empleados públicos de bajos ingresos",
+                    "Hipotecas de alto riesgo por valor total sin comprobante de ingresos",
+                    "Créditos para vivienda subsidiados por el gobierno federal",
+                    "Préstamos indexados al precio internacional del petróleo"
+                ],
+                answer: 1,
+                explanation: "Las hipotecas subprime eran operaciones de alto riesgo por el valor total de la vivienda concedidas sin comprobantes de ingreso verificable."
+            },
+            {
+                question: "¿Qué características tiene una recesión típica?",
+                options: [
+                    "Aumento de inversión, empleo estable y precios crecientes",
+                    "Caída de inversión, aumento de desempleo y desaceleración de inflación",
+                    "Expansión del crédito, bonanza bursátil y pleno empleo",
+                    "Superávit fiscal, apreciación cambiaria y alto crecimiento"
+                ],
+                answer: 1,
+                explanation: "En recesiones típicas, la inversión se desploma, el empleo cae drásticamente, la inflación se desacelera y los beneficios bajan."
+            },
+            {
+                question: "¿Qué significa 'crecimiento económico' en macroeconomía?",
+                options: [
+                    "Aumento temporal del PIB durante la fase expansiva del ciclo",
+                    "Expansión del PIB potencial nacional en el largo plazo",
+                    "Recuperación del producto tras una recesión profunda",
+                    "Incremento de la demanda agregada por políticas expansivas"
+                ],
+                answer: 1,
+                explanation: "El crecimiento económico representa la expansión del PIB potencial nacional, es decir, un desplazamiento de la FPP hacia la derecha."
+            },
+            {
+                question: "¿Cuáles son los cuatro pilares del crecimiento económico?",
+                options: [
+                    "Consumo, inversión, gasto público y exportaciones netas",
+                    "Recursos humanos, naturales, capital y avance tecnológico",
+                    "Ahorro privado, inversión extranjera, inflación baja y tipo de cambio",
+                    "Infraestructura, educación, salud y seguridad jurídica"
+                ],
+                answer: 1,
+                explanation: "Los cuatro pilares del crecimiento son: recursos humanos, recursos naturales, capital y avance tecnológico e innovación."
+            },
+            {
+                question: "¿Qué representa la función de producción agregada (FPA)?",
+                options: [
+                    "La demanda total de bienes finales de la economía",
+                    "La relación entre producto nacional y los insumos y tecnología",
+                    "El equilibrio entre ahorro e inversión nacional",
+                    "La distribución del ingreso entre factores productivos"
+                ],
+                answer: 1,
+                explanation: "La FPA relaciona el producto nacional total (Q) con los insumos de capital (K), trabajo (L), recursos (R) y la tecnología (A)."
+            },
+            {
+                question: "¿Qué significa productividad en el contexto del crecimiento?",
+                options: [
+                    "La cantidad total de trabajadores empleados en la economía",
+                    "La razón del producto a un promedio ponderado de insumos",
+                    "El nivel de utilización de la capacidad instalada",
+                    "La tasa de crecimiento del PIB per cápita anual"
+                ],
+                answer: 1,
+                explanation: "La productividad denota la razón del producto a un promedio ponderado de los insumos utilizados en la producción."
+            },
+            {
+                question: "¿Por qué el capital humano es crucial para el crecimiento?",
+                options: [
+                    "Porque aumenta la cantidad de trabajadores disponibles",
+                    "Porque las habilidades, conocimiento y disciplina aumentan la productividad",
+                    "Porque reduce los costos laborales de las empresas",
+                    "Porque garantiza la estabilidad política del país"
+                ],
+                answer: 1,
+                explanation: "La calidad del trabajo (habilidades, conocimiento, disciplina) es considerada el elemento más importante en el crecimiento económico."
+            },
+            {
+                question: "¿Son necesarios los recursos naturales para el éxito económico?",
+                options: [
+                    "Sí, sin recursos naturales abundantes no hay crecimiento posible",
+                    "No necesariamente; Japón y Hong Kong prosperaron sin recursos naturales",
+                    "Solo para países en desarrollo que dependen de commodities",
+                    "Únicamente durante las primeras etapas de industrialización"
+                ],
+                answer: 1,
+                explanation: "La posesión de recursos naturales no es necesaria para el éxito; Japón y Hong Kong prosperaron especializándose en otros sectores."
+            },
+            {
+                question: "¿Qué es el capital social indirecto o infraestructura?",
+                options: [
+                    "El conjunto de empresas públicas que proveen servicios básicos",
+                    "Inversiones públicas de gran escala como caminos, irrigación y salud",
+                    "Los programas sociales de transferencias a familias pobres",
+                    "El sistema de seguridad social para jubilados y pensionados"
+                ],
+                answer: 1,
+                explanation: "El capital social indirecto son proyectos de gran envergadura (caminos, irrigación, salud pública) que preceden al comercio."
+            },
+            {
+                question: "¿Qué caracteriza al avance tecnológico en el crecimiento?",
+                options: [
+                    "Solo incluye grandes inventos revolucionarios como la computadora",
+                    "Incluye cambios en procesos productivos e introducción de nuevos productos",
+                    "Se mide únicamente por el número de patentes otorgadas",
+                    "Depende exclusivamente de la inversión en investigación básica"
+                ],
+                answer: 1,
+                explanation: "El avance tecnológico incluye cambios en procesos de producción o introducción de nuevos productos y servicios, grandes y pequeños."
+            },
+            {
+                question: "¿Qué patrón muestra la difusión de nuevas tecnologías?",
+                options: [
+                    "Adopción instantánea por toda la población simultáneamente",
+                    "Patrón en forma de S con difusión gradual y aceleración",
+                    "Crecimiento exponencial ilimitado sin tope de penetración",
+                    "Difusión lineal constante a lo largo del tiempo"
+                ],
+                answer: 1,
+                explanation: "La difusión de nuevas tecnologías muestra un patrón en forma de S, con adopción gradual, aceleración y luego saturación."
+            },
+            {
+                question: "¿Qué rol juegan las instituciones en la innovación?",
+                options: [
+                    "Las instituciones solo retrasan y dificultan la innovación",
+                    "Instituciones como propiedad privada, patentes y justicia fomentan innovación",
+                    "Las instituciones no tienen relación con el progreso tecnológico",
+                    "Solo las empresas privadas, no las instituciones, generan innovación"
+                ],
+                answer: 1,
+                explanation: "La innovación depende de instituciones como la propiedad privada, el sistema de patentes y un sistema de resolución de controversias."
+            },
+            {
+                question: "¿Qué propuso Adam Smith sobre el crecimiento en tierra libre?",
+                options: [
+                    "El producto crecería más rápido que la población indefinidamente",
+                    "El producto se duplicaría exactamente cuando la población se duplicara",
+                    "Los salarios reales aumentarían exponencialmente con el tiempo",
+                    "La acumulación de capital determinaría todo el crecimiento"
+                ],
+                answer: 1,
+                explanation: "Con tierra libremente disponible, el producto nacional se duplicaría exactamente cuando la población se duplicara."
+            },
+            {
+                question: "Según Smith, ¿qué ocurre cuando se ocupa toda la tierra?",
+                options: [
+                    "La población deja de crecer por falta de recursos",
+                    "Entran los rendimientos decrecientes y bajan los salarios reales",
+                    "La tecnología compensa automáticamente la escasez de tierra",
+                    "El comercio internacional soluciona la limitación de recursos"
+                ],
+                answer: 1,
+                explanation: "Cuando se ocupa toda la tierra, nuevos trabajadores se agregan a tierra fija, entran los rendimientos decrecientes y bajan los salarios."
+            },
+            {
+                question: "¿Qué determina el salario real en competencia según la microeconomía?",
+                options: [
+                    "El salario mínimo establecido por el gobierno nacional",
+                    "El producto marginal o adicional del último trabajador contratado",
+                    "El promedio del producto total dividido entre todos los trabajadores",
+                    "La negociación colectiva entre sindicatos y empleadores"
+                ],
+                answer: 1,
+                explanation: "En competencia, la tasa salarial del trabajo será igual al producto marginal del último trabajador contratado."
+            },
+            {
+                question: "¿Qué ha ocurrido con el PIB real de EE.UU. desde 1900?",
+                options: [
+                    "Ha crecido aproximadamente 10 veces en 100 años",
+                    "Ha crecido 35 veces desde 1900 y más de 1000 veces desde 1800",
+                    "Se ha mantenido constante ajustado por población",
+                    "Ha crecido solo 5 veces debido a las crisis recurrentes"
+                ],
+                answer: 1,
+                explanation: "El PIB real de Estados Unidos ha crecido 35 veces desde 1900 y más de 1000 veces desde 1800."
+            },
+            {
+                question: "¿Qué tasa de crecimiento mostró el producto por hora trabajada desde 1870?",
+                options: [
+                    "Creció a una tasa anual de 0.5% en promedio",
+                    "Creció a una tasa anual promedio de 2.3%",
+                    "Decreció por el aumento de la población trabajadora",
+                    "Creció a una tasa del 5% anual constante"
+                ],
+                answer: 1,
+                explanation: "El producto por hora trabajada creció a una tasa anual promedio de 2.3% desde 1870 en los países industrializados."
+            },
+            {
+                question: "¿Qué implica una tasa de crecimiento de 2.3% anual durante 136 años?",
+                options: [
+                    "El producto final es aproximadamente el doble del inicial",
+                    "El producto final es 22 veces mayor que el inicial",
+                    "El producto final es 136 veces mayor que el inicial",
+                    "El producto final es apenas 10% mayor que el inicial"
+                ],
+                answer: 1,
+                explanation: "Con una tasa de crecimiento de 2.3% anual durante 136 años, el producto por persona al final es 22 veces mayor que al principio."
+            },
+            {
+                question: "¿Qué es una 'recuperación sin empleos' (jobless recovery)?",
+                options: [
+                    "Crecimiento del PIB sin creación de nuevos puestos de trabajo",
+                    "Aumento del empleo informal sin empleo formal registrado",
+                    "Recuperación económica limitada al sector financiero únicamente",
+                    "Expansión impulsada exclusivamente por exportaciones netas"
+                ],
+                answer: 0,
+                explanation: "Una 'recuperación sin empleos' ocurre cuando el producto se recupera pero el empleo tarda en regresar a niveles previos a la recesión."
+            },
+            {
+                question: "¿Qué sucede con la inflación durante una recesión típica?",
+                options: [
+                    "La inflación se acelera por la escasez de productos",
+                    "La inflación se desacelera y bajan precios de materias primas",
+                    "La inflación permanece constante sin cambios significativos",
+                    "Se produce hiperinflación por la pérdida de confianza"
+                ],
+                answer: 1,
+                explanation: "Cuando baja la producción durante una recesión, la inflación se desacelera y bajan los precios de materias primas."
+            },
+            {
+                question: "¿Cómo reacciona la Reserva Federal ante un deterioro económico?",
+                options: [
+                    "Aumenta las tasas de interés para controlar la inflación",
+                    "Reduce las tasas de interés de corto plazo para estimular inversión",
+                    "Mantiene las tasas constantes esperando ajuste automático",
+                    "Deja de intervenir para permitir que el mercado se equilibre"
+                ],
+                answer: 1,
+                explanation: "Cuando las condiciones se deterioran, la Reserva Federal reduce las tasas de interés de corto plazo para estimular la inversión."
+            },
+            {
+                question: "¿Qué papel tuvo la Segunda Guerra Mundial en la economía de EE.UU.?",
+                options: [
+                    "Prolongó la Gran Depresión por destrucción de capital",
+                    "Generó enorme aumento del gasto militar que sacó al país de la depresión",
+                    "No tuvo impacto significativo en la actividad económica",
+                    "Causó hiperinflación por el financiamiento con emisión monetaria"
+                ],
+                answer: 1,
+                explanation: "La Segunda Guerra Mundial generó un enorme aumento del gasto militar que condujo a la mayor expansión económica del siglo XX."
+            },
+            {
+                question: "¿Qué fue el proceso de 'securitización' en la crisis de 2007?",
+                options: [
+                    "La nacionalización de bancos en quiebra por el gobierno",
+                    "Partir, transformar y reempacar instrumentos financieros como hipotecas",
+                    "El aumento de requisitos de capital para instituciones bancarias",
+                    "La creación de seguros de depósitos para proteger ahorristas"
+                ],
+                answer: 1,
+                explanation: "La securitización consistió en partir, transformar y reempacar instrumentos financieros simples como hipotecas en complejos valores negociables."
+            },
+            {
+                question: "¿Qué revela la comparación de Hong Kong con Nigeria?",
+                options: [
+                    "Los recursos naturales garantizan el éxito económico",
+                    "Un país pequeño sin recursos puede tener mayor PIB que uno grande con recursos",
+                    "El tamaño del territorio determina el nivel de desarrollo",
+                    "La población abundante es más importante que los recursos"
+                ],
+                answer: 1,
+                explanation: "Hong Kong, con mínima tierra y recursos, tiene un PIB mayor que Nigeria, demostrando que los recursos no son necesarios para prosperar."
+            },
+            {
+                question: "¿Qué caracterizó la crisis de América Latina en 2008-2009?",
+                options: [
+                    "Crisis originada internamente por desequilibrios fiscales regionales",
+                    "Perturbación externa desde EE.UU. que encontró a la región más sólida",
+                    "Colapso generalizado de sistemas bancarios y corridas cambiarias",
+                    "Hiperinflación generalizada por exceso de gasto público"
+                ],
+                answer: 1,
+                explanation: "La crisis de 2008-2009 fue una perturbación externa desde EE.UU., pero América Latina estaba más sólida y con mayor margen de maniobra."
+            },
+            {
+                question: "¿Qué medidas fiscales tomaron gobiernos latinoamericanos en 2008-2009?",
+                options: [
+                    "Recortes severos del gasto social para equilibrar presupuestos",
+                    "Apoyo al sector productivo, inversión en infraestructura y reducciones impositivas",
+                    "Nacionalización masiva de empresas estratégicas extranjeras",
+                    "Aumentos generalizados de impuestos para sostener ingresos fiscales"
+                ],
+                answer: 1,
+                explanation: "Los gobiernos usaron gasto en infraestructura, apoyo a Pymes y sector agrícola, y reducciones impositivas para enfrentar la crisis."
+            },
+            {
+                question: "¿Qué representa una 'burbuja' especulativa en los mercados?",
+                options: [
+                    "Crecimiento sostenible basado en fundamentos económicos sólidos",
+                    "Aumento excesivo de precios de activos seguido de colapso abrupto",
+                    "Política monetaria expansiva del banco central exitosa",
+                    "Desarrollo tecnológico que transforma permanentemente la economía"
+                ],
+                answer: 1,
+                explanation: "Una burbuja es un aumento excesivo e insostenible de precios de activos, impulsado por especulación, que eventualmente colapsa abruptamente."
+            },
+            {
+                question: "¿Qué fue el 'instinto animal' en la especulación del siglo XIX?",
+                options: [
+                    "Regulaciones gubernamentales estrictas sobre inversiones",
+                    "Exceso de inversión en ferrocarriles, tierras y deuda que causó quiebras",
+                    "Comportamiento racional basado en análisis económico riguroso",
+                    "Inversión extranjera en agricultura y minería latinoamericana"
+                ],
+                answer: 1,
+                explanation: "El 'instinto animal' llevó a excesos especulativos: demasiados ferrocarriles, precios de tierra inflados y endeudamiento excesivo que causó crisis."
+            },
+            {
+                question: "¿Qué relación existe entre tasa de ahorro y crecimiento?",
+                options: [
+                    "El ahorro elevado siempre reduce el crecimiento por falta de demanda",
+                    "Países de rápido crecimiento destinan 10-20% del producto a inversión neta",
+                    "El ahorro es irrelevante si hay inversión extranjera directa",
+                    "El consumo elevado es más importante que el ahorro para crecer"
+                ],
+                answer: 1,
+                explanation: "Los países que crecen rápidamente tienden a destinar entre 10 y 20% del producto a la formación de capital neto."
+            },
+            {
+                question: "¿Por qué preocupa la baja tasa de ahorro de EE.UU.?",
+                options: [
+                    "Porque reduce el consumo y desacelera el crecimiento inmediato",
+                    "Porque puede retardar la inversión y el crecimiento en próximos decenios",
+                    "Porque aumenta la inflación por exceso de demanda agregada",
+                    "Porque incrementa la recaudación tributaria del gobierno federal"
+                ],
+                answer: 1,
+                explanation: "La baja tasa de ahorro preocupa porque puede retardar la inversión y el crecimiento en los próximos decenios."
+            },
+            {
+                question: "¿Qué son las externalidades de red en infraestructura?",
+                options: [
+                    "Costos de mantenimiento compartidos entre varios usuarios",
+                    "La productividad depende de la fracción de población con acceso a la red",
+                    "Impuestos especiales para financiar obras de infraestructura",
+                    "Beneficios privados que capturan solo las empresas operadoras"
+                ],
+                answer: 1,
+                explanation: "Las externalidades de red ocurren cuando la productividad depende de la fracción de la población que usa o tiene acceso a la red."
+            },
+            {
+                question: "¿Qué diferencia a un proceso de crecimiento balanceado de uno desequilibrado?",
+                options: [
+                    "El balanceado tiene inflación cero y el desequilibrado inflación alta",
+                    "En el balanceado todos los factores crecen al mismo ritmo",
+                    "El balanceado requiere intervención estatal y el otro no",
+                    "Solo difieren en la distribución regional del crecimiento"
+                ],
+                answer: 1,
+                explanation: "Un crecimiento balanceado implica que todos los factores (tierra, trabajo, capital) crecen proporcionalmente al mismo ritmo."
+            },
+            {
+                question: "¿Qué implica la 'edad de oro' según Adam Smith?",
+                options: [
+                    "Período de hiperinflación y crisis económica generalizada",
+                    "Era idílica antes de apropiación de tierra y acumulación de capital",
+                    "Fase de máximo crecimiento industrial y desarrollo tecnológico",
+                    "Etapa de pleno empleo con estabilidad de precios"
+                ],
+                answer: 1,
+                explanation: "La 'edad de oro' de Smith era esa era idílica antes de la apropiación de la tierra y antes de la acumulación de capital."
+            },
+            {
+                question: "¿Qué sucede cuando desaparece la frontera de tierra disponible?",
+                options: [
+                    "La población automáticamente deja de crecer por completo",
+                    "Las rentas suben para racionar la tierra entre diferentes usos",
+                    "Los salarios reales aumentan por la mayor productividad",
+                    "El gobierno debe redistribuir la tierra equitativamente"
+                ],
+                answer: 1,
+                explanation: "Cuando la frontera desaparece, la tierra escasea y las rentas suben para racionarla entre sus diferentes usos competitivos."
+            },
+            {
+                question: "¿Qué caracterizó a los 'fabulosos noventa' en Estados Unidos?",
+                options: [
+                    "Recesión prolongada con alto desempleo estructural persistente",
+                    "Rápido crecimiento, alto empleo, alta capacidad y baja inflación",
+                    "Crecimiento moderado con inflación de dos dígitos controlada",
+                    "Estancamiento económico con deflación de precios generalizada"
+                ],
+                answer: 1,
+                explanation: "Los 'fabulosos noventa' mostraron rápido crecimiento económico, empleo y capacidad altos, desempleo bajo e inflación controlada."
+            },
+            {
+                question: "¿Qué rol cumplió el museo de Alejandría según Baumol?",
+                options: [
+                    "Centro comercial que conectaba Europa con Asia",
+                    "Centro de innovación tecnológica con dispositivos mecánicos usados como juguetes",
+                    "Biblioteca que preservó conocimiento clásico durante siglos",
+                    "Observatorio astronómico que midió la circunferencia terrestre"
+                ],
+                answer: 1,
+                explanation: "El museo de Alejandría fue centro de innovación tecnológica en el Imperio Romano, pero los inventos se usaban solo para juguetes elaborados."
+            },
+            {
+                question: "¿Qué lección histórica nos da el museo de Alejandría?",
+                options: [
+                    "La tecnología por sí sola garantiza el crecimiento económico",
+                    "Los incentivos e instituciones son necesarios para que la innovación impulse crecimiento",
+                    "Las civilizaciones antiguas eran más avanzadas tecnológicamente",
+                    "La investigación básica no tiene valor económico práctico"
+                ],
+                answer: 1,
+                explanation: "El caso de Alejandría muestra que la innovación requiere incentivos e instituciones adecuadas para traducirse en crecimiento económico."
+            },
+            {
+                question: "¿Qué período tuvo el mayor crecimiento del PIB según la tabla histórica?",
+                options: [
+                    "El período 1870-1913 de la Revolución Industrial",
+                    "El período 1950-1973 con crecimiento anual de 4.8%",
+                    "El período 1913-1950 que incluyó dos guerras mundiales",
+                    "El período 1973-2006 de globalización y tecnología"
+                ],
+                answer: 1,
+                explanation: "El período 1950-1973 mostró el mayor crecimiento del PIB con 4.8% anual, y del producto por hora trabajada con 4.5% anual."
+            },
+            {
+                question: "¿Qué representa un desplazamiento de la FPP hacia la derecha?",
+                options: [
+                    "Un movimiento cíclico temporal de expansión económica",
+                    "Crecimiento económico que expande las posibilidades de producción",
+                    "Una mejora en la eficiencia asignativa de recursos",
+                    "Una redistribución del ingreso entre consumo e inversión"
+                ],
+                answer: 1,
+                explanation: "Un desplazamiento de la FPP hacia la derecha representa crecimiento económico, expandiendo las posibilidades de producción del país."
+            },
+            {
+                question: "¿Qué es más importante para los niveles de vida según los datos?",
+                options: [
+                    "El crecimiento del producto total sin ajustar por población",
+                    "El crecimiento del producto por hora trabajada o per cápita",
+                    "El aumento de las horas totales trabajadas en la economía",
+                    "La expansión de la fuerza laboral disponible"
+                ],
+                answer: 1,
+                explanation: "El crecimiento del producto por hora trabajada es más importante para los niveles de vida porque refleja aumentos en ingreso real promedio."
+            },
+            {
+                question: "¿Qué estrategia usó Japón para alcanzar el crecimiento económico?",
+                options: [
+                    "Libre comercio absoluto desde el inicio de la industrialización",
+                    "Imitación de tecnologías extranjeras con protección inicial de industrias",
+                    "Explotación intensiva de sus abundantes recursos naturales",
+                    "Especialización exclusiva en agricultura de exportación"
+                ],
+                answer: 1,
+                explanation: "Japón imitó primero tecnologías extranjeras protegiendo sus industrias, para luego desarrollar pericia en manufactura y electrónica."
+            }
+        ];
+        
+        let quizzes = [];
+        let currentQuiz;
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const quizSelectionScreen = document.getElementById('quiz-selection-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const questionElement = document.getElementById('question');
+        const optionsContainer = document.getElementById('options-container');
+        const currentQuestionNumberElement = document.getElementById('current-question-number');
+        const scoreElement = document.getElementById('score');
+        const nextButton = document.getElementById('next-button');
+        const feedbackMessage = document.getElementById('feedback-message');
+        const finalScoreElement = document.getElementById('final-score');
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        
+        function generateQuizzes() {
+            quizzes = [];
+            for (let i = 0; i < 10; i++) {
+                shuffleArray(allQuestions);
+                const quizQuestions = allQuestions.slice(0, 20);
+                quizzes.push({ questions: quizQuestions });
+            }
+        }
+
+        function startQuiz(quizIndex) {
+            currentQuiz = quizzes[quizIndex];
+            currentQuestionIndex = 0;
+            score = 0;
+            
+            quizSelectionScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+
+            updateScore();
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const currentQuestionData = currentQuiz.questions[currentQuestionIndex];
+
+            currentQuestionNumberElement.textContent = currentQuestionIndex + 1;
+            questionElement.textContent = currentQuestionData.question;
+            optionsContainer.innerHTML = '';
+            feedbackMessage.classList.add('hidden');
+            feedbackMessage.innerHTML = '';
+            nextButton.disabled = true;
+
+            const options = [...currentQuestionData.options];
+            
+            options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('answer-button');
+                button.onclick = () => checkAnswer(button, index);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedButton, selectedIndex) {
+            const currentQuestionData = currentQuiz.questions[currentQuestionIndex];
+            const correctIndex = currentQuestionData.answer;
+
+            Array.from(optionsContainer.children).forEach((button, index) => {
+                button.disabled = true;
+                if (index === correctIndex) {
+                    button.classList.add('correct');
+                } else if (index === selectedIndex) {
+                    button.classList.add('incorrect');
+                }
+            });
+
+            if (selectedIndex === correctIndex) {
+                score++;
+                feedbackMessage.innerHTML = `<div class="font-bold">¡Correcto!</div><div class="explanation mt-2">${currentQuestionData.explanation}</div>`;
+                feedbackMessage.className = 'text-left p-4 my-4 rounded-lg font-semibold bg-green-100 text-green-800';
+            } else {
+                feedbackMessage.innerHTML = `<div class="font-bold">Incorrecto.</div><div class="explanation mt-2">${currentQuestionData.explanation}</div>`;
+                feedbackMessage.className = 'text-left p-4 my-4 rounded-lg font-semibold bg-red-100 text-red-800';
+            }
+
+            feedbackMessage.classList.remove('hidden');
+            updateScore();
+            nextButton.disabled = false;
+            nextButton.focus();
+        }
+
+        function updateScore() {
+            scoreElement.textContent = score;
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuiz.questions.length) {
+                showQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        function endQuiz() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            finalScoreElement.textContent = score;
+        }
+
+        function restartQuiz() {
+            resultsScreen.classList.add('hidden');
+            quizSelectionScreen.classList.remove('hidden');
+            generateQuizzes(); // Regenerar los exámenes para que sean diferentes cada vez
+        }
+
+        window.onload = function() {
+            generateQuizzes();
+            quizSelectionScreen.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

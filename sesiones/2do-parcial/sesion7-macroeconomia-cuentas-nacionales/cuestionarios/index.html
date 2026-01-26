@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Exámenes de práctica sobre Macroeconomía y Cuentas Nacionales - Sesión 7 CBC UBA">
+    <meta name="keywords" content="PIB, macroeconomía, cuentas nacionales, valor agregado, inflación, desempleo, política fiscal, política monetaria CBC">
+    <meta name="author" content="Economía CBC - UBA">
+    <title>Exámenes de Práctica - Sesión 7 CBC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4f46e5 0%, #a78bfa 100%);
+        }
+        .quiz-button {
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .quiz-button:hover {
+            background-color: #4338ca;
+            transform: translateY(-2px);
+        }
+        .quiz-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .answer-button {
+            width: 100%;
+            background-color: #e5e7eb;
+            color: #1f2937;
+            text-align: left;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .answer-button:hover:not(:disabled) {
+            background-color: #d1d5db;
+        }
+        .answer-button.correct {
+            background-color: #10b981;
+            color: white;
+            animation: pulse-correct 0.8s;
+        }
+        .answer-button.incorrect {
+            background-color: #ef4444;
+            color: white;
+            animation: shake 0.5s;
+        }
+        .explanation {
+            background-color: #f0f4f8;
+            border-left: 4px solid #4f46e5;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+        }
+        @keyframes pulse-correct {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div id="app" class="container bg-white p-8 rounded-2xl shadow-xl w-full">
+        <!-- Pantalla de selección de cuestionarios -->
+        <div id="quiz-selection-screen">
+            <h1 class="text-3xl font-bold text-center mb-4 text-indigo-700">Selecciona un Examen de Práctica</h1>
+            <p class="text-center text-gray-600 mb-8">Cada examen contiene 20 preguntas aleatorias que abarcan Macroeconomía y Cuentas Nacionales. ¡Mucha suerte!</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                <button onclick="startQuiz(0)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 1</button>
+                <button onclick="startQuiz(1)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 2</button>
+                <button onclick="startQuiz(2)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 3</button>
+                <button onclick="startQuiz(3)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 4</button>
+                <button onclick="startQuiz(4)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 5</button>
+                <button onclick="startQuiz(5)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 6</button>
+                <button onclick="startQuiz(6)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 7</button>
+                <button onclick="startQuiz(7)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 8</button>
+                <button onclick="startQuiz(8)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 9</button>
+                <button onclick="startQuiz(9)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 10</button>
+            </div>
+        </div>
+
+        <!-- Pantalla del cuestionario -->
+        <div id="quiz-screen" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <div class="text-lg font-semibold text-gray-700">Pregunta <span id="current-question-number"></span> de 20</div>
+                <div class="text-lg font-semibold text-gray-700">Puntaje: <span id="score">0</span></div>
+            </div>
+            <div class="card p-6 mb-6">
+                <h2 id="question" class="text-xl font-semibold text-gray-900 mb-6"></h2>
+                <div id="options-container" class="space-y-4"></div>
+            </div>
+            <div id="feedback-message" class="text-center p-4 my-4 rounded-lg font-semibold hidden"></div>
+            <button id="next-button" class="quiz-button w-full py-4 mt-6 gradient-bg text-white font-bold text-lg rounded-lg shadow-md focus:outline-none" onclick="nextQuestion()" disabled>Siguiente</button>
+        </div>
+
+        <!-- Pantalla de resultados -->
+        <div id="results-screen" class="hidden text-center">
+            <h1 class="text-3xl font-bold text-indigo-700 mb-4">¡Examen Completo!</h1>
+            <p class="text-xl text-gray-700 mb-6">Tu puntaje final es:</p>
+            <div class="text-5xl font-extrabold text-white gradient-bg p-8 rounded-full inline-block shadow-lg mb-8">
+                <span id="final-score"></span>
+                <span class="block text-2xl font-normal mt-2">de 20</span>
+            </div>
+            <p class="text-lg text-gray-600 mb-4">¡Sigue practicando para dominar los conceptos de Macroeconomía!</p>
+            <button class="quiz-button py-4 px-8 mt-4 bg-indigo-600 text-white font-bold text-lg rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none" onclick="restartQuiz()">Volver a la selección</button>
+        </div>
+    </div>
+
+    <script>
+        // Base de preguntas sobre Macroeconomía y Cuentas Nacionales
+        const allQuestions = [
+            {
+                question: "¿Qué mide el Producto Bruto Interno (PBI)?",
+                options: [
+                    "El valor total de bienes intermedios producidos",
+                    "El valor de mercado de bienes y servicios finales",
+                    "La suma de todos los precios de la economía",
+                    "El ingreso disponible de las familias únicamente"
+                ],
+                answer: 1,
+                explanation: "El PBI mide el valor de mercado de todos los bienes y servicios finales producidos en un país durante un período determinado."
+            },
+            {
+                question: "¿Cómo se calcula el Valor Agregado Bruto (VAB)?",
+                options: [
+                    "Sumando el total de las ventas de todas las empresas",
+                    "Restando el consumo intermedio del valor bruto de producción",
+                    "Multiplicando las cantidades producidas por sus precios corrientes",
+                    "Dividiendo el producto bruto entre la población total"
+                ],
+                answer: 1,
+                explanation: "El VAB se calcula como la diferencia entre el Valor Bruto de Producción (VBP) y el Consumo Intermedio (CI)."
+            },
+            {
+                question: "¿Qué son los bienes intermedios en cuentas nacionales?",
+                options: [
+                    "Bienes que las familias consumen directamente en el hogar",
+                    "Bienes a los que les falta transformación para su uso final",
+                    "Bienes de capital que duran más de un año productivo",
+                    "Bienes importados que requieren procesamiento adicional"
+                ],
+                answer: 1,
+                explanation: "Los bienes intermedios son aquellos que requieren algún tipo de transformación adicional antes de estar listos para cumplir su función final."
+            },
+            {
+                question: "¿Qué incluye el Excedente Bruto de Explotación (EBE)?",
+                options: [
+                    "Los salarios pagados a trabajadores y empleados formales",
+                    "Beneficios empresariales, intereses, rentas y depreciaciones",
+                    "Las transferencias del gobierno hacia el sector privado",
+                    "Los impuestos indirectos netos de subsidios otorgados"
+                ],
+                answer: 1,
+                explanation: "El EBE incluye los beneficios de las empresas, intereses, alquileres y las amortizaciones o depreciaciones del capital."
+            },
+            {
+                question: "¿Por qué el enfoque del producto y el del ingreso son iguales?",
+                options: [
+                    "Porque ambos miden únicamente el consumo de las familias",
+                    "Porque el beneficio es residual y ajusta para igualar ambos",
+                    "Porque solo se contabilizan los bienes finales producidos",
+                    "Porque los impuestos indirectos igualan ambos flujos"
+                ],
+                answer: 1,
+                explanation: "Los beneficios actúan como residuo que se ajusta automáticamente para que los costos/ingresos igualen exactamente el valor de los productos."
+            },
+            {
+                question: "¿Qué problema evita el concepto de valor agregado?",
+                options: [
+                    "La inflación que distorsiona las mediciones reales anuales",
+                    "La doble contabilización de productos intermedios",
+                    "Las depreciaciones del capital fijo de la economía",
+                    "Las exportaciones netas que pueden ser negativas"
+                ],
+                answer: 1,
+                explanation: "El valor agregado evita contar múltiples veces los mismos productos en diferentes etapas del proceso productivo."
+            },
+            {
+                question: "¿Cuál es la diferencia entre PBI y PBN?",
+                options: [
+                    "El PBN resta las depreciaciones del capital fijo",
+                    "El PBN suma el Ingreso Neto de Factores del Exterior",
+                    "El PBN incluye solo la producción del sector público",
+                    "El PBN se mide a precios constantes siempre"
+                ],
+                answer: 1,
+                explanation: "El Producto Bruto Nacional (PBN) se obtiene sumando al PBI el Ingreso Neto de los Factores Recibidos del Exterior (INFRE)."
+            },
+            {
+                question: "¿Qué representa el INFRE en las cuentas nacionales?",
+                options: [
+                    "La inversión extranjera directa recibida en el país",
+                    "La diferencia entre ingresos de factores recibidos y pagados",
+                    "Las importaciones netas de bienes y servicios del exterior",
+                    "Los intereses de la deuda pública externa únicamente"
+                ],
+                answer: 1,
+                explanation: "El INFRE es la diferencia entre las remuneraciones a factores argentinos en el exterior y a factores extranjeros en Argentina."
+            },
+            {
+                question: "¿Qué significa transformar una variable de bruta a neta?",
+                options: [
+                    "Expresarla a precios constantes del año base seleccionado",
+                    "Restarle las depreciaciones o consumo de capital fijo",
+                    "Dividirla por la población total para obtener per cápita",
+                    "Sumarle el ingreso neto de los factores del exterior"
+                ],
+                answer: 1,
+                explanation: "Una variable neta se obtiene restando las depreciaciones del capital a la variable bruta correspondiente."
+            },
+            {
+                question: "En cuentas nacionales, ¿cómo se diferencia C del gasto público?",
+                options: [
+                    "C incluye gastos de consumo privado y público totales",
+                    "C solo incluye el consumo privado de las familias",
+                    "C incluye gastos de inversión de empresas privadas",
+                    "C excluye servicios y solo incluye bienes de consumo"
+                ],
+                answer: 0,
+                explanation: "En Argentina, C incluye gastos de consumo de familias y gobierno; la inversión (I) también incluye inversión pública y privada."
+            },
+            {
+                question: "¿Qué es una variable medida a precios corrientes?",
+                options: [
+                    "Variable ajustada por inflación del período anterior",
+                    "Variable valuada a los precios vigentes en ese período",
+                    "Variable expresada en dólares estadounidenses constantes",
+                    "Variable dividida por el deflactor implícito del PBI"
+                ],
+                answer: 1,
+                explanation: "Una variable a precios corrientes está valuada con los precios del período que se está midiendo actualmente."
+            },
+            {
+                question: "¿Para qué sirven las variables a precios constantes?",
+                options: [
+                    "Para proyectar el crecimiento futuro de la economía",
+                    "Para comparar magnitudes de diferentes períodos eliminando inflación",
+                    "Para calcular los impuestos indirectos netos de subsidios",
+                    "Para medir el ingreso disponible de las familias"
+                ],
+                answer: 1,
+                explanation: "Las variables a precios constantes eliminan el efecto de la variación de precios, permitiendo comparaciones reales entre períodos."
+            },
+            {
+                question: "¿Qué mide el Índice de Precios al Consumidor (IPC)?",
+                options: [
+                    "La variación del costo de una canasta fija de consumo",
+                    "El cociente entre PBI nominal y PBI real del período",
+                    "Los precios mayoristas de materias primas y bienes intermedios",
+                    "El promedio ponderado de precios de todos los bienes finales"
+                ],
+                answer: 0,
+                explanation: "El IPC mide la variación de precios de una canasta fija de bienes representativa del gasto de consumo de los hogares."
+            },
+            {
+                question: "¿Qué tipo de índice es el IPC según su ponderación?",
+                options: [
+                    "Índice de Paasche con ponderaciones móviles del período actual",
+                    "Índice de Laspeyres con ponderaciones fijas del año base",
+                    "Índice de Fisher que promedia Laspeyres y Paasche",
+                    "Índice implícito derivado del cociente de variables nominales"
+                ],
+                answer: 1,
+                explanation: "El IPC es un índice de Laspeyres que utiliza ponderaciones fijas correspondientes al año base."
+            },
+            {
+                question: "¿Qué diferencia al IPM del IPC en su medición?",
+                options: [
+                    "El IPM mide precios finales y el IPC mide precios mayoristas",
+                    "El IPM incluye materias primas y mide en etapa mayorista",
+                    "El IPM se calcula mensualmente y el IPC anualmente",
+                    "El IPM usa Paasche y el IPC usa Laspeyres"
+                ],
+                answer: 1,
+                explanation: "El IPM incluye materias primas y bienes semielaborados, midiéndolos en su primera transacción comercial importante (etapa mayorista)."
+            },
+            {
+                question: "¿Cómo se calcula el deflactor implícito del PBI?",
+                options: [
+                    "Sumando los precios de todos los bienes finales producidos",
+                    "Dividiendo el PBI nominal entre el PBI real",
+                    "Multiplicando el IPC por el IPM del mismo período",
+                    "Restando el PIB real del PIB nominal del año"
+                ],
+                answer: 1,
+                explanation: "El deflactor implícito es el cociente entre el PBI a valores corrientes (nominal) y el PBI a valores constantes (real)."
+            },
+            {
+                question: "¿Qué característica tiene el deflactor del PBI vs otros índices?",
+                options: [
+                    "Solo mide bienes de consumo de las familias argentinas",
+                    "Tiene ponderaciones móviles reflejando la producción actual",
+                    "Se basa en una canasta fija del año base",
+                    "Excluye servicios y solo incluye bienes tangibles"
+                ],
+                answer: 1,
+                explanation: "El deflactor es un índice de Paasche con ponderaciones móviles, reflejando todos los bienes y servicios finales producidos."
+            },
+            {
+                question: "¿Qué mide la tasa de actividad en el mercado laboral?",
+                options: [
+                    "El porcentaje de ocupados sobre la población total",
+                    "El porcentaje de la PEA sobre la población total",
+                    "El porcentaje de desocupados sobre la PEA total",
+                    "El porcentaje de subocupados sobre los ocupados"
+                ],
+                answer: 1,
+                explanation: "La tasa de actividad se calcula como el porcentaje de la Población Económicamente Activa sobre la población total."
+            },
+            {
+                question: "¿Quiénes conforman la Población Económicamente Activa (PEA)?",
+                options: [
+                    "Todos los residentes mayores de 14 años del país",
+                    "Los ocupados más los desocupados que buscan trabajo",
+                    "Solo las personas que tienen empleo remunerado actualmente",
+                    "Los ocupados plenos más los subocupados demandantes"
+                ],
+                answer: 1,
+                explanation: "La PEA incluye a las personas que tienen ocupación más aquellas que sin tenerla la buscan activamente."
+            },
+            {
+                question: "¿Qué define a una persona como desocupada en la EPH?",
+                options: [
+                    "Persona que trabajó menos de 15 horas en la semana",
+                    "Persona sin trabajo que buscó activamente en la semana de referencia",
+                    "Persona que no tiene empleo formal registrado actualmente",
+                    "Persona inactiva que suspendió la búsqueda por desaliento"
+                ],
+                answer: 1,
+                explanation: "Se considera desocupada a la persona que, sin tener trabajo, buscó activamente uno en la semana de referencia de la encuesta."
+            },
+            {
+                question: "¿Qué caracteriza a un trabajador subocupado?",
+                options: [
+                    "Trabaja más de 45 horas semanales involuntariamente",
+                    "Trabaja menos de 35 horas y desea trabajar más",
+                    "Tiene empleo informal no registrado en la seguridad social",
+                    "Realiza changas mientras busca trabajo estable"
+                ],
+                answer: 1,
+                explanation: "Un subocupado es quien trabaja menos de 35 horas semanales por causas involuntarias y está dispuesto a trabajar más."
+            },
+            {
+                question: "¿Qué mide la tasa de desempleo o desocupación?",
+                options: [
+                    "El porcentaje de desocupados sobre la población total del país",
+                    "El porcentaje de desocupados sobre la PEA total",
+                    "El porcentaje de inactivos sobre la población en edad de trabajar",
+                    "El porcentaje de subocupados más desocupados sobre la PEA"
+                ],
+                answer: 1,
+                explanation: "La tasa de desempleo se calcula como el porcentaje de la población desocupada sobre la Población Económicamente Activa."
+            },
+            {
+                question: "¿Qué distingue al subocupado demandante del no demandante?",
+                options: [
+                    "El demandante trabaja menos horas que el no demandante",
+                    "El demandante busca activamente otra ocupación además",
+                    "El no demandante está registrado en la seguridad social",
+                    "El no demandante trabaja más de 20 horas semanales"
+                ],
+                answer: 1,
+                explanation: "El subocupado demandante busca activamente otra ocupación, mientras que el no demandante no la busca aunque desee trabajar más."
+            },
+            {
+                question: "¿Cómo se define una persona ocupada en la EPH?",
+                options: [
+                    "Trabajó al menos 1 hora remunerada o 15 no remuneradas",
+                    "Tiene contrato laboral formal registrado ante AFIP",
+                    "Recibe salario superior al mínimo vital y móvil",
+                    "Trabaja entre 35 y 45 horas semanales normales"
+                ],
+                answer: 0,
+                explanation: "Se considera ocupado a quien trabajó al menos una hora en forma remunerada o 15 horas sin remuneración en la semana de referencia."
+            },
+            {
+                question: "¿Qué son los impuestos indirectos en cuentas nacionales?",
+                options: [
+                    "Impuestos al ingreso de personas físicas y jurídicas",
+                    "Impuestos sobre ventas como IVA e impuestos internos",
+                    "Aportes obligatorios a la seguridad social de trabajadores",
+                    "Retenciones a las exportaciones de productos primarios"
+                ],
+                answer: 1,
+                explanation: "Los impuestos indirectos se cobran sobre las ventas de bienes y servicios, como el IVA y los impuestos internos."
+            },
+            {
+                question: "¿Cómo se relacionan valuación a costo de factores y a precios de mercado?",
+                options: [
+                    "Costo factores = Precios mercado - Impuestos indirectos + Subsidios",
+                    "Precios mercado = Costo factores + Depreciaciones del capital",
+                    "Costo factores = Precios mercado + Exportaciones netas",
+                    "Precios mercado = Costo factores - Transferencias del gobierno"
+                ],
+                answer: 0,
+                explanation: "A costo de factores se obtiene restando impuestos indirectos y sumando subsidios a la valuación a precios de mercado."
+            },
+            {
+                question: "¿Qué papel cumplen los subsidios en las cuentas nacionales?",
+                options: [
+                    "Aumentan el costo de factores respecto al precio de mercado",
+                    "Reducen el precio de mercado respecto al costo de factores",
+                    "Se suman a los impuestos indirectos en el cálculo del PBI",
+                    "Se restan del consumo intermedio en el cálculo del VAB"
+                ],
+                answer: 1,
+                explanation: "Los subsidios hacen que el precio de mercado sea menor que el costo de factores, ya que el gobierno ayuda a financiar la producción."
+            },
+            {
+                question: "En economía abierta, ¿qué representa (X-M) en el PBI?",
+                options: [
+                    "La inversión extranjera directa neta recibida en el país",
+                    "Las exportaciones netas o saldo de balanza comercial",
+                    "El ingreso neto de factores recibidos del exterior",
+                    "La variación de reservas internacionales del Banco Central"
+                ],
+                answer: 1,
+                explanation: "(X-M) representa las exportaciones netas, es decir, el saldo de la balanza comercial de bienes y servicios."
+            },
+            {
+                question: "¿Qué significa que el PBI es 'interno'?",
+                options: [
+                    "Incluye solo producción de empresas nacionales públicas",
+                    "Mide producción dentro del territorio geográfico del país",
+                    "Excluye las exportaciones de bienes al resto del mundo",
+                    "Se calcula sin considerar el sector externo de la economía"
+                ],
+                answer: 1,
+                explanation: "Interno significa que se mide lo producido dentro del territorio, independientemente de quién sea propietario de los factores."
+            },
+            {
+                question: "¿Qué es el Ingreso Disponible según las cuentas nacionales?",
+                options: [
+                    "El PBI más las transferencias corrientes del exterior",
+                    "El YBN más transferencias corrientes netas del exterior",
+                    "El ingreso nacional neto menos impuestos indirectos",
+                    "La suma de salarios y beneficios de todas las empresas"
+                ],
+                answer: 1,
+                explanation: "El Ingreso Bruto Nacional disponible (YBNd) se obtiene sumando al YBN las transferencias corrientes netas recibidas del exterior."
+            },
+            {
+                question: "¿Cuál es la identidad fundamental entre ahorro e inversión?",
+                options: [
+                    "El ahorro medido siempre supera la inversión medida",
+                    "El ahorro medido es idéntico a la inversión medida",
+                    "El ahorro es mayor en economías con superávit fiscal",
+                    "La inversión supera al ahorro cuando hay déficit comercial"
+                ],
+                answer: 1,
+                explanation: "Por definición contable, el ahorro medido debe ser exactamente igual a la inversión medida en las cuentas nacionales."
+            },
+            {
+                question: "¿Qué incluye el ahorro nacional total en economía abierta?",
+                options: [
+                    "Solo el ahorro privado de familias y empresas nacionales",
+                    "El ahorro privado más el ahorro gubernamental",
+                    "La inversión bruta interna más las exportaciones netas",
+                    "El superávit fiscal más las reservas internacionales"
+                ],
+                answer: 1,
+                explanation: "El ahorro nacional (ST) es la suma del ahorro privado (SP) más el ahorro gubernamental (SG o superávit fiscal)."
+            },
+            {
+                question: "¿Qué componentes conforman la inversión nacional total?",
+                options: [
+                    "La inversión privada más el gasto de capital del gobierno",
+                    "La inversión privada más las exportaciones netas (X-M)",
+                    "La formación bruta de capital fijo más existencias",
+                    "El ahorro privado más el superávit presupuestario"
+                ],
+                answer: 1,
+                explanation: "La inversión nacional total incluye la inversión bruta doméstica privada (I) más la inversión extranjera neta o exportaciones netas (X)."
+            },
+            {
+                question: "¿Qué es el ahorro gubernamental en las cuentas nacionales?",
+                options: [
+                    "La recaudación tributaria total del gobierno nacional",
+                    "El superávit del presupuesto (ingresos menos gastos)",
+                    "Las reservas del Banco Central en divisas extranjeras",
+                    "Los depósitos del Tesoro en el sistema bancario"
+                ],
+                answer: 1,
+                explanation: "El ahorro gubernamental (SG) es el superávit presupuestario, es decir, ingresos tributarios menos gastos gubernamentales."
+            },
+            {
+                question: "Si hay déficit fiscal, ¿cómo afecta al ahorro nacional?",
+                options: [
+                    "El ahorro nacional aumenta automáticamente por mayor gasto",
+                    "El ahorro nacional disminuye porque el ahorro gubernamental es negativo",
+                    "El ahorro nacional no se ve afectado por el déficit",
+                    "El ahorro privado debe aumentar en la misma magnitud"
+                ],
+                answer: 1,
+                explanation: "Un déficit fiscal significa ahorro gubernamental negativo, lo que reduce el ahorro nacional total (ST = SP + SG)."
+            },
+            {
+                question: "¿Qué representa un superávit en la cuenta corriente externa?",
+                options: [
+                    "Las importaciones superan a las exportaciones del período",
+                    "Las exportaciones netas son positivas en ese período",
+                    "El país aumentó su endeudamiento externo neto",
+                    "La inversión extranjera directa ingresó al país"
+                ],
+                answer: 1,
+                explanation: "Un superávit de cuenta corriente indica que las exportaciones netas (X-M) son positivas, ingresando más divisas que egresos."
+            },
+            {
+                question: "¿Cuál fue la principal contribución de Keynes a la macroeconomía?",
+                options: [
+                    "Demostró que los mercados siempre se equilibran automáticamente",
+                    "Argumentó que puede persistir desempleo y que las políticas públicas pueden reducirlo",
+                    "Propuso eliminar toda intervención estatal en la economía",
+                    "Desarrolló la teoría cuantitativa del dinero y la inflación"
+                ],
+                answer: 1,
+                explanation: "Keynes argumentó que puede persistir alto desempleo y que la política monetaria y fiscal pueden afectar la producción y reducir el desempleo."
+            },
+            {
+                question: "¿Qué son las cuentas nacionales aumentadas?",
+                options: [
+                    "Cuentas que solo registran actividades del sector formal",
+                    "Cuentas que incluyen actividades no mercantiles con valor económico",
+                    "Cuentas ajustadas únicamente por inflación del período",
+                    "Cuentas que duplican el valor de servicios públicos"
+                ],
+                answer: 1,
+                explanation: "Las cuentas aumentadas incluyen actividades con valor económico que no pasan por el mercado, como trabajo doméstico o capital humano."
+            },
+            {
+                question: "¿Por qué el trabajo doméstico no remunerado no figura en el PBI?",
+                options: [
+                    "Porque no genera utilidad o bienestar para las familias",
+                    "Porque no pasa por el mercado y no tiene transacción monetaria",
+                    "Porque solo se contabilizan actividades del sector primario",
+                    "Porque está incluido en el consumo de bienes durables"
+                ],
+                answer: 1,
+                explanation: "El PBI tradicional solo registra transacciones de mercado; el trabajo doméstico no remunerado no pasa por el mercado aunque genere valor."
+            },
+            {
+                question: "¿Qué omisión ambiental importante presenta el PBI tradicional?",
+                options: [
+                    "No incluye la producción de energías renovables limpias",
+                    "No resta los daños ambientales como contaminación o degradación",
+                    "No suma las inversiones en conservación de recursos naturales",
+                    "No considera el agotamiento de minerales no renovables"
+                ],
+                answer: 1,
+                explanation: "El PBI tradicional no resta los costos de daños ambientales como contaminación del aire, agua o degradación de recursos."
+            },
+            {
+                question: "¿Qué actividades de la economía subterránea se excluyen del PBI?",
+                options: [
+                    "Todas las transacciones en efectivo sin factura formal",
+                    "Las actividades ilegales como narcotráfico o contrabando",
+                    "El comercio informal en mercados y ferias callejeras",
+                    "Los servicios profesionales de monotributistas"
+                ],
+                answer: 1,
+                explanation: "Se excluyen deliberadamente actividades ilegales que son 'males' sociales, no 'bienes', aunque el comercio ilegal tiene magnitud significativa."
+            },
+            {
+                question: "¿Cómo se relacionan las tres ópticas de medición del PBI?",
+                options: [
+                    "Son completamente independientes y dan resultados diferentes",
+                    "Son identidades contables que siempre dan el mismo resultado",
+                    "Solo coinciden en equilibrio de pleno empleo",
+                    "Difieren por los impuestos indirectos y subsidios"
+                ],
+                answer: 1,
+                explanation: "Las tres ópticas (producto, ingreso y gasto) son identidades contables que por definición siempre arrojan el mismo resultado."
+            },
+            {
+                question: "¿Qué refleja un aumento del PBI nominal sin variación del real?",
+                options: [
+                    "La economía creció en términos de producción física",
+                    "Solo hubo inflación sin crecimiento de cantidades producidas",
+                    "Aumentó la productividad de los factores productivos",
+                    "Se incrementó el empleo y disminuyó el desempleo"
+                ],
+                answer: 1,
+                explanation: "Si el PBI nominal sube pero el real no varía, significa que solo aumentaron los precios (inflación) sin crecimiento de producción."
+            },
+            {
+                question: "¿Por qué es importante distinguir entre PBI nominal y real?",
+                options: [
+                    "Para calcular correctamente los impuestos del período",
+                    "Para separar crecimiento de cantidades de efecto de precios",
+                    "Para determinar el tipo de cambio nominal apropiado",
+                    "Para establecer el nivel salarial mínimo del país"
+                ],
+                answer: 1,
+                explanation: "La distinción permite separar el crecimiento real de la producción del efecto de la variación de precios (inflación o deflación)."
+            },
+            {
+                question: "En la tabla de producción de pan, ¿por qué se resta el costo de intermedios?",
+                options: [
+                    "Para cumplir con las normas tributarias vigentes",
+                    "Para evitar contar múltiples veces el mismo valor agregado",
+                    "Para calcular el beneficio neto de cada empresa",
+                    "Para determinar el precio final al consumidor"
+                ],
+                answer: 1,
+                explanation: "Se restan los productos intermedios para evitar la doble o múltiple contabilización del valor en diferentes etapas productivas."
+            },
+            {
+                question: "¿Qué sucede si sumamos todas las ventas sin considerar valor agregado?",
+                options: [
+                    "Obtenemos el PBI correctamente medido del período",
+                    "Sobreestimamos el producto por contar varias veces los intermedios",
+                    "Medimos solo la actividad del sector primario",
+                    "Calculamos el consumo intermedio total de la economía"
+                ],
+                answer: 1,
+                explanation: "Sumar todas las ventas sobreestima el producto porque cuenta múltiples veces el valor de los productos intermedios en cada etapa."
+            },
+            {
+                question: "¿Qué relación existe entre depreciación e inversión?",
+                options: [
+                    "La depreciación es siempre mayor que la inversión bruta",
+                    "Inversión neta = Inversión bruta - Depreciación",
+                    "La depreciación solo afecta a la inversión pública",
+                    "Inversión bruta = Inversión neta + Consumo intermedio"
+                ],
+                answer: 1,
+                explanation: "La inversión neta (IN) es la efectiva adición al stock de capital, y se calcula restando la depreciación (D) de la inversión bruta (IB)."
+            },
+            {
+                question: "¿Qué representa la depreciación o amortización en cuentas nacionales?",
+                options: [
+                    "El pago de intereses de la deuda pública externa",
+                    "El desgaste y pérdida de valor del capital productivo",
+                    "La reducción del valor de la moneda por inflación",
+                    "El costo de mantenimiento de equipos e instalaciones"
+                ],
+                answer: 1,
+                explanation: "La depreciación representa la pérdida de valor de los bienes de capital por desgaste en el proceso productivo corriente."
+            },
+            {
+                question: "¿Cómo obtienen los economistas los datos para las cuentas nacionales?",
+                options: [
+                    "Únicamente mediante encuestas directas a todas las empresas",
+                    "De estados contables, encuestas, impuestos, ventas y empleo",
+                    "Solo de declaraciones tributarias presentadas ante AFIP",
+                    "Exclusivamente del sistema de cuentas bancarias registradas"
+                ],
+                answer: 1,
+                explanation: "Se utilizan múltiples fuentes: estados contables, encuestas, declaraciones de impuestos, estadísticas de ventas y datos de empleo."
+            },
+            {
+                question: "¿Qué relación existe entre gasto final y PBI?",
+                options: [
+                    "El gasto final es siempre menor que el PBI calculado",
+                    "El gasto final en bienes finales es igual al PBI",
+                    "El gasto final solo incluye consumo de las familias",
+                    "El gasto final excluye la inversión bruta del período"
+                ],
+                answer: 1,
+                explanation: "El gasto final (C+I+G+X-M) en bienes finales es, por definición, igual al PBI medido por el enfoque del gasto."
+            },
+            {
+                question: "¿Qué información provee la Encuesta Permanente de Hogares (EPH)?",
+                options: [
+                    "Únicamente datos de inflación y variación de precios",
+                    "Tasas de actividad, empleo, desempleo y subocupación",
+                    "El PBI trimestral desagregado por sector económico",
+                    "Las exportaciones e importaciones de bienes y servicios"
+                ],
+                answer: 1,
+                explanation: "La EPH provee estimaciones de tasas de actividad, empleo, desempleo, subocupación y otras características del mercado laboral."
+            },
+            {
+                question: "¿Por qué la EPH se realiza solo en aglomerados urbanos?",
+                options: [
+                    "Porque la población rural es económicamente inactiva",
+                    "Por razones prácticas, aunque 88% de la población es urbana",
+                    "Porque el desempleo rural es permanentemente cero",
+                    "Porque solo se mide empleo en industria y servicios"
+                ],
+                answer: 1,
+                explanation: "Por razones prácticas de implementación, pero como el 88% de la población argentina es urbana, la EPH es representativa."
+            },
+            {
+                question: "¿Qué condición debe cumplir alguien para ser considerado ocupado?",
+                options: [
+                    "Tener ingresos superiores al salario mínimo vital y móvil",
+                    "Haber trabajado al menos una hora remunerada esa semana",
+                    "Estar inscripto en el sistema de seguridad social",
+                    "Trabajar tiempo completo entre 35 y 45 horas semanales"
+                ],
+                answer: 1,
+                explanation: "Se considera ocupado a quien trabajó al menos una hora en forma remunerada, o 15 horas sin remuneración, en la semana de referencia."
+            },
+            {
+                question: "¿Qué representa el concepto de 'desocupación abierta'?",
+                options: [
+                    "Personas con empleo precario que buscan trabajo mejor",
+                    "Personas sin trabajo que buscan activamente en la semana de referencia",
+                    "Trabajadores que perdieron empleo hace más de seis meses",
+                    "Personas inactivas que desistieron de buscar por desaliento"
+                ],
+                answer: 1,
+                explanation: "La desocupación abierta es la estándar: personas sin trabajo que buscaron activamente en la semana de referencia de la EPH."
+            },
+            {
+                question: "¿Cómo se calcula la tasa de empleo en el mercado laboral?",
+                options: [
+                    "Ocupados dividido población total, expresado en porcentaje",
+                    "Ocupados dividido PEA total, expresado en porcentaje",
+                    "PEA dividido población en edad de trabajar, en porcentaje",
+                    "Ocupados plenos dividido población total, en porcentaje"
+                ],
+                answer: 0,
+                explanation: "La tasa de empleo se calcula como el porcentaje de la población ocupada sobre la población total del país."
+            },
+            {
+                question: "¿Qué personas se consideran inactivas en el mercado laboral?",
+                options: [
+                    "Personas desocupadas que buscan empleo activamente",
+                    "Personas sin trabajo que no lo buscan activamente",
+                    "Trabajadores subocupados que desean más horas",
+                    "Ocupados que trabajan menos de 35 horas semanales"
+                ],
+                answer: 1,
+                explanation: "Se consideran inactivas las personas que no tienen trabajo ni lo buscan activamente (estudiantes, jubilados, amas de casa, etc.)."
+            },
+            {
+                question: "¿Qué mide la tasa de subocupación demandante?",
+                options: [
+                    "Subocupados demandantes sobre la población total del país",
+                    "Subocupados demandantes sobre la PEA total",
+                    "Subocupados demandantes sobre el total de ocupados",
+                    "Subocupados demandantes sobre los desocupados abiertos"
+                ],
+                answer: 1,
+                explanation: "La tasa de subocupación demandante se calcula como porcentaje de subocupados demandantes sobre la PEA total."
+            },
+            {
+                question: "¿Qué son las transferencias en el contexto de cuentas públicas?",
+                options: [
+                    "Pagos del gobierno a factores productivos del sector privado",
+                    "Pagos sin contraprestación como seguridad social o subsidios",
+                    "Inversiones del gobierno en infraestructura y bienes de capital",
+                    "Impuestos directos cobrados a personas físicas y jurídicas"
+                ],
+                answer: 1,
+                explanation: "Las transferencias son pagos sin contraprestación (sin recibir bienes o servicios a cambio), como jubilaciones, pensiones o subsidios."
+            },
+            {
+                question: "¿Por qué las transferencias no se incluyen en G de las cuentas?",
+                options: [
+                    "Porque son pagos ilegales o informales del gobierno",
+                    "Porque no remuneran factores usados en producción corriente",
+                    "Porque solo se incluyen gastos del gobierno nacional",
+                    "Porque ya están contabilizadas en el consumo privado"
+                ],
+                answer: 1,
+                explanation: "Las transferencias no se incluyen en G porque no son remuneraciones a factores productivos participantes en la producción corriente."
+            },
+            {
+                question: "¿Qué incluye el gasto de consumo final en Argentina según INDEC?",
+                options: [
+                    "Solo el consumo privado de las familias residentes",
+                    "Consumo de familias y gastos de consumo del gobierno",
+                    "Consumo más inversión bruta interna del período",
+                    "Únicamente bienes durables adquiridos por familias"
+                ],
+                answer: 1,
+                explanation: "En Argentina, el consumo final (C) incluye tanto gastos de consumo de familias como gastos de consumo del sector público."
+            },
+            {
+                question: "¿Qué diferencia existe entre residente y no residente?",
+                options: [
+                    "Residente tiene nacionalidad y no residente es extranjero",
+                    "Residente tiene centro de actividad permanente en el país",
+                    "Residente paga impuestos y no residente está exento",
+                    "Residente nació en el país y no residente en el exterior"
+                ],
+                answer: 1,
+                explanation: "Residente es quien vive o tiene el centro de su actividad económica permanentemente dentro del país, independientemente de su nacionalidad."
+            },
+            {
+                question: "¿Qué flujos comprende el INFRE en economía abierta?",
+                options: [
+                    "Solo los intereses de la deuda externa pública",
+                    "Salarios y remuneraciones al capital pagados y recibidos del exterior",
+                    "Exportaciones e importaciones netas de bienes y servicios",
+                    "Inversión extranjera directa menos inversión argentina en el exterior"
+                ],
+                answer: 1,
+                explanation: "El INFRE incluye salarios de trabajadores y remuneraciones al capital (intereses, utilidades, rentas) pagados y recibidos del exterior."
+            },
+            {
+                question: "¿Cómo afecta una empresa extranjera en Argentina al INFRE?",
+                options: [
+                    "Aumenta el INFRE porque genera producción local adicional",
+                    "Disminuye el INFRE cuando gira beneficios a su casa matriz",
+                    "No afecta el INFRE porque opera dentro del territorio",
+                    "Aumenta el INFRE proporcionalmente a su inversión inicial"
+                ],
+                answer: 1,
+                explanation: "Cuando una empresa extranjera gira utilidades al exterior, disminuye el INFRE (aumenta Rp, las remuneraciones pagadas al exterior)."
+            },
+            {
+                question: "¿Por qué el INFRE es negativo en Argentina?",
+                options: [
+                    "Porque exporta menos de lo que importa históricamente",
+                    "Porque hay muchas empresas extranjeras y se pagan intereses de deuda",
+                    "Porque los salarios argentinos son bajos comparativamente",
+                    "Porque el gobierno tiene superávit fiscal permanente"
+                ],
+                answer: 1,
+                explanation: "El INFRE argentino es negativo porque hay muchas empresas extranjeras operando localmente y se pagan significativos intereses de deuda externa."
+            },
+            {
+                question: "¿Qué significa que un índice de precios base 1993=100 vale 300 en 2010?",
+                options: [
+                    "Los precios subieron 300% entre 1993 y 2010",
+                    "Los precios se triplicaron o subieron 200% desde 1993",
+                    "La inflación promedio anual fue exactamente 300%",
+                    "El PBI real creció tres veces desde 1993"
+                ],
+                answer: 1,
+                explanation: "Un índice de 300 significa que los precios se triplicaron (aumentaron 200%) respecto al año base donde el índice era 100."
+            },
+            {
+                question: "¿Cuándo se considera que hay inflación en una economía?",
+                options: [
+                    "Cuando algunos precios individuales suben temporalmente",
+                    "Cuando el nivel general de precios aumenta sostenidamente",
+                    "Solo cuando el IPC aumenta más de 10% anual",
+                    "Cuando el tipo de cambio nominal se deprecia"
+                ],
+                answer: 1,
+                explanation: "Inflación es el aumento generalizado y sostenido en el tiempo del nivel general de precios de una economía."
+            },
+            {
+                question: "¿Cómo se calcula la tasa de inflación anual?",
+                options: [
+                    "Sumando todos los aumentos de precios individuales",
+                    "Variación porcentual del índice de precios entre períodos",
+                    "Dividiendo el PBI nominal entre el PBI real",
+                    "Multiplicando el deflactor implícito por cien"
+                ],
+                answer: 1,
+                explanation: "La tasa de inflación se calcula como la variación porcentual del índice de precios: [(Pt - Pt-1) / Pt-1] × 100."
+            },
+            {
+                question: "¿Qué ventaja tiene usar el deflactor del PBI vs el IPC?",
+                options: [
+                    "El deflactor se actualiza mensualmente y el IPC trimestralmente",
+                    "El deflactor incluye todos los bienes finales producidos, no solo consumo",
+                    "El deflactor mide solo bienes y excluye servicios",
+                    "El deflactor usa ponderaciones fijas del año base"
+                ],
+                answer: 1,
+                explanation: "El deflactor incluye todos los bienes y servicios finales producidos en la economía, no solo la canasta de consumo como el IPC."
+            },
+            {
+                question: "¿Qué limitación tiene el PBI como medida de bienestar?",
+                options: [
+                    "No mide el crecimiento económico de largo plazo",
+                    "No mide satisfacción, distribución del ingreso ni calidad de vida",
+                    "No incluye la producción del sector industrial",
+                    "No puede compararse entre diferentes países"
+                ],
+                answer: 1,
+                explanation: "El PBI mide actividad económica pero no mide satisfacción, felicidad, distribución del ingreso, tiempo libre o calidad de vida."
+            },
+            {
+                question: "¿Qué actividades valiosas omite el PBI tradicional?",
+                options: [
+                    "La producción de bienes durables en fábricas",
+                    "Trabajo doméstico, inversión en educación y valor del ocio",
+                    "Las exportaciones de servicios profesionales",
+                    "La inversión en capital fijo del sector privado"
+                ],
+                answer: 1,
+                explanation: "El PBI omite actividades no mercantiles valiosas como trabajo doméstico no remunerado, inversión en educación y valor del tiempo libre."
+            },
+            {
+                question: "¿Qué proponen las cuentas ambientales SCAEI?",
+                options: [
+                    "Duplicar el valor de producción de energías renovables",
+                    "Restar daños ambientales y sumar conservación de recursos naturales",
+                    "Eliminar del PBI toda actividad contaminante industrial",
+                    "Incluir solo producción certificada como sustentable"
+                ],
+                answer: 1,
+                explanation: "El SCAEI propone ajustar las cuentas restando daños ambientales (contaminación, degradación) y sumando el valor de recursos naturales y su conservación."
+            }
+        ];
+        
+        let quizzes = [];
+        let currentQuiz;
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const quizSelectionScreen = document.getElementById('quiz-selection-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const questionElement = document.getElementById('question');
+        const optionsContainer = document.getElementById('options-container');
+        const currentQuestionNumberElement = document.getElementById('current-question-number');
+        const scoreElement = document.getElementById('score');
+        const nextButton = document.getElementById('next-button');
+        const feedbackMessage = document.getElementById('feedback-message');
+        const finalScoreElement = document.getElementById('final-score');
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        
+        function generateQuizzes() {
+            quizzes = [];
+            for (let i = 0; i < 10; i++) {
+                shuffleArray(allQuestions);
+                const quizQuestions = allQuestions.slice(0, 20);
+                quizzes.push({ questions: quizQuestions });
+            }
+        }
+
+        function startQuiz(quizIndex) {
+            currentQuiz = quizzes[quizIndex];
+            currentQuestionIndex = 0;
+            score = 0;
+            
+            quizSelectionScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+
+            updateScore();
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const currentQuestionData = currentQuiz.questions[currentQuestionIndex];
+
+            currentQuestionNumberElement.textContent = currentQuestionIndex + 1;
+            questionElement.textContent = currentQuestionData.question;
+            optionsContainer.innerHTML = '';
+            feedbackMessage.classList.add('hidden');
+            feedbackMessage.innerHTML = '';
+            nextButton.disabled = true;
+
+            const options = [...currentQuestionData.options];
+            
+            options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('answer-button');
+                button.onclick = () => checkAnswer(button, index);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedButton, selectedIndex) {
+            const currentQuestionData = currentQuiz.questions[currentQuestionIndex];
+            const correctIndex = currentQuestionData.answer;
+
+            Array.from(optionsContainer.children).forEach((button, index) => {
+                button.disabled = true;
+                if (index === correctIndex) {
+                    button.classList.add('correct');
+                } else if (index === selectedIndex) {
+                    button.classList.add('incorrect');
+                }
+            });
+
+            if (selectedIndex === correctIndex) {
+                score++;
+                feedbackMessage.innerHTML = `<div class="font-bold">¡Correcto!</div><div class="explanation mt-2">${currentQuestionData.explanation}</div>`;
+                feedbackMessage.className = 'text-left p-4 my-4 rounded-lg font-semibold bg-green-100 text-green-800';
+            } else {
+                feedbackMessage.innerHTML = `<div class="font-bold">Incorrecto.</div><div class="explanation mt-2">${currentQuestionData.explanation}</div>`;
+                feedbackMessage.className = 'text-left p-4 my-4 rounded-lg font-semibold bg-red-100 text-red-800';
+            }
+
+            feedbackMessage.classList.remove('hidden');
+            updateScore();
+            nextButton.disabled = false;
+            nextButton.focus();
+        }
+
+        function updateScore() {
+            scoreElement.textContent = score;
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuiz.questions.length) {
+                showQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        function endQuiz() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            finalScoreElement.textContent = score;
+        }
+
+        function restartQuiz() {
+            resultsScreen.classList.add('hidden');
+            quizSelectionScreen.classList.remove('hidden');
+            generateQuizzes(); // Regenerar los exámenes para que sean diferentes cada vez
+        }
+
+        window.onload = function() {
+            generateQuizzes();
+            quizSelectionScreen.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

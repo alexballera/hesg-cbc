@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Exámenes de práctica sobre conceptos fundamentales de economía - Sesión 1 CBC UBA">
+    <meta name="keywords" content="economía CBC, FPP, escasez, microeconomía, macroeconomía, examen práctica">
+    <meta name="author" content="Economía CBC - UBA">
+    <title>Exámenes de Práctica - Conceptos Fundamentales de Economía CBC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4f46e5 0%, #a78bfa 100%);
+        }
+        .quiz-button {
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .quiz-button:hover {
+            background-color: #4338ca;
+            transform: translateY(-2px);
+        }
+        .quiz-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .answer-button {
+            width: 100%;
+            background-color: #e5e7eb;
+            color: #1f2937;
+            text-align: left;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .answer-button:hover:not(:disabled) {
+            background-color: #d1d5db;
+        }
+        .answer-button.correct {
+            background-color: #10b981;
+            color: white;
+            animation: pulse-correct 0.8s;
+        }
+        .answer-button.incorrect {
+            background-color: #ef4444;
+            color: white;
+            animation: shake 0.5s;
+        }
+        .explanation {
+            background-color: #f0f4f8;
+            border-left: 4px solid #4f46e5;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+        }
+        @keyframes pulse-correct {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div id="app" class="container bg-white p-8 rounded-2xl shadow-xl w-full">
+        <!-- Pantalla de selección de cuestionarios -->
+        <div id="quiz-selection-screen">
+            <h1 class="text-3xl font-bold text-center mb-4 text-indigo-700">Selecciona un Examen de Práctica</h1>
+            <p class="text-center text-gray-600 mb-8">Cada examen contiene 20 preguntas aleatorias que abarcan todo el contenido de la unidad. ¡Mucha suerte!</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                <button onclick="startQuiz(0)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 1</button>
+                <button onclick="startQuiz(1)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 2</button>
+                <button onclick="startQuiz(2)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 3</button>
+                <button onclick="startQuiz(3)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 4</button>
+                <button onclick="startQuiz(4)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 5</button>
+                <button onclick="startQuiz(5)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 6</button>
+                <button onclick="startQuiz(6)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 7</button>
+                <button onclick="startQuiz(7)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 8</button>
+                <button onclick="startQuiz(8)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 9</button>
+                <button onclick="startQuiz(9)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 10</button>
+            </div>
+        </div>
+
+        <!-- Pantalla del cuestionario -->
+        <div id="quiz-screen" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <div class="text-lg font-semibold text-gray-700">Pregunta <span id="current-question-number"></span> de 20</div>
+                <div class="text-lg font-semibold text-gray-700">Puntaje: <span id="score">0</span></div>
+            </div>
+            <div class="card p-6 mb-6">
+                <h2 id="question" class="text-xl font-semibold text-gray-900 mb-6"></h2>
+                <div id="options-container" class="space-y-4"></div>
+            </div>
+            <div id="feedback-message" class="text-center p-4 my-4 rounded-lg font-semibold hidden"></div>
+            <button id="next-button" class="quiz-button w-full py-4 mt-6 gradient-bg text-white font-bold text-lg rounded-lg shadow-md focus:outline-none" onclick="nextQuestion()" disabled>Siguiente</button>
+        </div>
+
+        <!-- Pantalla de resultados -->
+        <div id="results-screen" class="hidden text-center">
+            <h1 class="text-3xl font-bold text-indigo-700 mb-4">¡Examen Completo!</h1>
+            <p class="text-xl text-gray-700 mb-6">Tu puntaje final es:</p>
+            <div class="text-5xl font-extrabold text-white gradient-bg p-8 rounded-full inline-block shadow-lg mb-8">
+                <span id="final-score"></span>
+                <span class="block text-2xl font-normal mt-2">de 20</span>
+            </div>
+            <p class="text-lg text-gray-600 mb-4">¡Sigue practicando para dominar el contenido!</p>
+            <button class="quiz-button py-4 px-8 mt-4 bg-indigo-600 text-white font-bold text-lg rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none" onclick="restartQuiz()">Volver a la selección</button>
+        </div>
+    </div>
+
+    <script>
+        const allQuestions = [
+            // Pool de preguntas sobre los conceptos fundamentales de los documentos
+            {
+                question: "¿Qué concepto central de la economía se ilustra con la escasez de recursos en relación a los deseos ilimitados?",
+                options: ["Eficiencia", "Frontera de Posibilidades de Producción", "Escasez", "Ceteris Paribus"],
+                answer: 2,
+                explanation: "La escasez es la realidad fundamental de la economía, donde los recursos limitados no son suficientes para satisfacer los deseos ilimitados."
+            },
+            {
+                question: "¿Cuál de las siguientes situaciones representa el concepto de eficiencia económica en el contexto de la FPP?",
+                options: ["Operar en un punto dentro de la frontera", "Operar en un punto fuera de la frontera", "Operar en cualquier punto sobre la frontera", "Aumentar la producción de un bien sin reducir la de otro"],
+                answer: 2,
+                explanation: "Un punto sobre la FPP indica que la economía está utilizando todos sus recursos de manera eficiente, produciendo la máxima combinación posible de bienes."
+            },
+            {
+                question: "¿Qué es el 'Costo de Oportunidad' en el contexto de la Frontera de Posibilidades de Producción?",
+                options: ["El valor monetario de un bien", "El costo de producir un bien", "El valor del siguiente mejor bien al que se renuncia para producir otro", "La cantidad de recursos utilizados para producir un bien"],
+                answer: 2,
+                explanation: "El costo de oportunidad es lo que se sacrifica para obtener algo más. En la FPP, es la cantidad de un bien que se debe dejar de producir para aumentar la producción de otro."
+            },
+            {
+                question: "Si una FPP es cóncava (curva hacia afuera), ¿qué tipo de rendimientos de la producción representa?",
+                options: ["Rendimientos marginales crecientes", "Rendimientos marginales constantes", "Rendimientos marginales decrecientes", "Rendimientos marginales negativos"],
+                answer: 2,
+                explanation: "Una FPP cóncava implica que el costo de oportunidad aumenta a medida que se produce más de un bien, lo que corresponde a rendimientos marginales decrecientes."
+            },
+            {
+                question: "¿Cuál de estos conceptos es un supuesto del modelo de la Frontera de Posibilidades de Producción?",
+                options: ["La economía produce una cantidad ilimitada de bienes", "Los recursos no se utilizan al máximo de su disponibilidad", "Los recursos pueden emplearse indistintamente en la producción de ambos bienes", "Existe un solo bien en la economía"],
+                answer: 2,
+                explanation: "Uno de los supuestos clave del modelo FPP es que los recursos son totalmente móviles y pueden ser utilizados para producir cualquiera de los dos bienes."
+            },
+            {
+                question: "¿Qué rama de la economía se enfoca en el comportamiento de las entidades individuales como mercados y empresas?",
+                options: ["Macroeconomía", "Economía política", "Microeconomía", "Economía aplicada"],
+                answer: 2,
+                explanation: "La microeconomía estudia cómo los individuos y las empresas toman decisiones y cómo interactúan en los mercados."
+            },
+            {
+                question: "¿Cuál de estos temas es un objeto de estudio de la Macroeconomía?",
+                options: ["El comportamiento de los consumidores", "El funcionamiento de una industria específica", "El desempleo y la inflación", "La fijación de precios en un mercado"],
+                answer: 2,
+                explanation: "La macroeconomía se ocupa del desempeño general de la economía, incluyendo indicadores como el desempleo, la inflación y el crecimiento económico."
+            },
+            {
+                question: "¿Qué evento se considera el inicio de la forma moderna de la Macroeconomía, según el documento?",
+                options: ["La Revolución Industrial", "La Crisis de 1929", "La caída del Muro de Berlín", "La invención de Internet"],
+                answer: 1,
+                explanation: "El documento de Di Pelino menciona que la forma moderna de la macroeconomía se originó con John Maynard Keynes, especialmente a partir de la Gran Depresión de 1929."
+            },
+            {
+                question: "Si la tecnología mejora de manera uniforme para la producción de ambos bienes, ¿qué le sucederá a la FPP?",
+                options: ["Se desplazará hacia la izquierda", "Rotará sobre uno de los ejes", "Se desplazará de manera simétrica hacia la derecha", "Se volverá más cóncava"],
+                answer: 2,
+                explanation: "Un avance tecnológico que afecta positivamente a ambos bienes desplaza la frontera hacia afuera (a la derecha), lo que representa un aumento en las posibilidades de producción."
+            },
+            {
+                question: "Un punto que se encuentra 'dentro' de la Frontera de Posibilidades de Producción (FPP) representa:",
+                options: ["Una situación inalcanzable", "Una producción eficiente", "Una situación de subutilización o ineficiencia de los recursos", "El costo de oportunidad"],
+                answer: 2,
+                explanation: "Los puntos dentro de la FPP indican que una economía está produciendo por debajo de su potencial, lo que significa que hay recursos desempleados o utilizados de manera ineficiente."
+            },
+            {
+                question: "Según el documento de Samuelson, el 'mecanismo de mercado' se define como:",
+                options: ["Un sistema de planificación central", "Un tipo de mercado controlado por el estado", "Una forma de organización económica en la que los individuos y las empresas privadas toman las principales decisiones", "El uso exclusivo de la política fiscal para la economía"],
+                answer: 2,
+                explanation: "El mecanismo de mercado es una forma de organizar la economía donde las decisiones sobre precios y producción son tomadas por los individuos y las empresas en interacción a través de los mercados."
+            },
+            {
+                question: "¿Cuál de estos NO es un papel económico del Estado, según los documentos?",
+                options: ["Promover la eficiencia", "Fomentar la equidad", "Garantizar la perfección de la competencia", "Promover el crecimiento y la estabilidad"],
+                answer: 2,
+                explanation: "Los documentos señalan que el Estado interviene para corregir fallas de mercado como el monopolio (ineficiencias) y la desigualdad (equidad), pero no para 'garantizar la perfección'."
+            },
+            {
+                question: "La 'Mano Invisible' de Adam Smith se refiere a:",
+                options: ["La intervención del gobierno en la economía", "Un sistema de economía planificada", "La búsqueda del interés personal que beneficia a la sociedad en su conjunto", "La intervención de los bancos centrales en los mercados"],
+                answer: 2,
+                explanation: "La doctrina de la mano invisible sugiere que, en una economía de mercado, los individuos que buscan su propio interés terminan promoviendo el bienestar de la sociedad de manera no intencionada."
+            },
+            {
+                question: "¿Cómo se ilustra el concepto de 'rendimientos marginales constantes'?",
+                options: ["La FPP es una curva cóncava", "La FPP es una línea recta", "La FPP es una curva convexa", "La FPP se desplaza hacia afuera"],
+                answer: 1,
+                explanation: "Cuando los rendimientos marginales son constantes, el costo de oportunidad no cambia a medida que se produce más de un bien, lo que se representa con una FPP en forma de línea recta."
+            },
+            {
+                question: "Según el documento de Di Pelino, la escuela de pensamiento monetarista se enfoca especialmente en:",
+                options: ["El papel de la oferta y la demanda de bienes", "La relación entre el empleo y la producción", "El impacto del dinero y la oferta monetaria en la economía", "El papel de la planificación central"],
+                answer: 2,
+                explanation: "El monetarismo es una corriente que se dedica al análisis del impacto del dinero y la oferta monetaria en las economías."
+            },
+            {
+                question: "¿Qué ocurre con la FPP si un avance tecnológico afecta únicamente la producción de un solo bien?",
+                options: ["Se desplazará simétricamente hacia la derecha", "Rotará sobre el eje del bien que no se vio afectado", "No se mueve", "Rotará sobre el eje del bien que se vio afectado"],
+                answer: 1,
+                explanation: "El avance tecnológico para un solo bien aumenta las posibilidades de producción solo para ese bien, causando que la FPP se desplace hacia afuera de manera asimétrica, rotando sobre el eje del otro bien."
+            },
+            {
+                question: "En el contexto de la FPP, ¿cuándo se produce un 'cambio en la asignación de recursos'?",
+                options: ["Cuando la frontera se desplaza", "Cuando se mueve el punto de producción dentro del área de posibilidades", "Cuando se produce un movimiento sobre la frontera", "Cuando se incorpora nueva tecnología"],
+                answer: 2,
+                explanation: "Un cambio en la asignación de recursos significa que se está produciendo una combinación diferente de bienes, lo cual se representa con un movimiento sobre la misma frontera."
+            },
+            {
+                question: "¿Qué concepto se define como el uso más eficaz de los recursos de una sociedad para satisfacer las necesidades y deseos de las personas?",
+                options: ["Escasez", "Equidad", "Estabilidad", "Eficiencia económica"],
+                answer: 3,
+                explanation: "La eficiencia económica es un concepto clave que implica maximizar la producción de la sociedad con los recursos disponibles."
+            },
+            {
+                question: "¿Cuál de los siguientes es un problema económico central que toda sociedad debe resolver?",
+                options: ["Solo cómo producir", "Qué producir, cómo producir y para quién producir", "Únicamente para quién producir", "Ninguno de los anteriores"],
+                answer: 1,
+                explanation: "La escasez obliga a las sociedades a responder las tres preguntas fundamentales: qué producir, cómo producir y para quién producir."
+            },
+            {
+                question: "Según los documentos, ¿quién se considera el fundador de la microeconomía moderna?",
+                options: ["John Maynard Keynes", "Milton Friedman", "Karl Marx", "Adam Smith"],
+                answer: 3,
+                explanation: "El documento de Samuelson menciona a Adam Smith como el padre fundador de la microeconomía por su trabajo sobre la 'mano invisible'."
+            },
+            {
+                question: "¿Qué tipo de rendimientos de la producción se asocian a una FPP en forma de línea recta?",
+                options: ["Rendimientos marginales decrecientes", "Rendimientos marginales crecientes", "Rendimientos marginales constantes", "No existe tal asociación"],
+                answer: 2,
+                explanation: "Una FPP recta tiene un costo de oportunidad constante, lo que ocurre cuando los rendimientos marginales de la producción son constantes."
+            },
+            {
+                question: "Si la tecnología para la producción de un bien se vuelve obsoleta, ¿qué le sucederá a la FPP?",
+                options: ["Se desplazará hacia la derecha", "Rotará sobre el eje del bien afectado hacia el origen", "Rotará sobre el eje del bien que no se vio afectado", "Se volverá más cóncava"],
+                answer: 1,
+                explanation: "La obsolescencia tecnológica para un bien reduce la capacidad de producción de ese bien, causando que la frontera rote hacia el origen en el eje de ese bien."
+            },
+            {
+                question: "¿Cuál es el propósito del modelo de la Frontera de Posibilidades de Producción?",
+                options: ["Entender el desempleo", "Comprender la inflación", "Comprender el fenómeno de la escasez", "Medir el producto interno bruto"],
+                answer: 2,
+                explanation: "El documento 'Modelo FPP.pdf' establece claramente que el modelo sirve para comprender el fenómeno de la escasez y su papel en las decisiones económicas."
+            },
+            {
+                question: "El dinero como un medio de intercambio es una característica de:",
+                options: ["Las economías feudales", "Las economías de trueque", "Las economías de mercado modernas", "Las economías planificadas"],
+                answer: 2,
+                explanation: "El uso del dinero, que facilita los intercambios, es una característica clave de las economías modernas de mercado, a diferencia del trueque."
+            },
+            {
+                question: "¿Qué se entiende por 'división del trabajo' en una economía moderna?",
+                options: ["La distribución del ingreso entre los trabajadores", "La separación de la producción en numerosas tareas pequeñas y especializadas", "La división del trabajo en el sector público y privado", "La división de los trabajadores por género"],
+                answer: 1,
+                explanation: "La división del trabajo implica la especialización de la mano de obra, donde cada persona o grupo se concentra en una tarea específica para aumentar la productividad."
+            },
+            {
+                question: "Una 'externalidad' en economía se refiere a:",
+                options: ["El efecto positivo o negativo de una actividad económica sobre terceros", "Los bienes producidos por una empresa extranjera", "Los efectos del clima en la producción agrícola", "Los costos de producción de una empresa"],
+                answer: 0,
+                explanation: "Una externalidad es un efecto no deseado, positivo o negativo, que una actividad de producción o consumo causa sobre un tercero. El Estado interviene para corregirlas."
+            },
+            {
+                question: "La 'propiedad privada' es un derecho fundamental en:",
+                options: ["Una economía de planificación central", "Una economía de trueque", "Una economía de mercado", "Una economía mixta"],
+                answer: 2,
+                explanation: "La propiedad privada, incluyendo los derechos de propiedad intelectual, es un elemento central del mecanismo de mercado, ya que permite la posesión y el control de los bienes."
+            },
+            {
+                question: "Si una empresa experimenta 'rendimientos marginales crecientes', ¿qué significa?",
+                options: ["Cada nueva unidad de recurso agrega menos a la producción que la anterior", "Cada nueva unidad de recurso agrega más a la producción que la anterior", "Cada nueva unidad de recurso agrega la misma cantidad a la producción", "La producción total está disminuyendo"],
+                answer: 1,
+                explanation: "Los rendimientos crecientes significan que a medida que se añaden más recursos, el rendimiento adicional (marginal) de cada nuevo recurso es mayor que el del anterior."
+            },
+            {
+                question: "El estudio de la forma de la curva FPP está directamente relacionado con:",
+                options: ["El nivel de desempleo", "El tipo de cambio", "Los rendimientos de la producción", "La tasa de inflación"],
+                answer: 2,
+                explanation: "El documento 'Rendimientos de la Producción.pdf' establece que la forma de la FPP (cóncava, recta o convexa) está asociada a los rendimientos marginales de la producción."
+            },
+            {
+                question: "Un movimiento del punto de producción 'dentro del área de posibilidades' de la FPP se debe a:",
+                options: ["Un cambio en la dotación de recursos", "Un cambio en la utilización de los recursos", "Un movimiento sobre la frontera", "Una mejora tecnológica"],
+                answer: 1,
+                explanation: "Un movimiento dentro del área de la FPP, lejos de la frontera, indica que la economía está utilizando menos recursos de los que tiene disponibles, por lo que es un cambio en la 'utilización'."
+            },
+            {
+                question: "Según el documento de Di Pelino, ¿qué idea comparten los monetaristas con los neoclásicos?",
+                options: ["La necesidad de una fuerte intervención estatal", "La concentración de poderes económicos", "La idea del equilibrio económico y la libertad de los mercados", "La teoría de la plusvalía"],
+                answer: 2,
+                explanation: "El documento señala que los monetaristas, al igual que los neoclásicos, consideran que el equilibrio económico y la libertad de los mercados son fundamentales."
+            },
+            {
+                question: "La 'especialización' en la economía moderna lleva a:",
+                options: ["Una disminución de la producción", "Una menor dependencia de otros", "Una mayor productividad y eficiencia", "Un aumento de los costos de producción"],
+                answer: 2,
+                explanation: "La especialización permite que los trabajadores se vuelvan expertos en una tarea, lo que mejora la productividad total de la economía y la eficiencia."
+            },
+            {
+                question: "La capacidad del Estado para utilizar poderes fiscales y política monetaria para promover el crecimiento se conoce como:",
+                options: ["Política de precios", "Política de trueque", "Política macroeconómica", "Economía mixta"],
+                answer: 2,
+                explanation: "El documento de Samuelson describe este rol del gobierno como el uso de la política fiscal y monetaria para promover el crecimiento y la estabilidad, que son objetivos macroeconómicos."
+            },
+            {
+                question: "¿Cuál de las siguientes es una 'externalidad negativa'?",
+                options: ["La contaminación de un río por una fábrica", "La construcción de un parque público", "El uso de vacunas", "El aumento de la producción de un bien"],
+                answer: 0,
+                explanation: "La contaminación es un costo no deseado (externo) que la producción de una empresa impone sobre terceros, como los habitantes de una comunidad."
+            },
+            {
+                question: "La 'equidad' en el papel del Estado se refiere a:",
+                options: ["La eficiencia en la producción", "La justicia en la distribución del ingreso", "La estabilidad de los precios", "La seguridad nacional"],
+                answer: 1,
+                explanation: "La equidad se relaciona con el concepto de justicia distributiva y la idea de que la economía de mercado puede generar desigualdades, las cuales el gobierno puede intentar corregir."
+            },
+            {
+                question: "Si la FPP de un país se desplaza a la derecha, esto puede ser causado por:",
+                options: ["Un desastre natural que destruye fábricas", "Un aumento en los impuestos a las empresas", "Una disminución en la mano de obra disponible", "El descubrimiento de nuevos recursos naturales"],
+                answer: 3,
+                explanation: "El descubrimiento de nuevos recursos, al igual que los avances tecnológicos, aumenta la capacidad productiva de la economía y desplaza la FPP hacia afuera."
+            },
+            {
+                question: "¿Cuál es la definición de economía según los textos?",
+                options: ["La ciencia del dinero", "El estudio de cómo las sociedades utilizan recursos escasos para producir bienes valiosos y distribuirlos", "El arte de la negociación en los mercados", "La contabilidad de las empresas y los gobiernos"],
+                answer: 1,
+                explanation: "La economía es el estudio de la manera en que las sociedades utilizan los recursos escasos para producir mercancías valiosas y distribuirlas entre los diferentes individuos."
+            },
+            {
+                question: "La escasez es un problema porque:",
+                options: ["No hay suficiente dinero en el mundo", "Los bienes son limitados en relación con los deseos", "La tecnología avanza muy lentamente", "El gobierno no distribuye bien los recursos"],
+                answer: 1,
+                explanation: "La escasez surge porque los bienes son limitados, mientras que los deseos de las personas parecen ser ilimitados."
+            },
+            {
+                question: "Un punto ubicado por encima o a la derecha de la FPP representa:",
+                options: ["Una combinación de producción eficiente", "Una combinación de producción ineficiente", "Una combinación de producción inalcanzable con los recursos y tecnología actuales", "El punto de máximo beneficio"],
+                answer: 2,
+                explanation: "Un punto por encima de la FPP representa una combinación de producción que es inalcanzable para la economía con su tecnología y recursos actuales."
+            },
+            {
+                question: "¿Qué implica un movimiento a lo largo de la FPP?",
+                options: ["Un crecimiento económico", "Una recesión económica", "Una reasignación de recursos de un bien a otro", "Un cambio tecnológico"],
+                answer: 2,
+                explanation: "Un movimiento sobre la FPP implica transferir recursos de la producción de un bien a la de otro, lo que refleja el costo de oportunidad."
+            },
+            {
+                question: "Si una economía está operando en un punto dentro de su FPP, esto significa que:",
+                options: ["Está utilizando todos sus recursos eficientemente", "Hay desempleo o subutilización de recursos", "Ha ocurrido un desastre natural", "La tecnología ha mejorado"],
+                answer: 1,
+                explanation: "Un punto dentro de la FPP indica ineficiencia, como recursos ociosos o desempleo, ya que se podría producir más de ambos bienes."
+            },
+            {
+                question: "¿Qué es la eficiencia productiva?",
+                options: ["Producir la máxima cantidad posible de un bien, sin importar los demás", "Producir una combinación de bienes que la sociedad desea por encima de otras", "Producir la cantidad máxima de bienes con los recursos y tecnología disponibles", "Distribuir los bienes de manera equitativa"],
+                answer: 2,
+                explanation: "La eficiencia productiva se presenta cuando una economía no puede producir más de un bien sin producir menos de otro; se encuentra sobre su FPP."
+            },
+            {
+                question: "¿Cuál de los siguientes es un ejemplo de un factor de producción de 'Tierra'?",
+                options: ["Una fábrica", "Un programador de software", "El petróleo utilizado para producir plástico", "Un bono del gobierno"],
+                answer: 2,
+                explanation: "El factor 'Tierra' se refiere a los recursos naturales, como la tierra cultivable, los minerales y el petróleo."
+            },
+            {
+                question: "¿Qué es el 'Capital' como factor de producción?",
+                options: ["El dinero en efectivo de una empresa", "Los bienes duraderos producidos para fabricar otros bienes", "Las acciones y bonos", "El conocimiento de los trabajadores"],
+                answer: 1,
+                explanation: "El capital consiste en los bienes duraderos que produce una economía para producir otros bienes, como maquinaria, edificios y herramientas."
+            },
+            {
+                question: "La Microeconomía se enfoca en:",
+                options: ["El PBI, la inflación y el desempleo", "El comportamiento de entidades individuales como mercados, empresas y hogares", "El comercio internacional y las tasas de cambio", "Las políticas fiscales y monetarias del gobierno"],
+                answer: 1,
+                explanation: "La microeconomía, fundada por Adam Smith, se ocupa del comportamiento de entidades individuales como los mercados, las empresas y los hogares."
+            },
+            {
+                question: "¿Cuál de las siguientes preguntas sería estudiada por la Macroeconomía?",
+                options: ["¿Por qué los médicos ganan más que los conserjes?", "¿Qué causa un aumento en la tasa de inflación de un país?", "¿Cómo afecta un impuesto a la venta de cigarrillos?", "¿Por qué una empresa decide invertir en nueva tecnología?"],
+                answer: 1,
+                explanation: "La macroeconomía analiza el desempeño general de la economía, incluyendo temas como la inflación, el desempleo y el crecimiento económico."
+            },
+            {
+                question: "La 'falacia de la composición' consiste en suponer que:",
+                options: ["Lo que es cierto para una parte, es cierto para el todo", "El futuro será igual que el pasado", "Dos eventos que ocurren juntos tienen una relación causal", "Mantener todo lo demás constante es imposible"],
+                answer: 0,
+                explanation: "La falacia de la composición es la suposición de que lo que es cierto para una parte de un sistema, también lo es para la totalidad del mismo."
+            },
+            {
+                question: "¿Qué caracteriza a la Economía Positiva?",
+                options: ["Se basa en juicios de valor y preceptos éticos", "Describe los hechos de una economía y busca explicar cómo funciona", "Recomienda políticas económicas específicas", "Se enfoca en lo que 'debería ser'"],
+                answer: 1,
+                explanation: "La economía positiva se refiere a cuestiones que se pueden solucionar por referencia al análisis y a la evidencia empírica. Describe los hechos de una economía."
+            },
+            {
+                question: "Una afirmación de Economía Normativa sería:",
+                options: ["La tasa de desempleo en Argentina fue del 7% el año pasado", "Un aumento en el impuesto a la nafta reducirá su consumo", "El gobierno debería aumentar el salario mínimo para reducir la pobreza", "La FPP de este país es cóncava"],
+                answer: 2,
+                explanation: "La economía normativa comprende preceptos éticos y normas de justicia. Involucra juicios de valor sobre lo que 'debería ser'."
+            },
+            {
+                question: "¿Cuáles son las tres preguntas económicas fundamentales que toda sociedad debe responder?",
+                options: ["¿Cuánto, cuándo y dónde producir?", "¿Qué, cómo y para quién producir?", "¿Por qué, para qué y con qué producir?", "¿Quién, cuándo y dónde consumir?"],
+                answer: 1,
+                explanation: "Toda sociedad debe tener una manera de determinar qué mercancías se producen, cómo se producen y para quién se producen."
+            },
+            {
+                question: "En una economía de mercado (o de laissez-faire), las decisiones económicas se toman principalmente por:",
+                options: ["El gobierno central", "La tradición y la costumbre", "Los individuos y las empresas privadas", "Las organizaciones internacionales"],
+                answer: 2,
+                explanation: "Una economía de mercado es aquella en la que los individuos y las empresas privadas toman las decisiones más importantes acerca de la producción y el consumo."
+            },
+            {
+                question: "¿Qué es una economía autoritaria?",
+                options: ["Una economía donde no hay gobierno", "Una economía donde el gobierno toma todas las decisiones importantes sobre la producción y la distribución", "Una economía basada en el trueque", "Una economía con libre mercado absoluto"],
+                answer: 1,
+                explanation: "En una economía autoritaria, el gobierno toma todas las decisiones importantes acerca de la producción y la distribución."
+            },
+            {
+                question: "La mayoría de las sociedades actuales tienen una:",
+                options: ["Economía de mercado pura", "Economía autoritaria pura", "Economía tradicional", "Economía mixta"],
+                answer: 3,
+                explanation: "Todas las sociedades contemporáneas son economías mixtas, con elementos de las economías de mercado y de las economías autoritarias."
+            },
+            {
+                question: "Un crecimiento económico se representa en el modelo de la FPP como:",
+                options: ["Un movimiento a lo largo de la frontera", "Un punto dentro de la frontera", "Un desplazamiento de la frontera hacia afuera (a la derecha)", "Un desplazamiento de la frontera hacia adentro (a la izquierda)"],
+                answer: 2,
+                explanation: "El crecimiento económico, producto de más insumos o mejor tecnología, desplaza la FPP hacia la derecha."
+            },
+            {
+                question: "Si un país invierte más en bienes de capital (maquinaria, fábricas) que en bienes de consumo, ¿qué efecto tendrá en su FPP futura?",
+                options: ["La FPP se contraerá", "La FPP se desplazará más hacia la derecha en el futuro", "La FPP no cambiará", "La FPP se volverá una línea recta"],
+                answer: 1,
+                explanation: "Sacrificar consumo actual por inversión en capital permite un mayor crecimiento económico y un mayor desplazamiento de la FPP en el futuro."
+            },
+            {
+                question: "El costo de oportunidad es creciente (y la FPP es cóncava) porque:",
+                options: ["La tecnología siempre mejora", "Los recursos no son igualmente eficientes en la producción de todos los bienes", "El gobierno lo exige", "Es más fácil producir más de un bien"],
+                answer: 1,
+                explanation: "La FPP es cóncava debido a que los recursos son especializados y no se adaptan con la misma eficiencia para producir bienes diferentes, lo que genera un costo de oportunidad creciente."
+            },
+            {
+                question: "¿Qué es la 'mano invisible' de Adam Smith?",
+                options: ["Una regulación gubernamental oculta", "La idea de que la búsqueda del interés privado puede llevar a un resultado socialmente deseable", "El poder de los monopolios para fijar precios", "Una política fiscal expansiva"],
+                answer: 1,
+                explanation: "La 'mano invisible' es la noción de que, en un mercado competitivo, la búsqueda del propio interés por parte de los individuos puede promover el interés público."
+            },
+            {
+                question: "¿Cuál de las siguientes es una función económica del Estado en una economía mixta?",
+                options: ["Fijar todos los precios de los bienes", "Decidir qué carrera debe estudiar cada persona", "Corregir fallas de mercado como las externalidades y los monopolios", "Ser el único empleador del país"],
+                answer: 2,
+                explanation: "El Estado asume muchas tareas en respuesta a las fallas del mecanismo de mercado, como combatir las externalidades negativas y regular los monopolios."
+            },
+            {
+                question: "La 'Ley de Say', asociada a la economía clásica, postula que:",
+                options: ["La demanda crea su propia oferta", "El gobierno debe intervenir para crear demanda", "Toda oferta crea su propia demanda", "El ahorro siempre es perjudicial para la economía"],
+                answer: 2,
+                explanation: "La Ley de Say sostiene que 'la oferta crea su propia demanda', lo que implica que no puede haber una sobreproducción generalizada o desempleo persistente."
+            },
+            {
+                question: "¿Qué economista es considerado el padre de la Macroeconomía moderna?",
+                options: ["Adam Smith", "Karl Marx", "John Maynard Keynes", "Milton Friedman"],
+                answer: 2,
+                explanation: "La macroeconomía moderna fue desarrollada por John Maynard Keynes, especialmente a partir de su obra 'Teoría general del empleo, el interés y el dinero'."
+            },
+            {
+                question: "La teoría neoclásica del valor sostiene que el valor de un bien depende de:",
+                options: ["La cantidad de trabajo necesaria para producirlo", "La utilidad o satisfacción que brinda al consumidor", "El costo de los materiales", "La decisión del gobierno"],
+                answer: 1,
+                explanation: "La teoría neoclásica introdujo la 'teoría subjetiva del valor', donde el valor de un bien se deriva de la utilidad que le asigna el consumidor."
+            },
+            {
+                question: "¿Qué es el desempleo involuntario según la teoría keynesiana?",
+                options: ["Personas que no quieren trabajar", "Personas que están cambiando de trabajo", "Trabajadores que, aun deseando trabajar al salario de mercado, no encuentran empleo", "Un fenómeno inexistente en la realidad"],
+                answer: 2,
+                explanation: "Keynes argumentó que en las recesiones puede existir desempleo involuntario, donde hay gente cualificada que no encuentra trabajo al salario vigente."
+            },
+            {
+                question: "Un punto inalcanzable en la FPP puede volverse alcanzable si:",
+                options: ["Se reduce la población", "Hay un desastre natural", "Hay una mejora tecnológica o un aumento en la dotación de recursos", "El gobierno fija precios más altos"],
+                answer: 2,
+                explanation: "Los puntos fuera de la FPP se pueden alcanzar a través del crecimiento económico, que es impulsado por mejoras tecnológicas o un aumento de los factores de producción."
+            },
+            {
+                question: "¿Qué es un modelo económico?",
+                options: ["Una descripción exacta y detallada de la realidad económica", "Una representación simplificada de la realidad económica utilizada para entenderla mejor", "Una ley que debe ser obedecida por todos los agentes económicos", "Una predicción infalible del futuro"],
+                answer: 1,
+                explanation: "Los economistas utilizan modelos, que son representaciones simplificadas de la realidad, para analizar y comprender fenómenos económicos complejos."
+            },
+            {
+                question: "Si una FPP es una línea recta, el costo de oportunidad es:",
+                options: ["Creciente", "Decreciente", "Constante", "Cero"],
+                answer: 2,
+                explanation: "Una FPP lineal implica un costo de oportunidad constante, lo que significa que la cantidad de un bien que se debe sacrificar para obtener una unidad adicional del otro bien no cambia."
+            },
+            {
+                question: "La teoría marxista se centra en el conflicto entre:",
+                options: ["Consumidores y productores", "Gobierno y empresas", "Burguesía y proletariado", "Países desarrollados y en desarrollo"],
+                answer: 2,
+                explanation: "El marxismo analiza la historia como una lucha de clases, principalmente entre la burguesía (propietarios del capital) y el proletariado (trabajadores)."
+            },
+            {
+                question: "¿Qué significa que los recursos son 'versátiles' en el modelo FPP?",
+                options: ["Que solo sirven para producir un tipo de bien", "Que pueden emplearse indistintamente en la producción de uno u otro bien", "Que son ilimitados", "Que son propiedad del Estado"],
+                answer: 1,
+                explanation: "Uno de los supuestos de la FPP es que los recursos son versátiles, es decir, pueden ser transferidos de la producción de un bien a otro."
+            },
+            {
+                question: "La 'plusvalía' en la teoría marxista es:",
+                options: ["El salario que recibe el trabajador", "La diferencia entre el valor que el trabajador genera y lo que se le paga", "El beneficio del comerciante", "El impuesto que cobra el Estado"],
+                answer: 1,
+                explanation: "La plusvalía es la diferencia entre el valor creado por el trabajo del obrero y el salario que recibe, de la cual se apropia el capitalista."
+            },
+            {
+                question: "¿Qué es una 'falla de mercado'?",
+                options: ["Cuando un mercado no logra la eficiencia", "Cuando los precios son demasiado altos", "Cuando los consumidores no compran un producto", "Cuando una empresa quiebra"],
+                answer: 0,
+                explanation: "Las fallas de mercado, como los monopolios o las externalidades, son situaciones en las que el mercado por sí solo no asigna los recursos de manera eficiente."
+            },
+            {
+                question: "La principal herramienta de intervención del Estado según la teoría keynesiana es:",
+                options: ["La política monetaria", "La política fiscal (gasto público e impuestos)", "La regulación de precios", "El control de las importaciones"],
+                answer: 1,
+                explanation: "Keynes proponía una intervención activa del Estado a través de la política fiscal para estabilizar la economía y combatir el desempleo."
+            },
+            {
+                question: "¿Qué es el 'ejército industrial de reserva' en la teoría de Marx?",
+                options: ["Las fuerzas armadas de un país capitalista", "Un sindicato de trabajadores industriales", "La existencia de desempleados que disciplina a la clase trabajadora", "Una fuerza policial para proteger las fábricas"],
+                answer: 2,
+                explanation: "Es la masa de desempleados que, según Marx, es necesaria para el sistema capitalista, ya que su existencia presiona los salarios a la baja."
+            },
+            {
+                question: "Si una economía produce dos bienes, cañones y mantequilla, y decide aumentar la producción de cañones, el costo de oportunidad es:",
+                options: ["La cantidad de cañones adicionales producidos", "El dinero gastado en los cañones", "La cantidad de mantequilla que debe dejar de producir", "Cero, si la economía es eficiente"],
+                answer: 2,
+                explanation: "El costo de oportunidad de producir más cañones es la cantidad de mantequilla que se debe sacrificar, asumiendo que la economía está sobre su FPP."
+            },
+            {
+                question: "¿Qué enfoque económico se preocupa más por la 'equidad' en la distribución del ingreso?",
+                options: ["La economía positiva", "La economía normativa", "La microeconomía", "La econometría"],
+                answer: 1,
+                explanation: "La economía normativa se ocupa de cuestiones de justicia y equidad, emitiendo juicios de valor sobre cómo debería ser la distribución de la riqueza."
+            },
+            {
+                question: "Un desastre natural que destruye tierras de cultivo y fábricas provocará en la FPP:",
+                options: ["Un desplazamiento hacia la derecha", "Un desplazamiento hacia la izquierda", "Un movimiento a lo largo de la frontera", "Ningún cambio"],
+                answer: 1,
+                explanation: "Una disminución de los recursos productivos contrae la FPP, reduciendo las posibilidades de producción de la economía."
+            },
+            {
+                question: "La idea de que los agentes económicos son 'racionales' y buscan maximizar sus beneficios o utilidad es central en la teoría:",
+                options: ["Clásica", "Marxista", "Neoclásica", "Keynesiana"],
+                answer: 2,
+                explanation: "La teoría neoclásica se basa en el supuesto de agentes racionales que buscan maximizar su propia satisfacción (utilidad para los consumidores, beneficios para los productores)."
+            },
+            {
+                question: "¿Por qué la economía es considerada una ciencia social?",
+                options: ["Porque estudia la sociedad y el comportamiento humano en relación con la escasez", "Porque utiliza las redes sociales para sus análisis", "Porque es una ciencia fácil de entender para todos", "Porque no utiliza matemáticas"],
+                answer: 0,
+                explanation: "Es una ciencia social porque estudia fenómenos relacionados con la acción humana, que son complejos y no pueden replicarse en un laboratorio."
+            }
+        ];
+
+        let quizzes = [];
+        let currentQuiz;
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const quizSelectionScreen = document.getElementById('quiz-selection-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const questionElement = document.getElementById('question');
+        const optionsContainer = document.getElementById('options-container');
+        const currentQuestionNumberElement = document.getElementById('current-question-number');
+        const scoreElement = document.getElementById('score');
+        const nextButton = document.getElementById('next-button');
+        const feedbackMessage = document.getElementById('feedback-message');
+        const finalScoreElement = document.getElementById('final-score');
+
+        // Función para mezclar un array de forma aleatoria (algoritmo Fisher-Yates)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        
+        // Función para generar los 10 exámenes, cada uno con 20 preguntas aleatorias
+        function generateQuizzes() {
+            quizzes = [];
+            for (let i = 0; i < 10; i++) {
+                shuffleArray(allQuestions);
+                const selectedQuestions = allQuestions.slice(0, 20);
+                quizzes.push({
+                    title: `Examen de Práctica ${i + 1}`,
+                    questions: selectedQuestions
+                });
+            }
+        }
+
+        // Inicia un examen específico por su índice
+        function startQuiz(quizIndex) {
+            currentQuiz = quizzes[quizIndex];
+            currentQuestionIndex = 0;
+            score = 0;
+            
+            quizSelectionScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+
+            showQuestion();
+        }
+
+        // Muestra la pregunta actual y sus opciones
+        function showQuestion() {
+            const currentQuestionData = currentQuiz.questions[currentQuestionIndex];
+
+            currentQuestionNumberElement.textContent = currentQuestionIndex + 1;
+            scoreElement.textContent = score;
+            questionElement.textContent = currentQuestionData.question;
+            optionsContainer.innerHTML = '';
+            feedbackMessage.classList.add('hidden');
+            feedbackMessage.innerHTML = '';
+            nextButton.disabled = true;
+
+            const options = [...currentQuestionData.options];
+            
+            options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('answer-button', 'block');
+                button.onclick = () => checkAnswer(button, index);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        // Verifica la respuesta seleccionada
+        function checkAnswer(selectedButton, selectedIndex) {
+            const currentQuestionData = currentQuiz.questions[currentQuestionIndex];
+            const correctIndex = currentQuestionData.answer;
+
+            // Deshabilitar todos los botones de opciones para evitar cambios
+            Array.from(optionsContainer.children).forEach((button) => {
+                button.disabled = true;
+            });
+            
+            // Marcar la respuesta correcta con verde
+            optionsContainer.children[correctIndex].classList.add('correct');
+
+            if (selectedIndex === correctIndex) {
+                score++;
+                feedbackMessage.textContent = '¡Respuesta Correcta!';
+                feedbackMessage.classList.remove('hidden', 'bg-red-100', 'text-red-700');
+                feedbackMessage.classList.add('bg-green-100', 'text-green-700');
+            } else {
+                // Marcar la respuesta incorrecta con rojo
+                selectedButton.classList.add('incorrect');
+                feedbackMessage.innerHTML = `
+                    <div class="font-bold mb-2">¡Respuesta Incorrecta!</div>
+                    <div class="explanation">
+                        <strong class="text-indigo-700">Explicación:</strong>
+                        <p class="text-sm mt-1 text-gray-700">${currentQuestionData.explanation}</p>
+                    </div>
+                `;
+                feedbackMessage.classList.remove('hidden', 'bg-green-100', 'text-green-700');
+                feedbackMessage.classList.add('bg-red-100', 'text-red-700');
+            }
+
+            feedbackMessage.classList.remove('hidden');
+            scoreElement.textContent = score;
+            nextButton.disabled = false;
+            nextButton.focus();
+        }
+
+        // Pasa a la siguiente pregunta o finaliza el examen
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuiz.questions.length) {
+                showQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        // Muestra la pantalla de resultados finales
+        function endQuiz() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            finalScoreElement.textContent = score;
+        }
+
+        // Vuelve a la pantalla de selección de cuestionarios
+        function restartQuiz() {
+            resultsScreen.classList.add('hidden');
+            quizSelectionScreen.classList.remove('hidden');
+            generateQuizzes(); // Regenerar los exámenes para que sean diferentes cada vez
+        }
+
+        // Inicializa la aplicación al cargar la página
+        window.onload = function() {
+            generateQuizzes();
+            quizSelectionScreen.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

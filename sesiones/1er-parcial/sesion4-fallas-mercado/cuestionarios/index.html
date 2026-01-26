@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Exámenes de práctica sobre Fallas de Mercado - Sesión 4 CBC UBA">
+    <meta name="keywords" content="fallas de mercado, competencia imperfecta, externalidades, bienes públicos, monopolio, oligopolio, economía CBC">
+    <meta name="author" content="Economía CBC - UBA">
+    <title>Exámenes de Práctica - Fallas de Mercado CBC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4f46e5 0%, #a78bfa 100%);
+        }
+        .quiz-button {
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .quiz-button:hover {
+            background-color: #4338ca;
+            transform: translateY(-2px);
+        }
+        .quiz-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .answer-button {
+            width: 100%;
+            background-color: #e5e7eb;
+            color: #1f2937;
+            text-align: left;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .answer-button:hover:not(:disabled) {
+            background-color: #d1d5db;
+        }
+        .answer-button.correct {
+            background-color: #10b981;
+            color: white;
+            animation: pulse-correct 0.8s;
+        }
+        .answer-button.incorrect {
+            background-color: #ef4444;
+            color: white;
+            animation: shake 0.5s;
+        }
+        .explanation {
+            background-color: #f0f4f8;
+            border-left: 4px solid #4f46e5;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+        }
+        @keyframes pulse-correct {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div id="app" class="container bg-white p-8 rounded-2xl shadow-xl w-full">
+        <!-- Pantalla de selección de cuestionarios -->
+        <div id="quiz-selection-screen">
+            <h1 class="text-3xl font-bold text-center mb-4 text-indigo-700">Selecciona un Examen de Práctica</h1>
+            <p class="text-center text-gray-600 mb-8">Cada examen contiene 20 preguntas aleatorias que abarcan todo el contenido de la unidad de Fallas de Mercado. ¡Mucha suerte!</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                <button onclick="startQuiz(0)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 1</button>
+                <button onclick="startQuiz(1)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 2</button>
+                <button onclick="startQuiz(2)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 3</button>
+                <button onclick="startQuiz(3)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 4</button>
+                <button onclick="startQuiz(4)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 5</button>
+                <button onclick="startQuiz(5)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 6</button>
+                <button onclick="startQuiz(6)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 7</button>
+                <button onclick="startQuiz(7)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 8</button>
+                <button onclick="startQuiz(8)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 9</button>
+                <button onclick="startQuiz(9)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 10</button>
+            </div>
+        </div>
+
+        <!-- Pantalla del cuestionario -->
+        <div id="quiz-screen" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <div class="text-lg font-semibold text-gray-700">Pregunta <span id="current-question-number"></span> de 20</div>
+                <div class="text-lg font-semibold text-gray-700">Puntaje: <span id="score">0</span></div>
+            </div>
+            <div class="card p-6 mb-6">
+                <h2 id="question" class="text-xl font-semibold text-gray-900 mb-6"></h2>
+                <div id="options-container" class="space-y-4"></div>
+            </div>
+            <div id="feedback-message" class="text-center p-4 my-4 rounded-lg font-semibold hidden"></div>
+            <button id="next-button" class="quiz-button w-full py-4 mt-6 gradient-bg text-white font-bold text-lg rounded-lg shadow-md focus:outline-none" onclick="nextQuestion()" disabled>Siguiente</button>
+        </div>
+
+        <!-- Pantalla de resultados -->
+        <div id="results-screen" class="hidden text-center">
+            <h1 class="text-3xl font-bold text-indigo-700 mb-4">¡Examen Completo!</h1>
+            <p class="text-xl text-gray-700 mb-6">Tu puntaje final es:</p>
+            <div class="text-5xl font-extrabold text-white gradient-bg p-8 rounded-full inline-block shadow-lg mb-8">
+                <span id="final-score"></span>
+                <span class="block text-2xl font-normal mt-2">de 20</span>
+            </div>
+            <p class="text-lg text-gray-600 mb-4">¡Sigue practicando para dominar las Fallas de Mercado!</p>
+            <button class="quiz-button py-4 px-8 mt-4 bg-indigo-600 text-white font-bold text-lg rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none" onclick="restartQuiz()">Volver a la selección</button>
+        </div>
+    </div>
+
+    <script>
+        const allQuestions = [
+            // Competencia Perfecta
+            {
+                question: "¿Cuál de las siguientes NO es una característica de la competencia perfecta?",
+                options: ["Atomización del mercado", "Producto diferenciado", "Libre entrada y salida", "Información perfecta"],
+                answer: 1,
+                explanation: "En competencia perfecta, el producto es homogéneo, no diferenciado. La diferenciación de productos es una característica de la competencia monopolística."
+            },
+            {
+                question: "En un mercado de competencia perfecta, ¿quién determina el precio?",
+                options: ["La empresa más grande", "El gobierno", "El libre juego de la oferta y la demanda", "Un cartel de productores"],
+                answer: 2,
+                explanation: "Debido a la atomización, ninguna empresa o consumidor individual puede influir en el precio. Este se determina por la intersección de las curvas de oferta y demanda del mercado."
+            },
+            {
+                question: "La 'atomización' en un mercado perfectamente competitivo implica que:",
+                options: ["Los productos se venden en pequeñas unidades", "Hay muchos compradores y vendedores pequeños", "La información está fragmentada", "Las empresas pueden unirse para fijar precios"],
+                answer: 1,
+                explanation: "La atomización se refiere a la existencia de un gran número de compradores y vendedores, donde cada uno es tan pequeño en relación al mercado que no puede influir en el precio."
+            },
+            {
+                question: "La homogeneidad del producto significa que:",
+                options: ["Los productos son de alta calidad", "Los consumidores son indiferentes a qué empresa comprarle", "Todas las empresas producen la misma cantidad", "El gobierno estandariza los productos"],
+                answer: 1,
+                explanation: "Un producto homogéneo es idéntico sin importar quién lo produzca. No hay diferencias de marca, calidad o empaque, por lo que al consumidor le da lo mismo un productor que otro."
+            },
+            {
+                question: "En competencia perfecta, si una empresa intenta vender a un precio superior al del mercado, ¿qué sucederá?",
+                options: ["Venderá más que sus competidores", "Tendrá mayores beneficios", "No venderá nada", "Forzará a las otras a subir el precio"],
+                answer: 2,
+                explanation: "Dado que el producto es homogéneo y la información es perfecta, los consumidores simplemente comprarán a cualquiera de las otras empresas que venden al precio de mercado. La empresa que sube el precio no tendrá clientes."
+            },
+
+            // Competencia Imperfecta y Fallas de Mercado
+            {
+                question: "Una 'falla de mercado' ocurre cuando:",
+                options: ["Una empresa quiebra", "El mercado no asigna los recursos de manera eficiente", "Los precios son demasiado altos para los consumidores", "El gobierno interviene en la economía"],
+                answer: 1,
+                explanation: "Una falla de mercado es una situación en la que el mercado, por sí solo, no logra una asignación eficiente de los recursos, lo que lleva a un resultado subóptimo."
+            },
+            {
+                question: "¿Cuál de las siguientes es la causa principal de la competencia imperfecta?",
+                options: ["La intervención del gobierno", "La falta de demanda", "El incumplimiento de una o más condiciones de la competencia perfecta", "La globalización"],
+                answer: 2,
+                explanation: "La competencia imperfecta surge precisamente cuando no se cumplen supuestos como la atomización, la homogeneidad del producto, la libre entrada/salida o la información perfecta."
+            },
+            {
+                question: "En competencia imperfecta, las empresas tienen 'poder de mercado', lo que significa que pueden:",
+                options: ["Vender todo lo que quieran", "Ignorar a los consumidores", "Influir en el precio de mercado", "Operar sin costos"],
+                answer: 2,
+                explanation: "El poder de mercado es la capacidad de un vendedor o comprador para influir en el precio de un bien. En competencia perfecta, ninguna empresa tiene este poder."
+            },
+
+            // Externalidades
+            {
+                question: "Una externalidad es:",
+                options: ["Un costo o beneficio que afecta a un tercero no involucrado en la transacción", "Un impuesto adicional que cobra el gobierno", "El costo de exportar un producto", "Un beneficio exclusivo para el productor"],
+                answer: 0,
+                explanation: "Las externalidades son efectos secundarios (positivos o negativos) de una actividad de producción o consumo que recaen sobre personas que no son ni el productor ni el consumidor."
+            },
+            {
+                question: "La contaminación de un río por una fábrica es un ejemplo de:",
+                options: ["Externalidad positiva", "Bien público", "Externalidad negativa", "Monopolio natural"],
+                answer: 2,
+                explanation: "Es una externalidad negativa porque impone un costo a la sociedad (pérdida de biodiversidad, problemas de salud, etc.) que la fábrica no incluye en sus costos de producción y, por lo tanto, no se refleja en el precio del producto."
+            },
+            {
+                question: "La vacunación masiva genera una externalidad positiva porque:",
+                options: ["Es gratis para todos", "Reduce la probabilidad de contagio para toda la comunidad, incluso para los no vacunados", "Es producida por el Estado", "Aumenta los beneficios de las farmacéuticas"],
+                answer: 1,
+                explanation: "El beneficio no es solo para la persona que se vacuna, sino para toda la sociedad, ya que al reducir la circulación de una enfermedad, se protege también a quienes no pueden vacunarse. Este beneficio social no es compensado."
+            },
+            {
+                question: "Según el Teorema de Coase, las externalidades pueden resolverse de forma privada si:",
+                options: ["El gobierno actúa como mediador", "Los costos de transacción son bajos y los derechos de propiedad están bien definidos", "Se prohíbe la actividad que genera la externalidad", "Se imponen altos impuestos"],
+                answer: 1,
+                explanation: "Coase argumentó que si las partes afectadas pueden negociar sin costo, pueden llegar a un acuerdo eficiente que internalice la externalidad, sin necesidad de intervención estatal."
+            },
+            {
+                question: "Una forma en que el Estado puede corregir una externalidad negativa como la contaminación es:",
+                options: ["Otorgando subsidios a la empresa contaminante", "Fijando un precio máximo para sus productos", "Estableciendo un impuesto a la contaminación", "Comprando toda la producción de la empresa"],
+                answer: 2,
+                explanation: "Un impuesto a la contaminación (impuesto pigouviano) obliga a la empresa a 'internalizar' el costo social de su actividad, incentivándola a reducir la contaminación para pagar menos impuestos."
+            },
+            {
+                question: "Un apicultor que se beneficia de las flores de un campo vecino sin pagar por ello es un ejemplo de:",
+                options: ["Externalidad positiva en la producción", "Externalidad negativa en el consumo", "Bien mixto", "Competencia monopolística"],
+                answer: 0,
+                explanation: "El apicultor recibe un beneficio (más néctar para sus abejas) gracias a la actividad de otro (el agricultor que plantó las flores), sin que este último sea compensado por ello."
+            },
+
+            // Bienes Públicos
+            {
+                question: "Un bien es 'no rival' en el consumo si:",
+                options: ["Nadie quiere consumirlo", "El consumo de una persona no impide que otra también lo consuma", "No tiene competidores en el mercado", "Es gratis"],
+                answer: 1,
+                explanation: "La no rivalidad significa que el consumo es compartido. Que una persona vea un faro o escuche una sirena no reduce la capacidad de otra persona para hacer lo mismo."
+            },
+            {
+                question: "Un bien es 'no excluyente' si:",
+                options: ["Es imposible o muy costoso impedir que alguien lo consuma, pague o no", "Está disponible en cantidades ilimitadas", "Solo el gobierno puede producirlo", "No tiene marca"],
+                answer: 0,
+                explanation: "La no exclusión implica que no se puede aplicar el principio de 'si no pagas, no lo tienes'. Por ejemplo, es imposible evitar que un barco se beneficie del alumbrado de un faro."
+            },
+            {
+                question: "¿Cuál de los siguientes es el mejor ejemplo de un bien público puro?",
+                options: ["La educación universitaria", "Una autopista congestionada", "La defensa nacional", "Un parque temático"],
+                answer: 2,
+                explanation: "La defensa nacional es no rival (protege a todos simultáneamente) y no excluyente (es imposible excluir a un ciudadano de su protección)."
+            },
+            {
+                question: "El problema del 'consumidor parasitario' (free-rider) se refiere a que:",
+                options: ["Las personas consumen más de lo que necesitan", "Las personas se benefician de un bien público sin pagar por él", "Las empresas no quieren producir bienes públicos", "El gobierno cobra demasiados impuestos"],
+                answer: 1,
+                explanation: "Dado que los bienes públicos son no excluyentes, los individuos tienen un incentivo a no revelar su disposición a pagar y a consumir el bien sin contribuir a su costo, esperando que otros paguen por él."
+            },
+            {
+                question: "Debido al problema del free-rider, la provisión de bienes públicos por parte del mercado privado suele ser:",
+                options: ["Excesiva", "Eficiente", "Ineficiente o nula", "Muy costosa"],
+                answer: 2,
+                explanation: "Como las empresas no pueden asegurar que todos los que se benefician del bien paguen por él, no tienen incentivos para producirlo en la cantidad socialmente óptima, o directamente no lo producen. Por eso, el Estado suele encargarse de su provisión."
+            },
+            {
+                question: "Una calle con peaje pero sin congestión es un ejemplo de:",
+                options: ["Bien privado", "Bien público puro", "Bien mixto (monopolio natural)", "Bien común"],
+                answer: 2,
+                explanation: "Es no rival (mientras no haya congestión, un auto más no molesta a los demás) pero sí excluyente (se puede impedir el paso a quien no paga el peaje). Este tipo de bienes a menudo son gestionados como monopolios naturales."
+            },
+
+            // Estructuras de Mercado No Competitivas
+            {
+                question: "Un monopolio se caracteriza por:",
+                options: ["Muchos vendedores de un producto idéntico", "Un único vendedor con poder de mercado total", "Pocos vendedores que compiten ferozmente", "Muchos vendedores de productos diferenciados"],
+                answer: 1,
+                explanation: "Un monopolio es una estructura de mercado donde existe un único oferente de un bien o servicio que no tiene sustitutos cercanos."
+            },
+            {
+                question: "Una 'barrera de entrada' que puede dar origen a un monopolio es:",
+                options: ["La alta demanda del producto", "El control exclusivo de un recurso natural", "Un precio de mercado muy bajo", "La existencia de muchos competidores"],
+                answer: 1,
+                explanation: "Las barreras a la entrada son obstáculos que impiden que nuevas empresas compitan. El control de un recurso clave (ej. una mina de diamantes) es una fuente clásica de poder monopólico."
+            },
+            {
+                question: "Un 'monopolio natural' surge cuando:",
+                options: ["Una empresa es propiedad del Estado", "Existen economías de escala tan grandes que una sola empresa puede abastecer al mercado a un costo menor que varias", "El producto es un recurso natural", "La empresa tiene una patente"],
+                answer: 1,
+                explanation: "En industrias con altos costos fijos (como la distribución de agua o electricidad), es más eficiente que una sola empresa produzca para todo el mercado. La competencia sería un derroche de recursos."
+            },
+            {
+                question: "En comparación con la competencia perfecta, un monopolio produce:",
+                options: ["Más cantidad a un precio menor", "Menos cantidad a un precio mayor", "La misma cantidad al mismo precio", "Más cantidad a un precio mayor"],
+                answer: 1,
+                explanation: "El monopolista restringe la cantidad ofrecida para elevar el precio y maximizar sus beneficios, lo que resulta en una pérdida de eficiencia para la sociedad."
+            },
+            {
+                question: "Un oligopolio es un mercado dominado por:",
+                options: ["Un único comprador", "Un gran número de pequeñas empresas", "Un pequeño número de vendedores", "Consumidores con poder de mercado"],
+                answer: 2,
+                explanation: "El oligopolio se caracteriza por la interdependencia estratégica entre un número reducido de empresas. Las acciones de una afectan directamente a las demás."
+            },
+            {
+                question: "La 'colusión' en un oligopolio ocurre cuando las empresas:",
+                options: ["Compiten agresivamente en precios", "Acuerdan actuar como un monopolio, fijando precios y repartiéndose el mercado", "Invierten en publicidad para diferenciarse", "Desarrollan nuevas tecnologías"],
+                answer: 1,
+                explanation: "La colusión es un acuerdo explícito o tácito para evitar la competencia. Un 'cártel' es la forma más formal de colusión, como la OPEP en el mercado del petróleo."
+            },
+            {
+                question: "La competencia monopolística se diferencia del monopolio en que:",
+                options: ["No hay barreras de entrada", "El producto es homogéneo", "Solo hay un vendedor", "El gobierno regula los precios"],
+                answer: 0,
+                explanation: "En la competencia monopolística hay libre entrada y salida de empresas, a diferencia del monopolio donde las barreras son altas. Ambas tienen poder de mercado, pero en la competencia monopolística es más limitado."
+            },
+            {
+                question: "El poder de mercado en la competencia monopolística proviene de:",
+                options: ["El control de un recurso clave", "Una patente del gobierno", "La diferenciación del producto (real o percibida)", "La colusión con otras empresas"],
+                answer: 2,
+                explanation: "A través de la marca, la publicidad, la calidad o la localización, cada empresa crea una versión 'única' de su producto en la mente del consumidor, lo que le permite tener cierto control sobre su precio."
+            },
+            {
+                question: "Un mercado con un único comprador se denomina:",
+                options: ["Monopolio", "Oligopolio", "Monopsonio", "Competencia perfecta"],
+                answer: 2,
+                explanation: "El monopsonio es el 'espejo' del monopolio. Es una estructura de mercado con un solo demandante, que tiene poder para influir en el precio que paga a los proveedores. Ejemplo: el Estado como único comprador de armamento pesado."
+            },
+            {
+                question: "La OPEP (Organización de Países Exportadores de Petróleo) es un ejemplo de:",
+                options: ["Monopolio natural", "Cártel (oligopolio colusivo)", "Competencia monopolística", "Mercado de competencia perfecta"],
+                answer: 1,
+                explanation: "La OPEP es un cártel donde los países miembros coordinan sus políticas de producción de petróleo para influir en el precio mundial, actuando de manera similar a un monopolio."
+            },
+
+            // Información Asimétrica
+            {
+                question: "La 'información asimétrica' ocurre cuando:",
+                options: ["La información es demasiado compleja", "Una de las partes en una transacción tiene más o mejor información que la otra", "No hay información disponible", "La información es falsa"],
+                answer: 1,
+                explanation: "La asimetría de información es una falla de mercado donde un desequilibrio de conocimiento entre comprador y vendedor puede llevar a decisiones ineficientes."
+            },
+            {
+                question: "El mercado de autos usados es un ejemplo clásico de información asimétrica porque:",
+                options: ["Los precios son muy variables", "Hay muchos modelos de autos", "El vendedor conoce la calidad real del auto mucho mejor que el comprador", "Es difícil conseguir financiamiento"],
+                answer: 2,
+                explanation: "El vendedor sabe si el auto es un 'limón' (de mala calidad) o una 'joya', mientras que el comprador tiene dificultades para distinguirlos. Esto puede hacer que los compradores no estén dispuestos a pagar un precio alto, expulsando a los autos de buena calidad del mercado (selección adversa)."
+            },
+            {
+                question: "La 'selección adversa' es un problema que surge de la información asimétrica ANTES de la transacción y ocurre cuando:",
+                options: ["Se elige el producto equivocado", "Los individuos con mayor riesgo son los más propensos a contratar un seguro", "Los vendedores engañan a los compradores", "Los precios suben inesperadamente"],
+                answer: 1,
+                explanation: "En el mercado de seguros, las personas que saben que tienen un alto riesgo (de salud, de accidente, etc.) son las que más buscan asegurarse. Si la aseguradora no puede distinguir los riesgos, debe cobrar una prima promedio alta, lo que desincentiva a los individuos de bajo riesgo a comprar el seguro."
+            },
+            {
+                question: "El 'riesgo moral' es un problema que surge de la información asimétrica DESPUÉS de la transacción y ocurre cuando:",
+                options: ["Una persona se arrepiente de su compra", "Una persona asegurada se comporta de manera más arriesgada porque está protegida", "La aseguradora se niega a pagar", "El contrato tiene cláusulas ocultas"],
+                answer: 1,
+                explanation: "El riesgo moral describe el cambio de comportamiento de una persona después de firmar un contrato. Por ejemplo, si tienes un seguro a todo riesgo para tu celular, puedes ser menos cuidadoso con él."
+            },
+            {
+                question: "Una posible solución del mercado al problema de la información asimétrica en la venta de un producto es:",
+                options: ["La prohibición del producto", "La intervención del gobierno", "Ofrecer garantías o construir una reputación de marca", "Vender solo a expertos"],
+                answer: 2,
+                explanation: "Las garantías y una buena reputación son 'señales' que los vendedores de alta calidad pueden usar para diferenciarse de los de baja calidad, transmitiendo confianza al comprador y mitigando el problema de la información asimétrica."
+            },
+
+            // Intervención del Estado
+            {
+                question: "¿Por qué el Estado suele intervenir en el caso de los monopolios naturales?",
+                options: ["Para dividirlos en empresas más pequeñas", "Para regular sus precios y garantizar el acceso al servicio", "Para prohibir su existencia", "Para comprarles toda su producción"],
+                answer: 1,
+                explanation: "Dado que es más eficiente que una sola empresa opere, el Estado no busca fomentar la competencia, sino regular al monopolio (fijando tarifas máximas) para evitar que abuse de su poder de mercado y cobre precios excesivos."
+            },
+            {
+                question: "Un impuesto sobre un bien con demanda muy inelástica (como la gasolina) será soportado principalmente por:",
+                options: ["Los productores", "El gobierno", "Los consumidores", "Se reparte en partes iguales"],
+                answer: 2,
+                explanation: "Si la demanda es inelástica, los consumidores no reducen significativamente su consumo ante una subida de precios. Por lo tanto, los productores pueden trasladar la mayor parte del impuesto al precio final que paga el consumidor."
+            },
+            {
+                question: "Un impuesto sobre un bien cuya oferta es muy inelástica (como la tierra) será soportado principalmente por:",
+                options: ["Los terratenientes (productores/oferentes)", "Los inquilinos (consumidores)", "El gobierno", "Los constructores"],
+                answer: 0,
+                explanation: "Si la oferta es inelástica, los oferentes no pueden reducir fácilmente la cantidad ofrecida cuando el precio que reciben baja. Por lo tanto, absorben la mayor parte del impuesto."
+            },
+            {
+                question: "Establecer un precio máximo por debajo del precio de equilibrio de mercado generalmente causa:",
+                options: ["Un exceso de oferta (sobreproducción)", "Un aumento de la calidad del producto", "Un exceso de demanda (escasez)", "Un aumento de los beneficios para los productores"],
+                answer: 2,
+                explanation: "A un precio artificialmente bajo, más consumidores querrán comprar el bien, pero menos productores estarán dispuestos a venderlo. La diferencia entre la cantidad demandada y la ofertada es la escasez."
+            },
+            {
+                question: "Establecer un salario mínimo por encima del nivel de equilibrio puede causar:",
+                options: ["Un aumento del empleo para todos los trabajadores", "Desempleo, especialmente para los trabajadores menos cualificados", "Una disminución de los salarios en otros sectores", "Que todas las empresas tengan pérdidas"],
+                answer: 1,
+                explanation: "A un salario artificialmente alto, más personas querrán trabajar, pero las empresas demandarán menos trabajo (especialmente el menos productivo). Esto crea un exceso de oferta de trabajo, es decir, desempleo."
+            },
+            {
+                question: "El propósito de una política de restricción de cosechas en la agricultura es:",
+                options: ["Aumentar la eficiencia de la producción", "Bajar los precios de los alimentos para los consumidores", "Aumentar los ingresos de los agricultores", "Fomentar las exportaciones"],
+                answer: 2,
+                explanation: "Dado que la demanda de muchos alimentos es inelástica, una reducción de la oferta provoca un aumento proporcionalmente mayor en el precio. Esto puede llevar a que el ingreso total de los agricultores aumente, aunque sea una política ineficiente."
+            },
+            {
+                question: "La 'paradoja de la cosecha abundante' se refiere a que:",
+                options: ["Una buena cosecha siempre aumenta los ingresos de los agricultores", "Una gran cosecha puede reducir los ingresos totales de los agricultores", "Las buenas cosechas son cada vez más raras", "Los consumidores no quieren comprar cosechas grandes"],
+                answer: 1,
+                explanation: "Si la demanda es inelástica, un gran aumento de la oferta (una cosecha abundante) puede hacer que los precios caigan tanto que el ingreso total de los agricultores disminuya."
+            },
+            {
+                question: "Una de las principales funciones del Estado en la economía es:",
+                options: ["Fijar todos los precios de los bienes y servicios", "Dirigir la producción de todas las empresas", "Procurar la eficiencia, la equidad y la estabilidad macroeconómica", "Garantizar que todas las empresas obtengan beneficios"],
+                answer: 2,
+                explanation: "El Estado interviene para corregir fallas de mercado (buscando eficiencia), redistribuir el ingreso (buscando equidad) y moderar los ciclos económicos (buscando estabilidad)."
+            },
+            {
+                question: "La 'integración vertical' es una falla de mercado porque:",
+                options: ["Reduce la calidad del producto final", "Puede crear barreras de entrada para nuevos competidores", "Aumenta los costos de producción", "Es ilegal en todos los casos"],
+                answer: 1,
+                explanation: "Cuando una empresa controla varias etapas de la cadena de producción (ej. proveedor, fabricante, distribuidor), puede dificultar o impedir que nuevas empresas entren a competir en cualquiera de esas etapas."
+            },
+            {
+                question: "La distribución desigual de la renta es considerada una falla de mercado porque:",
+                options: ["El mercado, por sí solo, no garantiza un resultado equitativo", "Impide que las empresas maximicen beneficios", "Genera inflación", "Reduce la producción total de la economía"],
+                answer: 0,
+                explanation: "Un mercado puede ser perfectamente eficiente en la asignación de recursos pero generar una distribución de la riqueza que la sociedad considera inaceptable o injusta. La equidad es un objetivo social que a menudo requiere intervención estatal."
+            },
+            // Más preguntas variadas
+            {
+                question: "¿Qué tipo de estructura de mercado representa la industria de las gaseosas, con Coca-Cola y Pepsi como actores dominantes?",
+                options: ["Monopolio", "Competencia perfecta", "Oligopolio", "Competencia monopolística"],
+                answer: 2,
+                explanation: "Es un claro ejemplo de oligopolio, donde unas pocas empresas grandes dominan el mercado y sus decisiones son interdependientes."
+            },
+            {
+                question: "La investigación y desarrollo (I+D) que lleva a un nuevo descubrimiento científico puede generar una externalidad positiva porque:",
+                options: ["La empresa que investiga gana mucho dinero", "El nuevo conocimiento puede ser utilizado por otras empresas y la sociedad en general", "Requiere una gran inversión", "El gobierno financia la investigación"],
+                answer: 1,
+                explanation: "El conocimiento generado beneficia a muchos más que solo a la empresa que lo descubrió. Este 'derrame' de conocimiento es un beneficio social que la empresa original no captura por completo."
+            },
+            {
+                question: "Si el gobierno establece un subsidio a la producción de un bien, ¿qué efecto se espera en el mercado?",
+                options: ["La curva de oferta se desplaza a la izquierda, el precio sube y la cantidad baja", "La curva de oferta se desplaza a la derecha, el precio baja y la cantidad sube", "La curva de demanda se desplaza a la derecha", "No tiene ningún efecto"],
+                answer: 1,
+                explanation: "Un subsidio reduce los costos de producción para las empresas, lo que las incentiva a ofrecer más cantidad a cada nivel de precios. Esto desplaza la curva de oferta a la derecha (o hacia abajo)."
+            },
+            {
+                question: "Los restaurantes de una ciudad grande son un ejemplo de:",
+                options: ["Competencia perfecta", "Oligopolio", "Monopolio", "Competencia monopolística"],
+                answer: 3,
+                explanation: "Hay muchos vendedores (restaurantes) y libre entrada, pero cada uno diferencia su producto (tipo de comida, ambiente, servicio, ubicación), lo que les da cierto poder para fijar sus propios precios."
+            },
+            {
+                question: "El hecho de que una persona con seguro contra incendios pueda ser menos cuidadosa con las velas encendidas es un ejemplo de:",
+                options: ["Selección adversa", "Riesgo moral", "Externalidad negativa", "Bien público"],
+                answer: 1,
+                explanation: "Es un caso de riesgo moral, ya que el comportamiento de la persona cambia (se vuelve más riesgoso) después de haber contratado el seguro, porque sabe que está cubierta contra las pérdidas."
+            },
+            {
+                question: "¿Cuál es el objetivo de las leyes antimonopolio?",
+                options: ["Proteger a los monopolios de la competencia", "Fomentar la competencia y prevenir la concentración de poder de mercado", "Regular los precios de todos los bienes", "Crear monopolios estatales"],
+                answer: 1,
+                explanation: "Las leyes antimonopolio (o de defensa de la competencia) buscan evitar que las empresas coludan, se fusionen para dominar un mercado o realicen prácticas que perjudiquen a los consumidores y a la eficiencia económica."
+            },
+            {
+                question: "Un faro es un ejemplo clásico de bien público porque su servicio es:",
+                options: ["Rival y excluyente", "No rival y no excluyente", "Rival y no excluyente", "No rival y excluyente"],
+                answer: 1,
+                explanation: "Es no rival (que un barco lo vea no impide que otro lo haga) y no excluyente (no se puede impedir que los barcos en la zona se beneficien de su luz)."
+            },
+            {
+                question: "Si una empresa automotriz compra a sus proveedores de autopartes, está realizando una:",
+                options: ["Integración horizontal", "Colusión", "Integración vertical", "Externalidad"],
+                answer: 2,
+                explanation: "Es una integración vertical 'hacia atrás', ya que está adquiriendo una etapa anterior en la cadena de producción. Esto puede crear barreras de entrada para competidores."
+            },
+            {
+                question: "La inestabilidad económica, como una alta inflación, es una falla de mercado porque:",
+                options: ["Aumenta los beneficios de todas las empresas", "Dificulta la planificación y la inversión a largo plazo", "Beneficia a los consumidores", "Simplifica las decisiones económicas"],
+                answer: 1,
+                explanation: "La incertidumbre sobre los precios futuros desalienta la inversión y el ahorro, afectando la capacidad productiva de la economía y la asignación eficiente de recursos."
+            },
+            {
+                question: "El Estado interviene para corregir la distribución desigual de la renta a través de:",
+                options: ["Leyes antimonopolio", "La provisión de bienes públicos", "Impuestos progresivos y subsidios", "La fijación de todos los precios"],
+                answer: 2,
+                explanation: "A través de la política fiscal, el Estado puede recaudar más de quienes más tienen (impuestos progresivos) y transferir recursos a quienes menos tienen (subsidios, planes sociales, etc.) para buscar una mayor equidad."
+            },
+            {
+                question: "En un mercado de competencia perfecta, las empresas son 'precio-aceptantes', lo que significa que:",
+                options: ["Aceptan cualquier precio que los consumidores ofrezcan", "Deben aceptar el precio determinado por el mercado", "Pueden fijar el precio que quieran", "Aceptan los precios fijados por el gobierno"],
+                answer: 1,
+                explanation: "Las empresas individuales no tienen poder para influir en el precio. Simplemente observan el precio de equilibrio del mercado y deciden qué cantidad producir a ese precio."
+            },
+            {
+                question: "La existencia de una patente otorgada por el gobierno a un nuevo medicamento crea un:",
+                options: ["Monopolio legal", "Monopolio natural", "Oligopolio", "Mercado competitivo"],
+                answer: 0,
+                explanation: "Una patente es una barrera de entrada legal que le otorga al inventor el derecho exclusivo de producir y vender su invención por un período de tiempo determinado, creando un monopolio temporal."
+            },
+            {
+                question: "Si la demanda de un producto es perfectamente inelástica, un impuesto sobre ese producto será pagado:",
+                options: ["Íntegramente por el productor", "Íntegramente por el consumidor", "En partes iguales", "Principalmente por el gobierno"],
+                answer: 1,
+                explanation: "Si la demanda es perfectamente inelástica, la cantidad demandada no cambia sin importar el precio. Por lo tanto, los productores pueden trasladar el 100% del impuesto al consumidor sin temor a perder ventas."
+            },
+            {
+                question: "La educación es a menudo subsidiada por el Estado porque:",
+                options: ["Es un bien público puro", "Genera importantes externalidades positivas", "Es un monopolio natural", "No hay demanda privada de educación"],
+                answer: 1,
+                explanation: "Una población más educada beneficia a toda la sociedad (mayor productividad, civismo, innovación, etc.), no solo al individuo que se educa. Para que se produzca una cantidad socialmente óptima, el Estado la fomenta con subsidios."
+            },
+            {
+                question: "¿Qué falla de mercado intenta resolver la existencia de sellos de calidad o certificaciones (ej. ISO 9001)?",
+                options: ["Externalidades negativas", "Bienes públicos", "Poder de mercado", "Información asimétrica"],
+                answer: 3,
+                explanation: "Los sellos de calidad actúan como una 'señal' para los consumidores, indicando que un producto o servicio cumple con ciertos estándares. Esto reduce la incertidumbre del comprador y ayuda a resolver la asimetría de información sobre la calidad."
+            },
+            {
+                question: "Un ejemplo de 'bien común' (rival pero no excluyente) es:",
+                options: ["Un programa de radio", "Los peces en el océano", "El software de código abierto", "Un par de zapatillas"],
+                answer: 1,
+                explanation: "Los peces son rivales (si una persona pesca un pez, otro no puede pescarlo) pero no excluyentes (es difícil impedir que los barcos pesquen en alta mar). Esto puede llevar a la sobreexplotación (tragedia de los comunes)."
+            },
+            {
+                question: "La principal diferencia entre competencia monopolística y oligopolio es:",
+                options: ["El tipo de producto", "La existencia de barreras de entrada", "El número de empresas en el mercado", "El nivel de intervención estatal"],
+                answer: 2,
+                explanation: "La competencia monopolística se caracteriza por tener MUCHAS empresas, mientras que el oligopolio se caracteriza por tener POCAS. Esta diferencia en el número de actores es fundamental."
+            },
+            {
+                question: "Si el gobierno fija un precio máximo para los alquileres, una consecuencia no deseada a largo plazo es:",
+                options: ["Un aumento en la construcción de nuevas viviendas", "Una mejora en la calidad de las viviendas existentes", "Una disminución en la oferta de viviendas para alquilar", "Que todos los inquilinos paguen menos"],
+                answer: 2,
+                explanation: "A un precio controlado bajo, los propietarios tienen menos incentivos para mantener, mejorar o construir nuevas propiedades para alquilar, lo que puede reducir la oferta y la calidad a largo plazo."
+            },
+            {
+                question: "La publicidad y la creación de marcas son estrategias típicas de un mercado de:",
+                options: ["Competencia perfecta", "Competencia monopolística", "Monopolio puro", "Monopsonio"],
+                answer: 1,
+                explanation: "En la competencia monopolística, las empresas utilizan la publicidad y las marcas para diferenciar sus productos de los de la competencia y crear lealtad en los consumidores, dándoles así poder de mercado."
+            },
+            {
+                question: "La 'tragedia de los comunes' es una externalidad negativa que ocurre con los bienes:",
+                options: ["Privados", "Públicos", "Comunes (rivales y no excluyentes)", "De club (excluyentes y no rivales)"],
+                answer: 2,
+                explanation: "Ocurre cuando un recurso compartido (como un pastizal o un banco de peces) es sobreexplotado porque los individuos, actuando en su propio interés, agotan el recurso en detrimento del bien común, ya que no hay exclusión que regule su uso."
+            },
+            {
+                question: "Cuando un oligopolio no colude, las empresas a menudo se encuentran en un 'dilema del prisionero' porque:",
+                options: ["Todas terminan ganando más dinero", "La cooperación es la mejor estrategia individual", "Aunque la cooperación sería mejor para el grupo, la estrategia dominante es competir", "Siempre terminan formando un cártel"],
+                answer: 2,
+                explanation: "Cada empresa sabe que si todas cooperan (manteniendo los precios altos), ganarían más en conjunto. Sin embargo, cada una tiene un incentivo individual para romper el acuerdo y bajar el precio para robar cuota de mercado, lo que lleva a un resultado peor para todas."
+            },
+            {
+                question: "El declive relativo de la agricultura a largo plazo se debe a que:",
+                options: ["La tecnología agrícola no ha avanzado", "La demanda de alimentos ha crecido más rápido que la oferta", "La oferta ha crecido mucho más rápido que la demanda inelástica de alimentos", "Los gobiernos han prohibido la agricultura"],
+                answer: 2,
+                explanation: "Los enormes avances tecnológicos han disparado la oferta, pero la demanda de alimentos (un bien necesario) crece lentamente. Este desequilibrio presiona los precios y los ingresos agrícolas a la baja."
+            },
+            {
+                question: "Un subsidio del gobierno a los compradores de paneles solares busca:",
+                options: ["Corregir una externalidad negativa", "Fomentar una externalidad positiva", "Crear un monopolio", "Reducir la oferta de paneles"],
+                answer: 1,
+                explanation: "El uso de energía solar genera una externalidad positiva (menos contaminación, menor dependencia de combustibles fósiles). El subsidio busca que el consumo privado se acerque al nivel socialmente deseable."
+            },
+            {
+                question: "La razón por la que un monopolista no cobra un precio infinitamente alto es que:",
+                options: ["El gobierno se lo prohíbe", "Se enfrenta a la curva de demanda del mercado", "No quiere ganar tanto dinero", "Sus costos son muy bajos"],
+                answer: 1,
+                explanation: "Aunque el monopolista puede fijar el precio, sigue estando limitado por la demanda. Si sube demasiado el precio, la cantidad que la gente está dispuesta a comprar caerá, y sus beneficios podrían disminuir."
+            },
+            {
+                question: "La principal ineficiencia del monopolio, desde el punto de vista de la sociedad, es que:",
+                options: ["El monopolista obtiene beneficios muy altos", "Produce una cantidad menor y a un precio mayor que en competencia perfecta", "No invierte en tecnología", "Paga pocos impuestos"],
+                answer: 1,
+                explanation: "La verdadera pérdida para la sociedad (pérdida irrecuperable de eficiencia) es que se producen y consumen menos unidades del bien de las que serían socialmente óptimas, y se pagan a un precio más elevado."
+            },
+            {
+                question: "Si en un mercado oligopólico una empresa baja el precio, lo más probable es que las demás:",
+                options: ["La ignoren", "Suban sus precios", "También bajen sus precios para no perder clientes", "Salgan del mercado"],
+                answer: 2,
+                explanation: "Debido a la interdependencia, las empresas reaccionan a las acciones de sus rivales. Una guerra de precios es una respuesta común a la decisión de una empresa de bajar su precio."
+            },
+            {
+                question: "La libre entrada y salida de empresas en la competencia monopolística asegura que, a largo plazo, los beneficios económicos sean:",
+                options: ["Muy altos", "Negativos", "Cero (normales)", "Iguales a los de un monopolio"],
+                answer: 2,
+                explanation: "Si las empresas obtienen beneficios extraordinarios, nuevas empresas entrarán al mercado, atrayendo clientes y reduciendo los beneficios de las existentes hasta que estos se vuelvan cero (beneficio normal, que solo cubre el costo de oportunidad)."
+            },
+            {
+                question: "El objetivo principal de la regulación estatal es:",
+                options: ["Asegurar que ninguna empresa quiebre", "Limitar la libertad de los consumidores", "Corregir las fallas del mercado y mejorar el bienestar social", "Maximizar la recaudación de impuestos"],
+                answer: 2,
+                explanation: "La intervención del Estado se justifica teóricamente cuando busca corregir ineficiencias (fallas de mercado) o inequidades que el mercado por sí solo no puede resolver, con el fin de mejorar el bienestar general."
+            }
+        ];
+
+        let quizzes = [];
+        let currentQuiz;
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const quizSelectionScreen = document.getElementById('quiz-selection-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const questionElement = document.getElementById('question');
+        const optionsContainer = document.getElementById('options-container');
+        const currentQuestionNumberElement = document.getElementById('current-question-number');
+        const scoreElement = document.getElementById('score');
+        const nextButton = document.getElementById('next-button');
+        const feedbackMessage = document.getElementById('feedback-message');
+        const finalScoreElement = document.getElementById('final-score');
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        
+        function generateQuizzes() {
+            quizzes = [];
+            for (let i = 0; i < 10; i++) {
+                shuffleArray(allQuestions);
+                const quizQuestions = allQuestions.slice(0, 20);
+                quizzes.push({ questions: quizQuestions });
+            }
+        }
+
+        function startQuiz(quizIndex) {
+            currentQuiz = quizzes[quizIndex];
+            currentQuestionIndex = 0;
+            score = 0;
+            
+            quizSelectionScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+
+            updateScore();
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const currentQuestionData = currentQuiz.questions[currentQuestionIndex];
+
+            currentQuestionNumberElement.textContent = currentQuestionIndex + 1;
+            questionElement.textContent = currentQuestionData.question;
+            optionsContainer.innerHTML = '';
+            feedbackMessage.classList.add('hidden');
+            feedbackMessage.innerHTML = '';
+            nextButton.disabled = true;
+
+            const options = [...currentQuestionData.options];
+            
+            options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('answer-button');
+                button.onclick = () => checkAnswer(button, index);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedButton, selectedIndex) {
+            const currentQuestionData = currentQuiz.questions[currentQuestionIndex];
+            const correctIndex = currentQuestionData.answer;
+
+            Array.from(optionsContainer.children).forEach((button, index) => {
+                button.disabled = true;
+                if (index === correctIndex) {
+                    button.classList.add('correct');
+                } else if (index === selectedIndex) {
+                    button.classList.add('incorrect');
+                }
+            });
+
+            if (selectedIndex === correctIndex) {
+                score++;
+                feedbackMessage.innerHTML = `<div class="font-bold">¡Correcto!</div><div class="explanation mt-2">${currentQuestionData.explanation}</div>`;
+                feedbackMessage.className = 'text-left p-4 my-4 rounded-lg font-semibold bg-green-100 text-green-800';
+            } else {
+                feedbackMessage.innerHTML = `<div class="font-bold">Incorrecto.</div><div class="explanation mt-2">${currentQuestionData.explanation}</div>`;
+                feedbackMessage.className = 'text-left p-4 my-4 rounded-lg font-semibold bg-red-100 text-red-800';
+            }
+
+            feedbackMessage.classList.remove('hidden');
+            updateScore();
+            nextButton.disabled = false;
+            nextButton.focus();
+        }
+
+        function updateScore() {
+            scoreElement.textContent = score;
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuiz.questions.length) {
+                showQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        function endQuiz() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            finalScoreElement.textContent = score;
+        }
+
+        function restartQuiz() {
+            resultsScreen.classList.add('hidden');
+            quizSelectionScreen.classList.remove('hidden');
+            generateQuizzes(); // Regenerar los exámenes para que sean diferentes cada vez
+        }
+
+        window.onload = function() {
+            generateQuizzes();
+            quizSelectionScreen.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

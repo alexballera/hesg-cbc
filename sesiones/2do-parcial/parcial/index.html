@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Exámenes de práctica tipo parcial sobre conceptos de economía - Segundo Parcial CBC UBA">
+    <meta name="keywords" content="economía CBC, segundo parcial, macroeconomía, PBI, multiplicador keynesiano, política monetaria, comercio internacional, inflación, desempleo, examen práctica">
+    <meta name="author" content="Economía CBC - UBA">
+    <title>Exámenes de Práctica - Segundo Parcial Economía CBC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4f46e5 0%, #a78bfa 100%);
+        }
+        .quiz-button {
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .quiz-button:hover {
+            background-color: #4338ca;
+            transform: translateY(-2px);
+        }
+        .quiz-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .answer-button {
+            width: 100%;
+            background-color: #e5e7eb;
+            color: #1f2937;
+            text-align: left;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .answer-button:hover:not(:disabled) {
+            background-color: #d1d5db;
+        }
+        .answer-button.correct {
+            background-color: #10b981;
+            color: white;
+            animation: pulse-correct 0.8s;
+        }
+        .answer-button.incorrect {
+            background-color: #ef4444;
+            color: white;
+            animation: shake 0.5s;
+        }
+        .explanation {
+            background-color: #f0f4f8;
+            border-left: 4px solid #4f46e5;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+        }
+        @keyframes pulse-correct {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div id="app" class="container bg-white p-8 rounded-2xl shadow-xl w-full">
+        <!-- Pantalla de selección de cuestionarios -->
+        <div id="quiz-selection-screen">
+            <h1 class="text-3xl font-bold text-center mb-4 text-indigo-700">Exámenes de Práctica - Segundo Parcial</h1>
+            <p class="text-center text-gray-600 mb-8">Cada examen contiene 20 preguntas basadas en los modelos de exámenes anteriores y el contenido de las sesiones 7 a 11. ¡Practica para el segundo parcial!</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6" id="quiz-buttons-container">
+            </div>
+        </div>
+
+        <!-- Pantalla del cuestionario -->
+        <div id="quiz-screen" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <div class="text-lg font-semibold text-gray-700">Pregunta <span id="current-question-number"></span> de 20</div>
+                <div class="text-lg font-semibold text-gray-700">Puntaje: <span id="score">0</span></div>
+            </div>
+            <div class="card p-6 mb-6">
+                <h2 id="question" class="text-xl font-semibold text-gray-900 mb-6"></h2>
+                <div id="options-container" class="space-y-4"></div>
+            </div>
+            <div id="feedback-message" class="text-center p-4 my-4 rounded-lg font-semibold hidden"></div>
+            <button id="next-button" class="quiz-button w-full py-4 mt-6 gradient-bg text-white font-bold text-lg rounded-lg shadow-md focus:outline-none" onclick="nextQuestion()" disabled>Siguiente</button>
+        </div>
+
+        <!-- Pantalla de resultados -->
+        <div id="results-screen" class="hidden text-center">
+            <h1 class="text-3xl font-bold text-indigo-700 mb-4">¡Simulacro Completo!</h1>
+            <p class="text-xl text-gray-700 mb-6">Tu puntaje final es:</p>
+            <div class="text-5xl font-extrabold text-white gradient-bg p-8 rounded-full inline-block shadow-lg mb-8">
+                <span id="final-score"></span>
+                <span class="block text-2xl font-normal mt-2">de 20</span>
+            </div>
+            <p class="text-lg text-gray-600 mb-4">¡Sigue practicando para el segundo parcial!</p>
+            <button class="quiz-button py-4 px-8 mt-4 bg-indigo-600 text-white font-bold text-lg rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none" onclick="restartQuiz()">Volver a la selección</button>
+        </div>
+    </div>
+
+    <script>
+        const allQuestions = [
+            {
+                question: "¿Qué mide el Producto Bruto Interno (PBI)?",
+                options: ["El valor de todos los bienes y servicios producidos, incluyendo intermedios.", "El valor de mercado de todos los bienes y servicios finales producidos en un país durante un período.", "La suma de toda la riqueza de un país, incluyendo activos financieros.", "El total de salarios pagados en una economía."],
+                answer: 1,
+                explanation: "El PBI es la medida del valor de mercado de todos los bienes y servicios finales producidos en un país durante un año. Se excluyen los bienes intermedios para evitar la doble contabilización."
+            },
+            {
+                question: "En una economía abierta, ¿cuál es la composición de la Demanda Agregada?",
+                options: ["Consumo + Inversión", "Consumo + Inversión + Gasto Público", "Consumo + Inversión + Gasto Público + Exportaciones Netas (X-M)", "Salarios + Beneficios"],
+                answer: 2,
+                explanation: "En una economía abierta, la demanda agregada (y el PBI por el método del gasto) es igual a la suma del Consumo (C), la Inversión (I), el Gasto Público (G) y las Exportaciones Netas (Exportaciones menos Importaciones)."
+            },
+            {
+                question: "Si el PBI nominal de un país aumenta un 10% en un año, pero su PBI real solo aumenta un 2%, ¿qué se puede concluir?",
+                options: ["La producción de bienes y servicios disminuyó.", "Hubo una tasa de inflación aproximada del 8%.", "El desempleo aumentó significativamente.", "La calidad de los bienes y servicios mejoró."],
+                answer: 1,
+                explanation: "La diferencia entre el crecimiento del PBI nominal y el PBI real se debe al efecto de la inflación. El PBI real aísla el cambio en las cantidades, por lo que la diferencia (10% - 2% = 8%) es una aproximación de la inflación medida por el deflactor del PBI."
+            },
+            {
+                question: "¿Qué es el Ingreso Neto de Factores Recibidos del Exterior (INFRE)?",
+                options: ["La diferencia entre exportaciones e importaciones de bienes.", "El total de remesas que los emigrantes envían a su país de origen.", "La diferencia entre las rentas generadas por residentes nacionales en el exterior y las rentas generadas por extranjeros en el país.", "Los impuestos netos que el gobierno recauda del exterior."],
+                answer: 2,
+                explanation: "El INFRE representa el saldo de las rentas (como utilidades, intereses y salarios) que los residentes de un país ganan en el extranjero menos las rentas que los extranjeros ganan en el país. Es la diferencia clave entre el PBI y el PBN."
+            },
+            {
+                question: "En el modelo keynesiano simple, ¿qué es la propensión marginal a consumir (PMC)?",
+                options: ["La parte del ingreso que se destina al ahorro.", "La fracción de cada peso adicional de ingreso que se destina al consumo.", "El nivel de consumo que existe cuando el ingreso es cero.", "La relación entre el consumo total y el ingreso total."],
+                answer: 1,
+                explanation: "La propensión marginal a consumir (PMC) mide cuánto aumenta el consumo por cada unidad monetaria adicional de ingreso disponible. Es la pendiente de la función de consumo y su valor se encuentra entre 0 y 1."
+            },
+            {
+                question: "Si la propensión marginal a consumir (PMC) es 0.75, ¿cuál es el valor del multiplicador keynesiano del gasto en una economía cerrada y sin gobierno?",
+                options: ["1.33", "4", "0.25", "1"],
+                answer: 1,
+                explanation: "El multiplicador keynesiano (k) en una economía simple se calcula como k = 1 / (1 - PMC). En este caso, k = 1 / (1 - 0.75) = 1 / 0.25 = 4."
+            },
+            {
+                question: "Un aumento del gasto público de $100 millones, con una PMC de 0.8, ¿en cuánto aumentará el ingreso de equilibrio en una economía cerrada con impuestos fijos?",
+                options: ["$100 millones", "$125 millones", "$80 millones", "$500 millones"],
+                answer: 3,
+                explanation: "El aumento en el ingreso es igual al aumento del gasto multiplicado por el multiplicador keynesiano (k = 1 / (1 - PMC)). Con una PMC de 0.8, k = 5. Por lo tanto, el ingreso aumenta en $100 millones * 5 = $500 millones."
+            },
+            {
+                question: "En el equilibrio del modelo keynesiano simple, ¿qué relación existe entre el ahorro y la inversión?",
+                options: ["El ahorro es siempre mayor que la inversión.", "La inversión es siempre mayor que el ahorro.", "El ahorro es igual a la inversión.", "No hay una relación definida entre ambos."],
+                answer: 2,
+                explanation: "En el punto de equilibrio del modelo keynesiano simple, todo lo que se produce es demandado. Esto implica que las fugas (ahorro) deben ser iguales a las inyecciones (inversión), por lo que Ahorro = Inversión."
+            },
+            {
+                question: "¿Qué es la inflación de costos?",
+                options: ["Inflación causada por un exceso de demanda agregada.", "Inflación causada por un aumento en la oferta monetaria.", "Inflación originada por un aumento en los costos de producción, como salarios o precios de insumos.", "Inflación generada por las expectativas de los agentes económicos."],
+                answer: 2,
+                explanation: "La inflación de costos (o de oferta) se produce cuando el nivel de precios sube debido a un encarecimiento de los factores de producción. Las empresas trasladan estos mayores costos a los precios finales para mantener sus márgenes de ganancia."
+            },
+            {
+                question: "La Curva de Phillips describe una relación de corto plazo entre:",
+                options: ["Inflación y crecimiento económico.", "Desempleo y crecimiento económico.", "Inflación y desempleo.", "Oferta monetaria y tasa de interés."],
+                answer: 2,
+                explanation: "La Curva de Phillips original muestra una relación inversa o de intercambio (trade-off) en el corto plazo entre la tasa de inflación y la tasa de desempleo. Sugiere que reducir el desempleo puede tener un costo en términos de mayor inflación."
+            },
+            {
+                question: "¿Qué es la Base Monetaria (BM)?",
+                options: ["La cantidad total de dinero en la economía, incluyendo todos los depósitos.", "El dinero legal creado exclusivamente por el Banco Central, compuesto por billetes, monedas y reservas bancarias.", "Únicamente los depósitos a la vista en los bancos comerciales.", "El oro y las divisas que respaldan la moneda nacional."],
+                answer: 1,
+                explanation: "La Base Monetaria (o dinero de alta potencia) es el pasivo del Banco Central. Está compuesta por los billetes y monedas en circulación más las reservas (encajes) que los bancos comerciales están obligados a mantener en el Banco Central."
+            },
+            {
+                question: "Si el Banco Central realiza una compra de bonos en el mercado abierto, ¿qué efecto tiene sobre la Base Monetaria y la oferta monetaria?",
+                options: ["Reduce la Base Monetaria y la oferta monetaria.", "Aumenta la Base Monetaria y la oferta monetaria.", "No tiene efecto sobre ninguna de las dos.", "Aumenta la Base Monetaria pero reduce la oferta monetaria."],
+                answer: 1,
+                explanation: "Una compra de bonos en el mercado abierto es una operación de política monetaria expansiva. El Banco Central inyecta dinero en la economía para pagar esos bonos, lo que aumenta la Base Monetaria y, a través del efecto multiplicador, la Oferta Monetaria."
+            },
+            {
+                question: "¿Qué es el multiplicador monetario?",
+                options: ["La relación entre el PBI nominal y el PBI real.", "El factor por el cual la Oferta Monetaria es mayor que la Base Monetaria.", "La velocidad a la que el dinero cambia de manos en la economía.", "La tasa de interés que cobra el Banco Central a los bancos comerciales."],
+                answer: 1,
+                explanation: "El multiplicador monetario indica cuántas veces se expande la cantidad total de dinero (Oferta Monetaria) por cada unidad de Base Monetaria creada por el Banco Central. Su valor depende de la tasa de encaje y de la preferencia del público por el efectivo."
+            },
+            {
+                question: "En el mercado monetario, si aumenta el nivel de ingreso de la población, ¿qué sucede con la demanda de dinero y la tasa de interés de equilibrio?",
+                options: ["La demanda de dinero disminuye y la tasa de interés baja.", "La demanda de dinero aumenta y la tasa de interés sube.", "La demanda de dinero no cambia, pero la tasa de interés sube.", "La demanda de dinero aumenta y la tasa de interés baja."],
+                answer: 1,
+                explanation: "Un mayor nivel de ingreso aumenta la necesidad de las personas de tener dinero para realizar más transacciones. Esto desplaza la curva de demanda de dinero hacia la derecha, y dada una oferta monetaria fija, la tasa de interés de equilibrio aumenta."
+            },
+            {
+                question: "Una política monetaria contractiva busca:",
+                options: ["Aumentar la oferta monetaria para bajar la tasa de interés.", "Reducir la oferta monetaria para subir la tasa de interés.", "Aumentar el gasto público para estimular la demanda.", "Reducir los impuestos para incentivar el consumo."],
+                answer: 1,
+                explanation: "Una política monetaria contractiva tiene como objetivo 'enfriar' la economía, generalmente para combatir la inflación. Para ello, el Banco Central reduce la oferta monetaria, lo que provoca un aumento de la tasa de interés, desincentivando la inversión y el consumo."
+            },
+            {
+                question: "¿Qué registra la Cuenta Corriente de la Balanza de Pagos?",
+                options: ["Únicamente la compra y venta de activos financieros.", "El comercio de bienes y servicios, las rentas y las transferencias corrientes.", "Solo las exportaciones e importaciones de mercancías.", "La variación de las reservas internacionales del Banco Central."],
+                answer: 1,
+                explanation: "La Cuenta Corriente registra todos los flujos de ingresos y egresos que no están destinados a la compra o venta de activos. Incluye la balanza comercial (bienes), la balanza de servicios, las rentas (intereses, utilidades) y las transferencias corrientes (remesas)."
+            },
+            {
+                question: "Un déficit en la Cuenta Corriente de un país implica que:",
+                options: ["El país está prestando más al resto del mundo de lo que recibe.", "Las exportaciones de bienes del país superan a sus importaciones.", "El país gasta más en el exterior de lo que ingresa por transacciones corrientes, necesitando financiamiento externo.", "Las reservas internacionales del país están aumentando."],
+                answer: 2,
+                explanation: "Un déficit en la Cuenta Corriente significa que la salida de divisas por importaciones, pago de rentas, etc., es mayor que la entrada por exportaciones e ingresos de rentas. Este déficit debe financiarse con una entrada neta de capitales (superávit en la Cuenta Financiera) o con una disminución de las reservas internacionales."
+            },
+            {
+                question: "¿Qué es el tipo de cambio real (TCR)?",
+                options: ["El precio de una moneda en términos de otra.", "La tasa de interés ajustada por la inflación.", "El precio relativo de los bienes extranjeros expresado en términos de bienes nacionales.", "El valor del PBI medido en dólares."],
+                answer: 2,
+                explanation: "El Tipo de Cambio Real (TCR) mide la competitividad de un país. Se calcula como TCR = (TCN * P*) / P, donde TCN es el tipo de cambio nominal, P* es el nivel de precios extranjero y P es el nivel de precios local. Una suba del TCR (depreciación real) mejora la competitividad."
+            },
+            {
+                question: "En un sistema de tipo de cambio fijo, si hay un exceso de demanda de divisas, ¿qué debe hacer el Banco Central?",
+                options: ["Dejar que el tipo de cambio suba libremente.", "Vender divisas de sus reservas para mantener el tipo de cambio.", "Comprar divisas para aumentar sus reservas.", "Subir la tasa de interés interna."],
+                answer: 1,
+                explanation: "En un sistema de tipo de cambio fijo, el Banco Central está obligado a intervenir para mantener el valor anunciado. Un exceso de demanda de divisas presionaría al alza el tipo de cambio (depreciación), por lo que el Banco Central debe satisfacer esa demanda vendiendo divisas de sus reservas."
+            },
+            {
+                question: "Según el principio de la ventaja comparativa, un país debe especializarse en la producción de bienes en los que tiene:",
+                options: ["Un costo de producción más bajo en términos absolutos (ventaja absoluta).", "Un costo de oportunidad más bajo en términos relativos.", "La mayor cantidad de recursos naturales.", "La tecnología más avanzada."],
+                answer: 1,
+                explanation: "El principio de la ventaja comparativa, base del comercio internacional, establece que un país se beneficiará si se especializa en la producción y exportación de aquellos bienes que puede producir con un costo de oportunidad relativamente más bajo, e importa aquellos en los que tiene un costo de oportunidad más alto."
+            }
+        ];
+
+        let quizzes = [];
+        const NUM_QUIZZES = 10;
+        const QUESTIONS_PER_QUIZ = 20;
+
+        function generateQuizzes() {
+            let availableQuestions = [...allQuestions];
+            for (let i = 0; i < NUM_QUIZZES; i++) {
+                let quizQuestions = [];
+                // Ensure we have enough questions for a full quiz
+                if (availableQuestions.length < QUESTIONS_PER_QUIZ) {
+                    // If not, reshuffle all questions and start over for this quiz
+                    availableQuestions = [...allQuestions];
+                }
+                
+                // Shuffle the available questions
+                let shuffled = shuffleArray(availableQuestions);
+                
+                // Take 20 questions
+                quizQuestions = shuffled.slice(0, QUESTIONS_PER_QUIZ);
+                
+                // Remove the selected questions from the available pool for next quizzes
+                // to ensure less repetition across quizzes, though some overlap is possible if total questions < 200
+                availableQuestions = availableQuestions.filter(q => !quizQuestions.includes(q));
+
+                quizzes.push(quizQuestions);
+            }
+        }
+
+        function populateQuizSelection() {
+            const container = document.getElementById('quiz-buttons-container');
+            container.innerHTML = '';
+            for (let i = 0; i < NUM_QUIZZES; i++) {
+                const button = document.createElement('button');
+                button.onclick = () => startQuiz(i);
+                button.className = 'card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none';
+                button.textContent = `Simulacro Parcial ${i + 1}`;
+                container.appendChild(button);
+            }
+        }
+
+
+        // Variables del juego
+        let currentQuizQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedAnswer = null;
+        let questionsAnswered = false;
+
+        // Función para mezclar un array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Función para iniciar un cuestionario
+        function startQuiz(quizIndex) {
+            currentQuizQuestions = quizzes[quizIndex];
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            selectedAnswer = null;
+            questionsAnswered = false;
+
+            // Ocultar pantalla de selección y mostrar pantalla de cuestionario
+            document.getElementById('quiz-selection-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            document.getElementById('results-screen').classList.add('hidden');
+
+            loadQuestion();
+        }
+
+        // Función para cargar una pregunta
+        function loadQuestion() {
+            const question = currentQuizQuestions[currentQuestionIndex];
+            
+            document.getElementById('current-question-number').textContent = currentQuestionIndex + 1;
+            document.getElementById('score').textContent = score;
+            document.getElementById('question').textContent = question.question;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'answer-button';
+                button.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
+                button.onclick = () => selectAnswer(index);
+                optionsContainer.appendChild(button);
+            });
+
+            // Limpiar feedback y deshabilitar botón siguiente
+            document.getElementById('feedback-message').classList.add('hidden');
+            document.getElementById('next-button').disabled = true;
+            selectedAnswer = null;
+            questionsAnswered = false;
+        }
+
+        // Función para seleccionar una respuesta
+        function selectAnswer(index) {
+            if (questionsAnswered) return;
+
+            selectedAnswer = index;
+            const question = currentQuizQuestions[currentQuestionIndex];
+            const buttons = document.querySelectorAll('.answer-button');
+            
+            buttons.forEach((button, i) => {
+                button.disabled = true;
+                if (i === question.answer) {
+                    button.classList.add('correct');
+                } else if (i === selectedAnswer && i !== question.answer) {
+                    button.classList.add('incorrect');
+                }
+            });
+
+            // Mostrar feedback
+            const feedbackMessage = document.getElementById('feedback-message');
+            feedbackMessage.classList.remove('hidden');
+            
+            if (selectedAnswer === question.answer) {
+                score++;
+                feedbackMessage.className = 'text-center p-4 my-4 rounded-lg font-semibold bg-green-100 text-green-800';
+                feedbackMessage.innerHTML = `<strong>¡Correcto!</strong><br><div class="explanation mt-2">${question.explanation}</div>`;
+            } else {
+                feedbackMessage.className = 'text-center p-4 my-4 rounded-lg font-semibold bg-red-100 text-red-800';
+                feedbackMessage.innerHTML = `<strong>Incorrecto.</strong> La respuesta correcta es: ${String.fromCharCode(65 + question.answer)}<br><div class="explanation mt-2">${question.explanation}</div>`;
+            }
+
+            document.getElementById('score').textContent = score;
+            document.getElementById('next-button').disabled = false;
+            questionsAnswered = true;
+        }
+
+        // Función para ir a la siguiente pregunta
+        function nextQuestion() {
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex < currentQuizQuestions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        // Función para mostrar resultados
+        function showResults() {
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('results-screen').classList.remove('hidden');
+            document.getElementById('final-score').textContent = score;
+        }
+
+        // Función para reiniciar
+        function restartQuiz() {
+            document.getElementById('results-screen').classList.add('hidden');
+            document.getElementById('quiz-selection-screen').classList.remove('hidden');
+        }
+
+        // Inicializar
+        generateQuizzes();
+        populateQuizSelection();
+    </script>
+</body>
+</html>

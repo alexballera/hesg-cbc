@@ -1,0 +1,635 @@
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Exámenes de práctica sobre Elasticidad - Sesión 3 CBC UBA">
+    <meta name="keywords" content="elasticidad, elasticidad precio, elasticidad ingreso, elasticidad cruzada, economía CBC">
+    <meta name="author" content="Economía CBC - UBA">
+    <title>Exámenes de Práctica - Elasticidad CBC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4f46e5 0%, #a78bfa 100%);
+        }
+        .quiz-button {
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .quiz-button:hover {
+            background-color: #4338ca;
+            transform: translateY(-2px);
+        }
+        .quiz-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .answer-button {
+            width: 100%;
+            background-color: #e5e7eb;
+            color: #1f2937;
+            text-align: left;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .answer-button:hover:not(:disabled) {
+            background-color: #d1d5db;
+        }
+        .answer-button.correct {
+            background-color: #10b981;
+            color: white;
+            animation: pulse-correct 0.8s;
+        }
+        .answer-button.incorrect {
+            background-color: #ef4444;
+            color: white;
+            animation: shake 0.5s;
+        }
+        .explanation {
+            background-color: #f0f4f8;
+            border-left: 4px solid #4f46e5;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+        }
+        @keyframes pulse-correct {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div id="app" class="container bg-white p-8 rounded-2xl shadow-xl w-full">
+        <!-- Pantalla de selección de cuestionarios -->
+        <div id="quiz-selection-screen">
+            <h1 class="text-3xl font-bold text-center mb-4 text-indigo-700">Selecciona un Examen de Práctica</h1>
+            <p class="text-center text-gray-600 mb-8">Cada examen contiene 20 preguntas aleatorias que abarcan todo el contenido de la unidad de Elasticidad. ¡Mucha suerte!</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                <button onclick="startQuiz(0)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 1</button>
+                <button onclick="startQuiz(1)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 2</button>
+                <button onclick="startQuiz(2)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 3</button>
+                <button onclick="startQuiz(3)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 4</button>
+                <button onclick="startQuiz(4)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 5</button>
+                <button onclick="startQuiz(5)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 6</button>
+                <button onclick="startQuiz(6)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 7</button>
+                <button onclick="startQuiz(7)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 8</button>
+                <button onclick="startQuiz(8)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 9</button>
+                <button onclick="startQuiz(9)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 10</button>
+            </div>
+        </div>
+
+        <!-- Pantalla del cuestionario -->
+        <div id="quiz-screen" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <div class="text-lg font-semibold text-gray-700">Pregunta <span id="current-question-number"></span> de 20</div>
+                <div class="text-lg font-semibold text-gray-700">Puntaje: <span id="score">0</span></div>
+            </div>
+            <div class="card p-6 mb-6">
+                <h2 id="question" class="text-xl font-semibold text-gray-900 mb-6"></h2>
+                <div id="options-container" class="space-y-4"></div>
+            </div>
+            <div id="feedback-message" class="text-center p-4 my-4 rounded-lg font-semibold hidden"></div>
+            <button id="next-button" class="quiz-button w-full py-4 mt-6 gradient-bg text-white font-bold text-lg rounded-lg shadow-md focus:outline-none" onclick="nextQuestion()" disabled>Siguiente</button>
+        </div>
+
+        <!-- Pantalla de resultados -->
+        <div id="results-screen" class="hidden text-center">
+            <h1 class="text-3xl font-bold text-indigo-700 mb-4">¡Examen Completo!</h1>
+            <p class="text-xl text-gray-700 mb-6">Tu puntaje final es:</p>
+            <div class="text-5xl font-extrabold text-white gradient-bg p-8 rounded-full inline-block shadow-lg mb-8">
+                <span id="final-score"></span>
+                <span class="block text-2xl font-normal mt-2">de 20</span>
+            </div>
+            <p class="text-lg text-gray-600 mb-4">¡Sigue practicando para dominar el concepto de Elasticidad!</p>
+            <button class="quiz-button py-4 px-8 mt-4 bg-indigo-600 text-white font-bold text-lg rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none" onclick="restartQuiz()">Volver a la selección</button>
+        </div>
+    </div>
+
+    <script>
+        const allQuestions = [
+            {
+                question: "¿Qué mide la elasticidad-precio de la demanda?",
+                options: ["La sensibilidad de la cantidad demandada ante una variación en el ingreso", "La sensibilidad de la cantidad demandada de un bien frente a la variación del precio de ese bien", "La relación entre la oferta y la demanda de un bien", "El efecto de los bienes sustitutos en el precio"],
+                answer: 1,
+                explanation: "La elasticidad-precio de la demanda mide la magnitud o el grado de sensibilidad de la cantidad demandada de un bien frente a la variación del precio de ese bien."
+            },
+            {
+                question: "Si la elasticidad-precio de la demanda (Ep) es igual a 0, la demanda se considera:",
+                options: ["Elástica", "Unitaria", "Perfectamente inelástica", "Inelástica"],
+                answer: 2,
+                explanation: "Si la Ep = 0, la demanda del bien es perfectamente inelástica. Esto significa que la cantidad demandada no reacciona ante cambios en el precio."
+            },
+            {
+                question: "Una demanda es inelástica cuando el valor de la elasticidad-precio es:",
+                options: ["Mayor que 1", "Igual a 1", "Menor que 1 (pero mayor que 0)", "Igual a infinito"],
+                answer: 2,
+                explanation: "Si la Ep < 1, la demanda del bien es inelástica. La cantidad demandada varía en una proporción menor al cambio del precio."
+            },
+            {
+                question: "Cuando la demanda de un bien tiene elasticidad unitaria (Ep = 1), ¿qué sucede si el precio aumenta un 10%?",
+                options: ["La cantidad demandada aumenta un 10%", "La cantidad demandada disminuye más de un 10%", "La cantidad demandada no cambia", "La cantidad demandada disminuye un 10%"],
+                answer: 3,
+                explanation: "Con elasticidad unitaria, la cantidad demandada se modifica en la misma proporción que el precio. Si el precio sube 10%, la cantidad demandada baja 10%."
+            },
+            {
+                question: "¿Cuál de los siguientes factores tiende a hacer la demanda de un bien MÁS elástica?",
+                options: ["La ausencia de bienes sustitutivos", "El bien satisface una necesidad primaria", "El gasto en el bien representa una pequeña proporción del ingreso", "La existencia de muchos bienes sustitutivos cercanos"],
+                answer: 3,
+                explanation: "Los bienes que tienen sustitutos cercanos tienden a tener una demanda más elástica, porque el consumidor puede cambiarlo por otro si sube su precio."
+            },
+            {
+                question: "Si la demanda de un bien es inelástica y el empresario sube el precio, ¿qué ocurrirá con su ingreso total?",
+                options: ["Disminuirá", "Aumentará", "Se mantendrá constante", "Llegará a cero"],
+                answer: 1,
+                explanation: "Cuando la demanda es inelástica, al subir el precio, el ingreso total también sube, dado que la cantidad demandada disminuye en menor proporción a la suba del precio."
+            },
+            {
+                question: "Si la demanda de un bien es elástica y el empresario baja el precio, ¿qué le pasará a su ingreso total?",
+                options: ["Aumentará", "Disminuirá", "No se modificará", "Depende de la oferta"],
+                answer: 0,
+                explanation: "Cuando la demanda es elástica, si baja el precio, el ingreso total aumenta, ya que la cantidad demandada aumenta en una proporción mayor a la baja del precio."
+            },
+            {
+                question: "¿Qué mide la elasticidad ingreso de la demanda?",
+                options: ["La sensibilidad de la cantidad demandada ante la variación del precio de un bien sustituto", "La sensibilidad de la oferta ante la variación del ingreso", "La sensibilidad de la cantidad demandada de un bien frente a la variación del ingreso de los consumidores", "La relación entre el precio y el ingreso"],
+                answer: 2,
+                explanation: "La elasticidad ingreso mide la magnitud o el grado de sensibilidad de la cantidad demandada de un bien frente a la variación del ingreso de los consumidores."
+            },
+            {
+                question: "Si la elasticidad ingreso de un bien es menor que cero (Ey < 0), ¿de qué tipo de bien se trata?",
+                options: ["Bien normal", "Bien de lujo", "Bien necesario", "Bien inferior"],
+                answer: 3,
+                explanation: "Denominamos bienes inferiores a aquellos que tienen una elasticidad ingreso menor a cero, ya que su demanda disminuye cuando el ingreso sube."
+            },
+            {
+                question: "Un bien normal es aquel cuya elasticidad ingreso es:",
+                options: ["Mayor que cero (Ey > 0)", "Menor que cero (Ey < 0)", "Igual a cero (Ey = 0)", "Infinita"],
+                answer: 0,
+                explanation: "Un bien normal tiene una elasticidad ingreso mayor que cero. Si el ingreso sube, la cantidad demandada del bien aumenta."
+            },
+            {
+                question: "Dentro de los bienes normales, si la elasticidad ingreso es mayor que 1 (Ey > 1), el bien se considera:",
+                options: ["Bien necesario", "Bien de lujo", "Bien Giffen", "Bien público"],
+                answer: 1,
+                explanation: "Los bienes de lujo son bienes normales cuya demanda aumenta en una proporción mayor al aumento del ingreso (Ey > 1)."
+            },
+            {
+                question: "¿Qué mide la elasticidad cruzada de la demanda?",
+                options: ["La relación entre el precio de un bien y el ingreso", "La respuesta de la cantidad demandada de un bien frente a la variación del precio de OTRO bien", "La elasticidad de la oferta", "El costo de producción de dos bienes"],
+                answer: 1,
+                explanation: "La elasticidad cruzada define la relación entre dos bienes a través de la respuesta de la cantidad demandada de un bien frente a la variación del precio de otro bien."
+            },
+            {
+                question: "Si la elasticidad cruzada entre dos bienes es positiva (Ec > 0), ¿cómo se clasifican estos bienes?",
+                options: ["Complementarios", "Sustitutivos", "Independientes", "Inferiores"],
+                answer: 1,
+                explanation: "Si la elasticidad cruzada es positiva, los bienes son sustitutivos. Si sube el precio de uno, aumenta la demanda del otro."
+            },
+            {
+                question: "Si la elasticidad cruzada entre dos bienes es negativa (Ec < 0), se dice que los bienes son:",
+                options: ["Sustitutivos", "Normales", "Complementarios", "De lujo"],
+                answer: 2,
+                explanation: "Si la elasticidad cruzada es negativa, los bienes son complementarios. Si sube el precio de uno, disminuye la demanda del otro."
+            },
+            {
+                question: "Si la elasticidad cruzada entre las impresoras y los cartuchos de tinta es -2, ¿qué significa?",
+                options: ["Son bienes sustitutos", "Son bienes independientes", "Son bienes complementarios", "Son bienes de lujo"],
+                answer: 2,
+                explanation: "Un valor negativo indica que son bienes complementarios. Si sube el precio de las impresoras, la gente compra menos impresoras y, por lo tanto, menos cartuchos."
+            },
+            {
+                question: "¿Qué indica una elasticidad precio de la oferta mayor a 1?",
+                options: ["La oferta es inelástica", "La oferta tiene elasticidad unitaria", "La oferta es elástica", "La oferta es perfectamente inelástica"],
+                answer: 2,
+                explanation: "Cuando la Ep de la oferta es un número mayor a 1, decimos que la oferta es elástica; la cantidad ofrecida es muy sensible a la variación del precio."
+            },
+            {
+                question: "En el muy corto plazo, la oferta de la mayoría de los productos tiende a ser:",
+                options: ["Elástica", "Perfectamente elástica", "Unitaria", "Inelástica o rígida"],
+                answer: 3,
+                explanation: "En el muy corto plazo la oferta de casi todos los productos tiende a ser rígida o inelástica, ya que es difícil ajustar la producción rápidamente."
+            },
+            {
+                question: "Si se aplica un impuesto a un producto con demanda muy inelástica y oferta elástica, ¿quién soportará la mayor parte del impuesto?",
+                options: ["Los productores", "El gobierno", "Los consumidores", "Se repartirá por igual"],
+                answer: 2,
+                explanation: "Si la demanda es más inelástica que la oferta, la mayor parte del impuesto recaerá sobre los consumidores, ya que no pueden reducir fácilmente su consumo."
+            },
+            {
+                question: "La fórmula de la elasticidad ingreso es:",
+                options: ["(Var % Precio) / (Var % Cantidad)", "(Var % Cantidad) / (Var % Ingreso)", "(Var % Ingreso) / (Var % Precio)", "(Var % Cantidad A) / (Var % Precio B)"],
+                answer: 1,
+                explanation: "La fórmula correcta es la variación porcentual de la cantidad demandada dividida por la variación porcentual del ingreso."
+            },
+            {
+                question: "Un bien necesario, como la comida, es un bien normal con una elasticidad ingreso:",
+                options: ["Entre 0 y 1", "Mayor que 1", "Menor que 0", "Igual a 0"],
+                answer: 0,
+                explanation: "Los bienes necesarios son bienes normales (Ey > 0) cuya demanda aumenta en una proporción menor al aumento del ingreso, por lo que su elasticidad está entre 0 y 1."
+            },
+            {
+                question: "¿Por qué se incluye un signo negativo en la fórmula de la elasticidad-precio de la demanda?",
+                options: ["Para que el resultado sea siempre negativo", "Para facilitar la interpretación, convirtiendo el resultado en un número positivo", "Es un error en la fórmula", "Para anular el efecto del precio"],
+                answer: 1,
+                explanation: "Para transformar el valor de la elasticidad-precio en un número positivo –y así facilitar la interpretación de los resultados– se coloca el signo “menos” que precede a la fórmula."
+            },
+            {
+                question: "Si el precio de un bien aumenta de $10 a $12, y la cantidad demandada baja de 100 a 90 unidades, la demanda es:",
+                options: ["Elástica", "Inelástica", "Unitaria", "Perfectamente inelástica"],
+                answer: 1,
+                explanation: "La variación del precio es del 20% y la de la cantidad es del -10%. Como la variación de la cantidad es menor a la del precio, la demanda es inelástica (Ep = 0.5)."
+            },
+            {
+                question: "Un ejemplo de bien con demanda perfectamente inelástica podría ser:",
+                options: ["Un par de zapatillas de marca", "Un medicamento único e imprescindible para la vida", "Un viaje de vacaciones", "Un tipo específico de fruta"],
+                answer: 1,
+                explanation: "Se puede pensar en el caso de un medicamento único e imprescindible para la vida, al bajar o subir el precio la cantidad no se modificará."
+            },
+            {
+                question: "Si la demanda es elástica (Ep > 1), una disminución en el precio provocará en el gasto total del consumidor:",
+                options: ["Una disminución", "Ningún cambio", "Un aumento", "Depende del ingreso"],
+                answer: 2,
+                explanation: "Cuando la demanda es elástica (Ep > 1), el gasto total del consumidor sube cuando el precio baja."
+            },
+            {
+                question: "¿Qué factor NO es un determinante del valor de la elasticidad-precio de la demanda?",
+                options: ["Existencia de bienes sustitutivos", "Proporción del ingreso gastada en el bien", "El costo de producción del bien", "El período de tiempo considerado"],
+                answer: 2,
+                explanation: "El costo de producción es un determinante de la elasticidad de la oferta, no de la demanda."
+            },
+            {
+                question: "A largo plazo, la demanda de un bien tiende a ser:",
+                options: ["Más inelástica", "Más elástica", "Perfectamente inelástica", "Unitaria"],
+                answer: 1,
+                explanation: "Los bienes tienden a tener una demanda más elástica cuando el período de tiempo considerado es más largo."
+            },
+            {
+                question: "Si la elasticidad ingreso de las papas es -0.5, ¿qué sucede si el ingreso de la población aumenta?",
+                options: ["La demanda de papas aumenta", "La demanda de papas no cambia", "La demanda de papas disminuye", "La oferta de papas aumenta"],
+                answer: 2,
+                explanation: "Un resultado negativo de la elasticidad ingreso (Ey < 0) corresponde a un bien inferior. Si el ingreso sube, la demanda de ese bien disminuye."
+            },
+            {
+                question: "Si la elasticidad cruzada entre la manteca y la margarina es 1.5, esto significa que son:",
+                options: ["Bienes complementarios", "Bienes inferiores", "Bienes independientes", "Bienes sustitutivos"],
+                answer: 3,
+                explanation: "La elasticidad cruzada es mayor que cero (Ec > 0) cuando los bienes son sustitutivos."
+            },
+            {
+                question: "¿Qué valor tendría la elasticidad cruzada entre los automóviles y la nafta?",
+                options: ["Un valor positivo", "Un valor negativo", "Cero", "Infinito"],
+                answer: 1,
+                explanation: "Sería un valor negativo (Ec < 0), ya que son bienes complementarios. Si sube el precio de la nafta, la demanda de automóviles tiende a disminuir."
+            },
+            {
+                question: "Si la elasticidad cruzada entre dos bienes es cero, se denominan:",
+                options: ["Bienes normales", "Bienes de lujo", "Bienes independientes", "Bienes públicos"],
+                answer: 2,
+                explanation: "Decimos entonces que estos bienes no están relacionados, por lo tanto se denominan bienes independientes."
+            },
+            {
+                question: "La elasticidad precio de la oferta es siempre positiva porque:",
+                options: ["La ley de la demanda es decreciente", "El precio y la cantidad ofrecida tienen una relación directa", "Los costos de producción siempre bajan", "No se consideran los impuestos"],
+                answer: 1,
+                explanation: "No es necesario un signo negativo porque si el precio sube, la cantidad ofrecida sube (ambas variaciones positivas) y si el precio baja, la cantidad ofrecida baja (ambas negativas), resultando siempre en un valor positivo."
+            },
+            {
+                question: "Una curva de oferta vertical representa una oferta:",
+                options: ["Perfectamente elástica", "Elástica", "Unitaria", "Perfectamente inelástica"],
+                answer: 3,
+                explanation: "Cuando la Ep de la oferta es igual a 0, la oferta es perfectamente inelástica, ya que la cantidad ofrecida no cambia cuando cambia el precio. La curva de oferta es vertical."
+            },
+            {
+                question: "Si la oferta es más inelástica que la demanda, la mayor parte de un impuesto recaerá sobre:",
+                options: ["Los consumidores", "Los productores", "El gobierno", "Se divide en partes iguales"],
+                answer: 1,
+                explanation: "Si la oferta es más inelástica que la demanda, la mayor parte del impuesto recaerá sobre los productores."
+            },
+            {
+                question: "¿Cómo se calcula la variación porcentual de la cantidad demandada?",
+                options: ["(q1 + q0) / q0 * 100", "(q1 - q0) / q0 * 100", "q1 - q0", "q1 / q0 * 100"],
+                answer: 1,
+                explanation: "Se divide la variación en unidades (q1 - q0) por la cantidad inicial (q0) y se multiplica por cien."
+            },
+            {
+                question: "Si el ingreso de un consumidor aumenta un 30% y la demanda de un bien aumenta un 15%, el bien es:",
+                options: ["De lujo", "Inferior", "Necesario", "Sustituto"],
+                answer: 2,
+                explanation: "Es un bien normal (Ey > 0). Como la demanda aumenta en menor proporción que el ingreso, es un bien necesario (0 < Ey < 1)."
+            },
+            {
+                question: "¿Qué significa que la demanda de un bien sea 'sensible a las variaciones del precio'?",
+                options: ["Que la demanda es inelástica", "Que la demanda es elástica", "Que la demanda es unitaria", "Que la demanda es perfectamente inelástica"],
+                answer: 1,
+                explanation: "Cuando la Ep > 1, la demanda del bien es elástica. Se dice que la demanda del bien es sensible a las variaciones del precio."
+            },
+            {
+                question: "Si el precio de las entradas de cine sube un 10% y la cantidad demandada baja un 20%, el ingreso total de los cines:",
+                options: ["Aumentará", "Disminuirá", "No cambiará", "Es imposible saberlo"],
+                answer: 1,
+                explanation: "La demanda es elástica (Ep = 2). Cuando la demanda es elástica, al subir el precio, el ingreso total baja."
+            },
+            {
+                question: "¿Cuál de estos bienes probablemente tenga la demanda más inelástica?",
+                options: ["Carne de pollo", "Sal de mesa", "Entradas para un concierto de rock", "Un modelo específico de smartphone"],
+                answer: 1,
+                explanation: "La sal es un bien que satisface una necesidad básica, tiene pocos sustitutos y representa una porción muy pequeña del ingreso, por lo que su demanda tiende a ser inelástica."
+            },
+            {
+                question: "La elasticidad de la oferta depende principalmente de:",
+                options: ["Los gustos de los consumidores", "El ingreso de los consumidores", "La capacidad de reacción de los empresarios y el plazo de tiempo", "El precio de los bienes complementarios"],
+                answer: 2,
+                explanation: "El valor que toma la elasticidad de la oferta depende de la capacidad de reacción de los empresarios frente a los cambios del precio y del plazo de tiempo considerado."
+            },
+            {
+                question: "Una curva de demanda horizontal representa una demanda:",
+                options: ["Perfectamente inelástica", "Inelástica", "Unitaria", "Perfectamente elástica"],
+                answer: 3,
+                explanation: "Es el caso especial que identifica a una curva de demanda horizontal, es decir que a un determinado precio, los consumidores están dispuestos a adquirir cualquier cantidad del producto (Ep tiende a infinito)."
+            },
+            {
+                question: "Si el precio de un bien baja y el ingreso total del productor también baja, la demanda de ese bien es:",
+                options: ["Elástica", "Inelástica", "Unitaria", "Perfectamente elástica"],
+                answer: 1,
+                explanation: "Cuando la demanda es inelástica, al disminuir el precio, el ingreso total también disminuye."
+            },
+            {
+                question: "¿Qué tipo de elasticidad usarías para determinar si dos bienes son sustitutos o complementarios?",
+                options: ["Elasticidad precio de la demanda", "Elasticidad ingreso", "Elasticidad cruzada", "Elasticidad de la oferta"],
+                answer: 2,
+                explanation: "La elasticidad cruzada define la relación entre dos bienes."
+            },
+            {
+                question: "Si la elasticidad ingreso de un bien es 1.8, se clasifica como:",
+                options: ["Bien inferior", "Bien necesario", "Bien de lujo", "Bien Giffen"],
+                answer: 2,
+                explanation: "Al ser mayor que 1, es un bien normal y se considera un bien de lujo."
+            },
+            {
+                question: "¿Qué resultado de elasticidad cruzada esperarías entre el café y el azúcar?",
+                options: ["Positivo", "Negativo", "Cero", "Uno"],
+                answer: 1,
+                explanation: "Son bienes complementarios, por lo que la elasticidad cruzada sería negativa."
+            },
+            {
+                question: "Si una mejora tecnológica reduce los costos de producción de un bien, la curva de oferta se vuelve:",
+                options: ["Más inelástica", "Más elástica", "Vertical", "Horizontal"],
+                answer: 1,
+                explanation: "La capacidad de reacción de los empresarios aumenta, permitiendo ajustar más fácilmente las cantidades, lo que hace a la oferta más elástica."
+            },
+            {
+                question: "El concepto de elasticidad se utiliza para analizar en términos...",
+                options: ["Cualitativos", "Cuantitativos", "Hipotéticos", "Filosóficos"],
+                answer: 1,
+                explanation: "El concepto de elasticidad se utiliza para analizar en términos cuantitativos cómo se ajusta el mercado a las variaciones de los factores."
+            },
+            {
+                question: "Si la elasticidad precio de la demanda es 3, y el precio sube un 10%, la cantidad demandada disminuirá un:",
+                options: ["3%", "10%", "30%", "0.3%"],
+                answer: 2,
+                explanation: "Ep = (Var % Cantidad) / (Var % Precio) => 3 = x / 10% => x = 30%."
+            },
+            {
+                question: "¿Cuál de las siguientes afirmaciones sobre un bien con demanda inelástica es correcta?",
+                options: ["Tiene muchos sustitutos cercanos", "Es un bien de lujo", "El consumidor es muy sensible a cambios en su precio", "El consumidor es poco sensible a cambios en su precio"],
+                answer: 3,
+                explanation: "Una demanda inelástica (Ep < 1) significa que la demanda es poco sensible a las variaciones del precio."
+            },
+            {
+                question: "El ingreso total de un empresario se maximiza cuando la elasticidad-precio de la demanda es:",
+                options: ["Cero", "Menor que 1", "Mayor que 1", "Igual a 1"],
+                answer: 3,
+                explanation: "El ingreso total se maximiza cuando la elasticidad es igual a uno (unitaria)."
+            },
+            {
+                question: "Si el precio de los pasajes de avión a Europa sube, pero la gente sigue viajando casi en la misma cantidad porque no hay alternativas rápidas, la demanda es:",
+                options: ["Elástica", "Inelástica", "Perfectamente elástica", "Unitaria"],
+                answer: 1,
+                explanation: "La falta de sustitutos cercanos hace que la demanda sea inelástica."
+            },
+            {
+                question: "¿Qué variable NO provoca un desplazamiento de la curva de demanda?",
+                options: ["El ingreso de los consumidores", "El precio de bienes sustitutos", "Los gustos y preferencias", "El precio del propio bien"],
+                answer: 3,
+                explanation: "Una variación en el precio del propio bien causa un movimiento a lo largo de la curva de demanda, no un desplazamiento."
+            },
+            {
+                question: "Si la elasticidad ingreso de las joyas es 2.5, un aumento del 10% en el ingreso de la población provocará:",
+                options: ["Un aumento del 2.5% en la demanda de joyas", "Un aumento del 25% en la demanda de joyas", "Una disminución del 25% en la demanda de joyas", "Un aumento del 10% en la demanda de joyas"],
+                answer: 1,
+                explanation: "Ey = (Var % Cantidad) / (Var % Ingreso) => 2.5 = x / 10% => x = 25%."
+            },
+            {
+                question: "¿Qué tipo de bien podría tener una elasticidad ingreso igual a 0.2?",
+                options: ["Un auto deportivo", "Ropa de segunda mano", "Leche", "Un yate"],
+                answer: 2,
+                explanation: "Un valor entre 0 y 1 corresponde a un bien normal y necesario, como la leche."
+            },
+            {
+                question: "Si el precio de la carne de vaca sube y, como consecuencia, aumenta la demanda de carne de pollo, la elasticidad cruzada será:",
+                options: ["Negativa", "Positiva", "Cero", "No se puede calcular"],
+                answer: 1,
+                explanation: "Son bienes sustitutivos, por lo que la relación es directa y la elasticidad cruzada es positiva."
+            },
+            {
+                question: "La elasticidad precio de la oferta mide la sensibilidad de la cantidad ofrecida ante una variación en:",
+                options: ["El ingreso", "El precio de los insumos", "El precio del propio bien", "La tecnología"],
+                answer: 2,
+                explanation: "La elasticidad precio de la oferta mide la reacción de la cantidad ofrecida frente a cambios en el precio del bien."
+            },
+            {
+                question: "Una helada que arruina la cosecha de naranjas provocará que la oferta de naranjas sea:",
+                options: ["Más elástica a corto plazo", "Perfectamente elástica", "Más inelástica a corto plazo", "Unitaria"],
+                answer: 2,
+                explanation: "A corto plazo, la cantidad de naranjas es fija y no puede responder a cambios en el precio, haciendo la oferta muy inelástica."
+            },
+            {
+                question: "Si el gobierno quiere aplicar un impuesto y que afecte lo menos posible a la cantidad de equilibrio, debería aplicarlo a un bien con:",
+                options: ["Demanda y oferta elásticas", "Demanda y oferta inelásticas", "Demanda elástica y oferta inelástica", "Demanda inelástica y oferta elástica"],
+                answer: 1,
+                explanation: "Cuando tanto la oferta como la demanda son inelásticas, las cantidades varían muy poco ante cambios en el precio, por lo que el impuesto tendrá un bajo impacto en la cantidad transada."
+            },
+            {
+                question: "Si la Ep de la oferta es 0.8, y el precio baja un 10%, la cantidad ofrecida disminuirá un:",
+                options: ["8%", "0.8%", "10%", "18%"],
+                answer: 0,
+                explanation: "Ep oferta = (Var % Cantidad) / (Var % Precio) => 0.8 = x / 10% => x = 8%."
+            },
+            {
+                question: "¿Cuál de los siguientes NO es un tipo de elasticidad de la demanda?",
+                options: ["Elasticidad precio", "Elasticidad cruzada", "Elasticidad ingreso", "Elasticidad de producción"],
+                answer: 3,
+                explanation: "Los tres tipos de elasticidad de la demanda analizados son precio, ingreso y cruzada. La elasticidad de producción se relaciona con la oferta."
+            },
+            {
+                question: "Si al bajar el precio de un producto de $100 a $80, la cantidad demandada aumenta de 50 a 55, el ingreso total del productor:",
+                options: ["Aumenta", "Disminuye", "No cambia", "Se duplica"],
+                answer: 1,
+                explanation: "El ingreso inicial era $100 * 50 = $5000. El nuevo ingreso es $80 * 55 = $4400. El ingreso total disminuye."
+            }
+        ];
+
+        let quizzes = [];
+        let currentQuiz;
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const quizSelectionScreen = document.getElementById('quiz-selection-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const questionElement = document.getElementById('question');
+        const optionsContainer = document.getElementById('options-container');
+        const currentQuestionNumberElement = document.getElementById('current-question-number');
+        const scoreElement = document.getElementById('score');
+        const nextButton = document.getElementById('next-button');
+        const feedbackMessage = document.getElementById('feedback-message');
+        const finalScoreElement = document.getElementById('final-score');
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        
+        function generateQuizzes() {
+            quizzes = [];
+            for (let i = 0; i < 10; i++) {
+                shuffleArray(allQuestions);
+                const selectedQuestions = allQuestions.slice(0, 20);
+                quizzes.push({
+                    title: `Examen de Práctica ${i + 1}`,
+                    questions: selectedQuestions
+                });
+            }
+        }
+
+        function startQuiz(quizIndex) {
+            currentQuiz = quizzes[quizIndex];
+            currentQuestionIndex = 0;
+            score = 0;
+            
+            quizSelectionScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const currentQuestionData = currentQuiz.questions[currentQuestionIndex];
+
+            currentQuestionNumberElement.textContent = currentQuestionIndex + 1;
+            scoreElement.textContent = score;
+            questionElement.textContent = currentQuestionData.question;
+            optionsContainer.innerHTML = '';
+            feedbackMessage.classList.add('hidden');
+            feedbackMessage.innerHTML = '';
+            nextButton.disabled = true;
+
+            const options = [...currentQuestionData.options];
+            
+            options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('answer-button', 'block');
+                button.onclick = () => checkAnswer(button, index);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedButton, selectedIndex) {
+            const currentQuestionData = currentQuiz.questions[currentQuestionIndex];
+            const correctIndex = currentQuestionData.answer;
+
+            Array.from(optionsContainer.children).forEach((button, index) => {
+                button.disabled = true;
+                if (index === correctIndex) {
+                    button.classList.add('correct');
+                }
+            });
+
+            if (selectedIndex === correctIndex) {
+                score++;
+                feedbackMessage.textContent = '¡Respuesta Correcta!';
+                feedbackMessage.classList.remove('hidden', 'bg-red-100', 'text-red-700');
+                feedbackMessage.classList.add('bg-green-100', 'text-green-700');
+            } else {
+                selectedButton.classList.add('incorrect');
+                feedbackMessage.innerHTML = `
+                    <div class="font-bold mb-2">¡Respuesta Incorrecta!</div>
+                    <div class="explanation">
+                        <strong class="text-indigo-700">Explicación:</strong>
+                        <p class="text-sm mt-1 text-gray-700">${currentQuestionData.explanation}</p>
+                    </div>
+                `;
+                feedbackMessage.classList.remove('hidden', 'bg-green-100', 'text-green-700');
+                feedbackMessage.classList.add('bg-red-100', 'text-red-700');
+            }
+
+            feedbackMessage.classList.remove('hidden');
+            scoreElement.textContent = score;
+            nextButton.disabled = false;
+            nextButton.focus();
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuiz.questions.length) {
+                showQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        function endQuiz() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            finalScoreElement.textContent = score;
+        }
+
+        function restartQuiz() {
+            resultsScreen.classList.add('hidden');
+            quizSelectionScreen.classList.remove('hidden');
+            generateQuizzes(); // Regenerar los exámenes para que sean diferentes cada vez
+        }
+
+        window.onload = function() {
+            generateQuizzes();
+            quizSelectionScreen.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

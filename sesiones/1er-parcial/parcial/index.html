@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Exámenes de práctica tipo parcial sobre conceptos de economía - Primer Parcial CBC UBA">
+    <meta name="keywords" content="economía CBC, primer parcial, microeconomía, macroeconomía, oferta, demanda, elasticidad, FPP, doctrinas económicas, examen práctica">
+    <meta name="author" content="Economía CBC - UBA">
+    <title>Exámenes de Práctica - Primer Parcial Economía CBC</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4f46e5 0%, #a78bfa 100%);
+        }
+        .quiz-button {
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .quiz-button:hover {
+            background-color: #4338ca;
+            transform: translateY(-2px);
+        }
+        .quiz-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .answer-button {
+            width: 100%;
+            background-color: #e5e7eb;
+            color: #1f2937;
+            text-align: left;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .answer-button:hover:not(:disabled) {
+            background-color: #d1d5db;
+        }
+        .answer-button.correct {
+            background-color: #10b981;
+            color: white;
+            animation: pulse-correct 0.8s;
+        }
+        .answer-button.incorrect {
+            background-color: #ef4444;
+            color: white;
+            animation: shake 0.5s;
+        }
+        .explanation {
+            background-color: #f0f4f8;
+            border-left: 4px solid #4f46e5;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+        }
+        @keyframes pulse-correct {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div id="app" class="container bg-white p-8 rounded-2xl shadow-xl w-full">
+        <!-- Pantalla de selección de cuestionarios -->
+        <div id="quiz-selection-screen">
+            <h1 class="text-3xl font-bold text-center mb-4 text-indigo-700">Exámenes de Práctica - Primer Parcial</h1>
+            <p class="text-center text-gray-600 mb-8">Cada examen contiene 20 preguntas basadas en los modelos de exámenes anteriores y el contenido de las sesiones. ¡Practica para el primer parcial!</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                <button onclick="startQuiz(0)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Simulacro Parcial 1</button>
+                <button onclick="startQuiz(1)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Simulacro Parcial 2</button>
+                <button onclick="startQuiz(2)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Simulacro Parcial 3</button>
+                <button onclick="startQuiz(3)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Simulacro Parcial 4</button>
+                <button onclick="startQuiz(4)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Simulacro Parcial 5</button>
+                <button onclick="startQuiz(5)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Simulacro Parcial 6</button>
+                <button onclick="startQuiz(6)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Simulacro Parcial 7</button>
+                <button onclick="startQuiz(7)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Simulacro Parcial 8</button>
+                <button onclick="startQuiz(8)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Simulacro Parcial 9</button>
+                <button onclick="startQuiz(9)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Simulacro Parcial 10</button>
+            </div>
+        </div>
+
+        <!-- Pantalla del cuestionario -->
+        <div id="quiz-screen" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <div class="text-lg font-semibold text-gray-700">Pregunta <span id="current-question-number"></span> de 20</div>
+                <div class="text-lg font-semibold text-gray-700">Puntaje: <span id="score">0</span></div>
+            </div>
+            <div class="card p-6 mb-6">
+                <h2 id="question" class="text-xl font-semibold text-gray-900 mb-6"></h2>
+                <div id="options-container" class="space-y-4"></div>
+            </div>
+            <div id="feedback-message" class="text-center p-4 my-4 rounded-lg font-semibold hidden"></div>
+            <button id="next-button" class="quiz-button w-full py-4 mt-6 gradient-bg text-white font-bold text-lg rounded-lg shadow-md focus:outline-none" onclick="nextQuestion()" disabled>Siguiente</button>
+        </div>
+
+        <!-- Pantalla de resultados -->
+        <div id="results-screen" class="hidden text-center">
+            <h1 class="text-3xl font-bold text-indigo-700 mb-4">¡Simulacro Completo!</h1>
+            <p class="text-xl text-gray-700 mb-6">Tu puntaje final es:</p>
+            <div class="text-5xl font-extrabold text-white gradient-bg p-8 rounded-full inline-block shadow-lg mb-8">
+                <span id="final-score"></span>
+                <span class="block text-2xl font-normal mt-2">de 20</span>
+            </div>
+            <p class="text-lg text-gray-600 mb-4">¡Sigue practicando para el primer parcial!</p>
+            <button class="quiz-button py-4 px-8 mt-4 bg-indigo-600 text-white font-bold text-lg rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none" onclick="restartQuiz()">Volver a la selección</button>
+        </div>
+    </div>
+
+    <script>
+        const allQuestions = [
+            // Pregunta 1
+            {
+                question: "¿Cuál de las siguientes afirmaciones define correctamente la microeconomía?",
+                options: ["La rama que estudia las decisiones del Estado", "La rama que estudia las decisiones individuales de firmas, hogares y mercados", "La rama que estudia únicamente los mercados financieros", "La rama que estudia solo la macroeconomía"],
+                answer: 1,
+                explanation: "La microeconomía es la rama de la economía que se dedica a estudiar las decisiones individuales de firmas, hogares y mercados, mientras que la economía positiva es aquella que se ocupa de estudiar la economía tal cual es sin realizar prescripciones."
+            },
+            // Pregunta 2
+            {
+                question: "Según las doctrinas económicas estudiadas, ¿cuál de estos pensadores NO considera que los salarios son perfectamente flexibles?",
+                options: ["Keynesianos", "Neoclásicos", "Clásicos", "Monetaristas"],
+                answer: 0,
+                explanation: "Tanto para los marxistas como para los keynesianos los salarios no son perfectamente flexibles. Por lo tanto, puede existir el desempleo involuntario y la formación de un ejército de reserva."
+            },
+            // Pregunta 3
+            {
+                question: "Los monetaristas consideran que el sector público tiene un rol fundamental en:",
+                options: ["Controlar directamente los precios", "Planificar toda la economía", "Garantizar la estabilidad macroeconómica a través de la política monetaria", "Eliminar la propiedad privada"],
+                answer: 2,
+                explanation: "Los monetaristas consideraban que el sector público tiene un rol fundamental en garantizar la estabilidad macroeconómica a través de la política monetaria."
+            },
+            // Pregunta 4
+            {
+                question: "¿Qué efecto tiene una guerra en la Frontera de Posibilidades de Producción (FPP)?",
+                options: ["La desplaza hacia la derecha", "La destrucción de recursos implica una contracción hacia adentro de la FPP", "No tiene efecto alguno", "Solo cambia su pendiente"],
+                answer: 1,
+                explanation: "La destrucción de recursos derivada de la guerra implica una contracción hacia adentro de la FPP por la menor cantidad de bienes producidos, debido a una disminución en la capacidad de producción del país."
+            },
+            // Pregunta 5
+            {
+                question: "Si aparece una maquinaria que incrementa las posibilidades de producir solo uno de los dos bienes, ¿qué sucede con la FPP?",
+                options: ["Se desplaza simétricamente hacia la derecha", "Se desplaza hacia la derecha de forma asimétrica con cambio de pendiente", "Se contrae hacia adentro", "No se modifica"],
+                answer: 1,
+                explanation: "La aparición de una maquinara que incrementa las posibilidades de producir uno de los dos bienes (pero no el otro) puede verse como un desplazamiento hacia la derecha de la FPP de forma asimétrica (con cambio de pendiente) dado que se incrementa la capacidad productiva de la economía pero en uno de los dos sectores."
+            },
+            // Pregunta 6
+            {
+                question: "La función de demanda muestra:",
+                options: ["Una relación directa entre precio y cantidad", "Una relación inversa entre el precio de un bien y las cantidades demandadas del mismo", "Una relación constante", "No existe relación entre precio y cantidad"],
+                answer: 1,
+                explanation: "La función de demanda muestra la relación inversa entre el precio de un determinado bien y las cantidades demandadas del mismo, es decir, cuando sube el precio las cantidades demandadas disminuyen y viceversa."
+            },
+            // Pregunta 7
+            {
+                question: "¿Cuál de los siguientes factores provocaría una disminución en la demanda de carne vacuna?",
+                options: ["Aumento de los precios del pollo (sustituto)", "Caída de los ingresos de los consumidores", "Disminución del precio de la carne", "Mejora en la tecnología de producción"],
+                answer: 1,
+                explanation: "La caída de los ingresos de los consumidores actúa como un factor negativo para la demanda de carne vacuna. Las otras opciones provocan que se desplace la demanda pero en sentido contrario o bien reducen la oferta."
+            },
+            // Pregunta 8
+            {
+                question: "Si se elimina un precio máximo que generaba exceso de demanda, ¿qué efecto se espera?",
+                options: ["Aumento de los precios por mayor oferta", "Disminución en los precios por aumento de las cantidades ofrecidas", "Los precios se mantienen igual", "Se crea un nuevo exceso de demanda"],
+                answer: 1,
+                explanation: "La eliminación de un precio máximo, que generaba exceso de demanda por sobre la oferta, debería repercutir en una disminución en los precios por un aumento de las cantidades ofrecidas a un precio más atractivo."
+            },
+            // Pregunta 9
+            {
+                question: "¿Cómo se representan gráficamente los cambios en las variables que afectan tanto la oferta como la demanda?",
+                options: ["Como movimientos sobre las curvas", "Como desplazamientos hacia la izquierda o derecha", "Solo afectan el punto de equilibrio", "No se pueden representar"],
+                answer: 1,
+                explanation: "Los mercados se ven afectados por numerosas variables, que influyen tanto en la oferta como en la demanda, de modo tal que aquellas pueden disminuir (esto se representa gráficamente como un desplazamiento hacia la izquierda) o aumentar (lo que se representa gráficamente como un desplazamiento hacia la derecha)."
+            },
+            // Pregunta 10
+            {
+                question: "Cuando la oferta disminuye gráficamente, ¿qué sucede con el precio de equilibrio?",
+                options: ["Se mantiene constante", "El precio de equilibrio se eleva", "El precio de equilibrio baja", "Se elimina el equilibrio"],
+                answer: 1,
+                explanation: "Cuando la oferta disminuye, gráficamente, se desplaza hacia la izquierda y el precio de equilibrio se eleva, considerando que todo lo demás permanece constante."
+            },
+            // Pregunta 11
+            {
+                question: "Si dos bienes son complementarios y aumenta el precio de uno de ellos, ¿qué sucede con el otro bien?",
+                options: ["Se vende más del otro bien", "Se vende menos del otro bien también", "No se ve afectado", "Solo cambia su precio"],
+                answer: 1,
+                explanation: "Si los bienes son complementarios, quiere decir que hay correlación entre las cantidades demandadas de ambos, por lo tanto, si aumenta el precio de un bien se venderá menos ese bien y también el otro bien. Si disminuye el precio de un bien se venderá más ese bien y también el otro bien."
+            },
+            // Pregunta 12
+            {
+                question: "Los bienes necesarios son aquellos bienes normales que:",
+                options: ["Al aumentar el ingreso, aumenta su demanda en mayor proporción", "Al aumentar el ingreso, aumenta su demanda pero en menor proporción", "No se ven afectados por el ingreso", "Son de lujo"],
+                answer: 1,
+                explanation: "El objetivo de esta pregunta es diferenciar los tipos de bienes según el impacto en la demanda al cambiar el ingreso de la población. En particular, los bienes necesarios son aquellos bienes normales que al aumentar el ingreso, aumenta su demanda pero en menor proporción."
+            },
+            // Pregunta 13
+            {
+                question: "Si las frutas tienen una elasticidad precio de 1,5 y los alimentos secos de 0,5, ¿cómo se maximiza el ingreso total?",
+                options: ["Subir el precio de ambos", "Bajar el precio de ambos", "Disminuir el precio de las frutas y subir el de alimentos secos", "Subir el precio de las frutas y bajar el de alimentos secos"],
+                answer: 2,
+                explanation: "La manera de maximizar el ingreso total es disminuir el precio de las frutas ya que de esa manera aumentará la demanda en mayor proporción y subir el precio de los alimentos secos ya que al realizarlo la demanda caerá pero en menor proporción que el aumento de precios realizado."
+            },
+            // Pregunta 14
+            {
+                question: "Los bienes y servicios de demanda inelástica son aquellos que:",
+                options: ["Tienen una elasticidad mayor a 1", "Frente a una variación del precio, la cantidad demandada se modifica en menor proporción", "Tienen una elasticidad infinita", "No se ven afectados por el precio"],
+                answer: 1,
+                explanation: "Los bienes y servicios de demanda inelástica son aquellos que, frente a una variación del precio, la cantidad demandada se modificará, pero en una proporción menor al porcentaje de cambio del precio, es decir, tiene una demanda poco sensible a las variaciones del precio."
+            },
+            // Pregunta 15
+            {
+                question: "Una externalidad negativa ocurre cuando:",
+                options: ["Los precios suben", "La producción de un bien afecta desfavorablemente el bienestar de terceros", "Hay competencia perfecta", "El estado interviene"],
+                answer: 1,
+                explanation: "Cuando la producción de un bien afecta desfavorablemente el bienestar de los productores que no participan ni en su compra ni en su venta y que generan un costo adicional que no es considerado en el precio, nos enfrentamos a una externalidad negativa."
+            },
+            // Pregunta 16
+            {
+                question: "El mercado de notebooks es considerado:",
+                options: ["Homogéneo", "Heterogéneo", "Monopolístico", "Perfectamente competitivo"],
+                answer: 1,
+                explanation: "El mercado de notebooks es heterogéneo, ya que cuenta con muchas opciones y con diferentes estándares de calidad y tecnológicos, los que varían a lo largo del tiempo."
+            },
+            // Pregunta 17
+            {
+                question: "La información asimétrica en los mercados es:",
+                options: ["Beneficiosa para todos", "Perjudicial para el consumidor", "No tiene efectos", "Solo afecta a los productores"],
+                answer: 1,
+                explanation: "Por lo tanto, lo óptimo tanto para el consumidor como para el oferente, es que exista información perfecta para tomar la mejor decisión. Por lo tanto, si existe información asimétrica, es perjudicial para el consumidor."
+            },
+            // Pregunta 18
+            {
+                question: "La compra de uniformes para la policía por parte del Estado representa un caso de:",
+                options: ["Competencia perfecta", "Monopsonio", "Monopolio", "Oligopolio"],
+                answer: 1,
+                explanation: "La compra de uniformes para la policía sucede entre varios oferentes como tiene el mercado textil y un solo comprador que es el Estado, por lo tanto estamos en presencia de un Monopsonio."
+            },
+            // Pregunta 19
+            {
+                question: "Según la teoría de la utilidad, la canasta óptima para un consumidor es:",
+                options: ["La más cara", "Aquella para la cual la utilidad marginal por peso gastado de cada bien es la misma para todos los bienes", "La que contiene más bienes", "La más barata"],
+                answer: 1,
+                explanation: "Según la teoría de la utilidad, la canasta óptima para un consumidor es aquella para la cual la utilidad marginal por peso gastado de cada bien es la misma para todos los bienes."
+            },
+            // Pregunta 20
+            {
+                question: "Cuando una empresa tiene deseconomías de escala significa que:",
+                options: ["Los costos bajan al aumentar la producción", "El costo promedio total tiende a aumentar al incrementar la producción", "No hay cambios en los costos", "Solo afecta los costos fijos"],
+                answer: 1,
+                explanation: "Que una empresa tenga deseconomías de escala o rendimientos decrecientes a escala implica que en la medida que incrementa la producción de un bien, el costo promedio total tiende a aumentar."
+            },
+            // Pregunta 21
+            {
+                question: "Un productor de competencia perfecta se enfrenta individualmente a:",
+                options: ["Una función de demanda con pendiente negativa", "Una función de demanda perfectamente elástica (horizontal)", "Una función de demanda vertical", "No tiene función de demanda"],
+                answer: 1,
+                explanation: "Un productor de competencia perfecta se enfrenta de forma individual a una función de demanda perfectamente elástica (horizontal), ya que al precio de mercado podrá vender toda su producción."
+            },
+            // Pregunta 22
+            {
+                question: "Los fisiócratas consideraban que la única fuente de riqueza era:",
+                options: ["El comercio", "La industria", "La tierra y la producción agrícola", "Los metales preciosos"],
+                answer: 2,
+                explanation: "Para los exponentes de la escuela fisiócrata, la tierra era la única fuente de riqueza y la producción agrícola era considerada la única actividad capaz de crear valor."
+            },
+            // Pregunta 23
+            {
+                question: "Los mercantilistas sostenían que un Estado se enriquecía mediante:",
+                options: ["La producción agrícola", "La acumulación de metales preciosos, especialmente el oro", "El libre comercio", "La división del trabajo"],
+                answer: 1,
+                explanation: "Los mercantilistas sostenían que la forma en que un Estado se enriquecía era con la acumulación de metales preciosos, especialmente el oro."
+            },
+            // Pregunta 24
+            {
+                question: "Adam Smith desarrolló la teoría conocida como:",
+                options: ["Teoría de la utilidad", "Teoría del valor-trabajo", "Teoría de la mano invisible", "Teoría cuantitativa del dinero"],
+                answer: 1,
+                explanation: "Smith desarrolló la Teoría del valor-trabajo, la cual consideraba que el valor de un bien o servicio podía medirse a partir del trabajo, esfuerzo económico, que tiene incorporado."
+            },
+            // Pregunta 25
+            {
+                question: "Para los neoclásicos, el valor de un bien o servicio depende de:",
+                options: ["Solo los costos de producción", "La cantidad de trabajo incorporado", "La apreciación subjetiva que los destinatarios le asignan (utilidad)", "Los metales preciosos"],
+                answer: 2,
+                explanation: "Para los pensadores neoclásicos, el valor de un bien o servicio no surge únicamente de los costos incurridos en su producción o prestación, sino que resulta también de una apreciación subjetiva que los destinatarios le asignan (cuánto lo valoran)."
+            },
+            // Pregunta 26
+            {
+                question: "Según Marx, el 'ejército industrial de reserva' se refiere a:",
+                options: ["Los trabajadores más calificados", "La masa de trabajadores desocupados que el sistema necesita", "Los soldados que trabajan en fábricas", "Los trabajadores del sector público"],
+                answer: 1,
+                explanation: "Marx pone en evidencia la realidad del desempleo que existía en la época y, además, encuentra una importante contradicción ya que considera que el sistema no podría funcionar sin esa masa de trabajadores desocupados a la que denomina ejército industrial de reserva."
+            },
+            // Pregunta 27
+            {
+                question: "En una FPP cóncava (curva hacia afuera), ¿qué tipo de rendimientos representa?",
+                options: ["Rendimientos marginales constantes", "Rendimientos marginales crecientes", "Rendimientos marginales decrecientes", "No representa ningún tipo de rendimiento"],
+                answer: 2,
+                explanation: "Una FPP cóncava implica que el costo de oportunidad aumenta a medida que se produce más de un bien, lo que corresponde a rendimientos marginales decrecientes."
+            },
+            // Pregunta 28
+            {
+                question: "¿Qué supuesto es clave del modelo de la Frontera de Posibilidades de Producción?",
+                options: ["Los recursos son ilimitados", "Los recursos pueden emplearse indistintamente en la producción de ambos bienes", "Solo existe un bien en la economía", "Los precios son fijos"],
+                answer: 1,
+                explanation: "Uno de los supuestos clave del modelo FPP es que los recursos son totalmente móviles y pueden ser utilizados para producir cualquiera de los dos bienes."
+            },
+            // Pregunta 29
+            {
+                question: "¿Cuál es el objeto de estudio principal de la Macroeconomía?",
+                options: ["El comportamiento individual de las empresas", "El desempleo y la inflación a nivel general", "Los precios de mercados específicos", "Las decisiones de consumo individual"],
+                answer: 1,
+                explanation: "La macroeconomía se ocupa del desempeño general de la economía, incluyendo indicadores como el desempleo, la inflación y el crecimiento económico."
+            },
+            // Pregunta 30
+            {
+                question: "Si la tecnología mejora de manera uniforme para ambos bienes, ¿qué sucede con la FPP?",
+                options: ["Se desplaza hacia la izquierda", "Se desplaza de manera simétrica hacia la derecha", "Solo rota sobre un eje", "Se vuelve más cóncava"],
+                answer: 1,
+                explanation: "Un avance tecnológico que afecta positivamente a ambos bienes desplaza la frontera hacia afuera (a la derecha), lo que representa un aumento en las posibilidades de producción."
+            },
+            // Pregunta 31
+            {
+                question: "Un punto dentro de la FPP representa:",
+                options: ["Una situación inalcanzable", "Una situación de subutilización o ineficiencia de los recursos", "Una producción eficiente", "El costo de oportunidad máximo"],
+                answer: 1,
+                explanation: "Los puntos dentro de la FPP indican que una economía está produciendo por debajo de su potencial, lo que significa que hay recursos desempleados o utilizados de manera ineficiente."
+            },
+            // Pregunta 32
+            {
+                question: "El mecanismo de mercado se define como:",
+                options: ["Un sistema de planificación central", "Una forma de organización económica donde individuos y empresas privadas toman las principales decisiones", "Un tipo de mercado controlado por el estado", "El uso exclusivo de la política fiscal"],
+                answer: 1,
+                explanation: "El mecanismo de mercado es una forma de organizar la economía donde las decisiones sobre precios y producción son tomadas por los individuos y las empresas en interacción a través de los mercados."
+            },
+            // Pregunta 33
+            {
+                question: "¿Cuál NO es un papel económico del Estado según la teoría económica?",
+                options: ["Promover la eficiencia", "Fomentar la equidad", "Garantizar la perfección de la competencia", "Promover el crecimiento y la estabilidad"],
+                answer: 2,
+                explanation: "Los documentos señalan que el Estado interviene para corregir fallas de mercado como el monopolio (ineficiencias) y la desigualdad (equidad), pero no para 'garantizar la perfección'."
+            },
+            // Pregunta 34
+            {
+                question: "La 'Mano Invisible' de Adam Smith se refiere a:",
+                options: ["La intervención del gobierno", "La búsqueda del interés personal que beneficia a la sociedad en su conjunto", "Un sistema de economía planificada", "La intervención de bancos centrales"],
+                answer: 1,
+                explanation: "La doctrina de la mano invisible sugiere que, en una economía de mercado, los individuos que buscan su propio interés terminan promoviendo el bienestar de la sociedad de manera no intencionada."
+            },
+            // Pregunta 35
+            {
+                question: "Los rendimientos marginales constantes se ilustran con:",
+                options: ["Una FPP cóncava", "Una FPP en forma de línea recta", "Una FPP convexa", "Una FPP que se desplaza"],
+                answer: 1,
+                explanation: "Cuando los rendimientos marginales son constantes, el costo de oportunidad no cambia a medida que se produce más de un bien, lo que se representa con una FPP en forma de línea recta."
+            },
+            // Pregunta 36
+            {
+                question: "La escuela monetarista se enfoca especialmente en:",
+                options: ["La oferta y demanda de bienes", "La relación entre empleo y producción", "El impacto del dinero y la oferta monetaria en la economía", "La planificación central"],
+                answer: 2,
+                explanation: "El monetarismo es una corriente que se dedica al análisis del impacto del dinero y la oferta monetaria en las economías."
+            },
+            // Pregunta 37
+            {
+                question: "Si un avance tecnológico afecta únicamente la producción de un solo bien, la FPP:",
+                options: ["Se desplaza simétricamente hacia la derecha", "Rota sobre el eje del bien que no se vio afectado", "No se mueve", "Rota sobre el eje del bien afectado"],
+                answer: 1,
+                explanation: "El avance tecnológico para un solo bien aumenta las posibilidades de producción solo para ese bien, causando que la FPP se desplace hacia afuera de manera asimétrica, rotando sobre el eje del otro bien."
+            },
+            // Pregunta 38
+            {
+                question: "¿Cuándo se produce un 'cambio en la asignación de recursos' en el contexto de la FPP?",
+                options: ["Cuando la frontera se desplaza", "Cuando se produce un movimiento sobre la frontera", "Cuando se mueve el punto dentro del área", "Cuando se incorpora nueva tecnología"],
+                answer: 1,
+                explanation: "Un cambio en la asignación de recursos significa que se está produciendo una combinación diferente de bienes, lo cual se representa con un movimiento sobre la misma frontera."
+            },
+            // Pregunta 39
+            {
+                question: "La eficiencia económica se define como:",
+                options: ["La distribución equitativa de recursos", "El uso más eficaz de los recursos de una sociedad para satisfacer necesidades y deseos", "La estabilidad de precios", "El pleno empleo"],
+                answer: 1,
+                explanation: "La eficiencia económica es un concepto clave que implica maximizar la producción de la sociedad con los recursos disponibles."
+            },
+            // Pregunta 40
+            {
+                question: "Las tres preguntas fundamentales que toda sociedad debe resolver son:",
+                options: ["Solo cómo producir", "Qué producir, cómo producir y para quién producir", "Únicamente para quién producir", "Cuándo, dónde y por qué producir"],
+                answer: 1,
+                explanation: "La escasez obliga a las sociedades a responder las tres preguntas fundamentales: qué producir, cómo producir y para quién producir."
+            },
+            // Pregunta 41
+            {
+                question: "En el contexto del modelo de mercado, si aumenta el ingreso de la población y se trata de un bien normal, ¿qué sucede?",
+                options: ["La demanda disminuye", "La demanda aumenta", "La oferta disminuye", "No hay cambios"],
+                answer: 1,
+                explanation: "Si dos bienes son normales, al aumentar el ingreso de la población, aumenta la demanda de esos bienes, lo que se representa con un desplazamiento de la curva de demanda hacia la derecha."
+            },
+            // Pregunta 42
+            {
+                question: "Si aumenta el precio de la harina (materia prima del pan), ¿qué sucede en el mercado de pan?",
+                options: ["La demanda aumenta", "La oferta disminuye", "Los precios bajan", "No hay efectos"],
+                answer: 1,
+                explanation: "El aumento en el precio de la harina incrementa los costos de producción del pan, lo que hace que la oferta disminuya (se desplace hacia la izquierda), resultando en un aumento del precio del pan."
+            },
+            // Pregunta 43
+            {
+                question: "¿Qué representa el punto de equilibrio en el mercado?",
+                options: ["Solo el precio máximo", "El punto donde confluyen la oferta y la demanda", "Solo la cantidad máxima", "El punto de menor precio"],
+                answer: 1,
+                explanation: "El punto de equilibrio es donde se cruzan las curvas de oferta y demanda, determinando tanto el precio como la cantidad de equilibrio del mercado."
+            },
+            // Pregunta 44
+            {
+                question: "Si se produce una mejora tecnológica que afecta la producción de maíz, ¿qué sucede en ese mercado?",
+                options: ["La demanda aumenta", "La oferta aumenta", "El precio sube", "La cantidad disminuye"],
+                answer: 1,
+                explanation: "Una mejora tecnológica en la producción de maíz permite producir más cantidad con los mismos recursos, lo que aumenta la oferta (desplazamiento hacia la derecha), reduciendo el precio y aumentando la cantidad de equilibrio."
+            },
+            // Pregunta 45
+            {
+                question: "La elasticidad precio de la demanda mide:",
+                options: ["Solo la variación del precio", "La magnitud de sensibilidad de la cantidad demandada frente a la variación del precio", "Solo la variación de la cantidad", "La relación entre oferta y demanda"],
+                answer: 1,
+                explanation: "La elasticidad precio de la demanda mide la magnitud o el grado de sensibilidad de la cantidad demandada de un bien frente a la variación del precio de ese bien."
+            },
+            // Pregunta 46
+            {
+                question: "Si la elasticidad precio de la demanda es mayor a 1, se dice que la demanda es:",
+                options: ["Inelástica", "Elástica", "Unitaria", "Perfectamente inelástica"],
+                answer: 1,
+                explanation: "Cuando la elasticidad precio de la demanda es mayor a 1, significa que la cantidad demandada reacciona en mayor proporción que el cambio en el precio, por lo que la demanda es elástica."
+            },
+            // Pregunta 47
+            {
+                question: "Los bienes de lujo se caracterizan por tener una elasticidad ingreso:",
+                options: ["Negativa", "Entre 0 y 1", "Mayor a 1", "Igual a 0"],
+                answer: 2,
+                explanation: "Los bienes de lujo son aquellos bienes normales que al aumentar el ingreso, aumenta su demanda pero en mayor proporción, por lo que tienen una elasticidad ingreso mayor a 1."
+            },
+            // Pregunta 48
+            {
+                question: "Si dos bienes son sustitutos y aumenta el precio de uno de ellos:",
+                options: ["Se vende menos del otro bien", "Se vende más del otro bien", "No se ve afectado el otro bien", "Ambos bajan de precio"],
+                answer: 1,
+                explanation: "Si dos bienes son sustitutos, hay correlación inversa entre las cantidades demandadas de ambos. Si aumenta el precio de un bien se venderá menos de ese bien y por lo tanto se venderá más del otro."
+            },
+            // Pregunta 49
+            {
+                question: "En competencia monopolística, los mercados se caracterizan por:",
+                options: ["Un solo vendedor", "Pocos vendedores con productos idénticos", "Muchos vendedores con productos diferenciados", "Un solo comprador"],
+                answer: 2,
+                explanation: "La competencia monopolística se da en mercados con muchos vendedores, cada uno ofreciendo un producto diferenciado que le permite tener cierto poder sobre el precio, a pesar de la existencia de sustitutos cercanos."
+            },
+            // Pregunta 50
+            {
+                question: "Los bienes públicos se caracterizan por:",
+                options: ["Alta rivalidad y exclusión", "No rivalidad ni exclusión", "Solo rivalidad", "Solo exclusión"],
+                answer: 1,
+                explanation: "Los bienes públicos son aquellos que no poseen rivalidad (el consumo de una persona no afecta el de otra) ni exclusión (no se puede excluir a nadie de su consumo), como el alumbrado público o la defensa nacional."
+            },
+            // Pregunta 51
+            {
+                question: "Los monopolios naturales se caracterizan por:",
+                options: ["Bajos costos hundidos", "Altos costos hundidos que actúan como barreras de entrada", "Muchos competidores", "Productos diferenciados"],
+                answer: 1,
+                explanation: "Los altos costos hundidos son barreras de entrada altas para actividades como la extracción de recursos. Esta situación requiere grandes inversiones de capital para su puesta en marcha, lo que denominamos monopolios naturales."
+            },
+            // Pregunta 52
+            {
+                question: "Las economías de escala implican que:",
+                options: ["Los costos aumentan al aumentar la producción", "El costo promedio total tiende a disminuir al incrementar la producción", "Los costos se mantienen constantes", "Solo afectan los costos variables"],
+                answer: 1,
+                explanation: "Que una empresa tenga economías de escala o rendimientos crecientes a escala implica que en la medida que incrementa la producción de un bien, el costo promedio total tiende a disminuir."
+            },
+            // Pregunta 53
+            {
+                question: "La ley de rendimientos marginales decrecientes sucede:",
+                options: ["En el largo plazo", "A corto plazo cuando uno de los factores productivos está fijo", "Solo en competencia perfecta", "En todos los mercados"],
+                answer: 1,
+                explanation: "La ley de los rendimientos marginales decrecientes es una regularidad empírica que sucede a corto plazo, cuando uno de los factores productivos está fijo y la empresa no lo puede modificar."
+            },
+            // Pregunta 54
+            {
+                question: "¿Cuál fue el evento que marcó el inicio de la macroeconomía moderna?",
+                options: ["La Primera Guerra Mundial", "La Crisis de 1929", "La Revolución Industrial", "La caída del Muro de Berlín"],
+                answer: 1,
+                explanation: "El documento menciona que la forma moderna de la macroeconomía se originó con John Maynard Keynes, especialmente a partir de la Crisis de 1929."
+            },
+            // Pregunta 55
+            {
+                question: "Los factores de producción básicos identificados por los clásicos son:",
+                options: ["Solo trabajo y capital", "Tierra, trabajo y capital", "Solo tierra y trabajo", "Capital y tecnología únicamente"],
+                answer: 1,
+                explanation: "La escuela clásica definió los factores de producción como tierra, trabajo y capital, estableciendo la relación entre riqueza y acumulación de capital."
+            },
+            // Pregunta 56
+            {
+                question: "¿Qué caracteriza el desempleo involuntario según las escuelas de pensamiento?",
+                options: ["Solo existe en el monetarismo", "Es reconocido por keynesianos y marxistas", "No existe según ninguna escuela", "Solo existe en épocas de crisis"],
+                answer: 1,
+                explanation: "Tanto para los marxistas como para los keynesianos los salarios no son perfectamente flexibles, por lo tanto puede existir el desempleo involuntario, a diferencia de las escuelas clásica y neoclásica."
+            },
+            // Pregunta 57
+            {
+                question: "En el modelo de mercado, las variables exógenas son:",
+                options: ["El precio y la cantidad", "Variables que aparecen en los ejes del gráfico", "Variables que no están en los ejes pero afectan las funciones", "Solo el precio"],
+                answer: 2,
+                explanation: "Las variables exógenas son aquellas variables de las funciones de oferta y demanda que no están indicadas en los ejes del gráfico y que se habían considerado constantes (ceteris paribus)."
+            },
+            // Pregunta 58
+            {
+                question: "Si se fija un precio máximo por debajo del precio de equilibrio:",
+                options: ["Se genera exceso de oferta", "Se produce escasez ya que las cantidades ofrecidas son menores que las demandadas", "No hay efectos", "El mercado se equilibra automáticamente"],
+                answer: 1,
+                explanation: "Al fijarse por debajo del precio de equilibrio, los precios máximos producen escasez ya que a este precio, las cantidades ofrecidas son menores que las demandadas."
+            },
+            // Pregunta 59
+            {
+                question: "¿Qué sucede cuando se produce un exceso de oferta en el mercado?",
+                options: ["Los precios tienden a subir", "Los precios tienden a bajar", "No hay cambios en el precio", "Se elimina la demanda"],
+                answer: 1,
+                explanation: "Cuando a un determinado precio se produce un exceso de cantidades ofrecidas respecto de las demandadas, tenemos como resultado un exceso de oferta que presiona a la baja de los precios."
+            },
+            // Pregunta 60
+            {
+                question: "La diferencia principal entre economía positiva y normativa es:",
+                options: ["No hay diferencias", "La positiva estudia lo que es, la normativa lo que debería ser", "La positiva es más importante", "La normativa solo estudia precios"],
+                answer: 1,
+                explanation: "La economía positiva se ocupa de estudiar la economía tal cual es sin realizar prescripciones, mientras que la economía normativa se ocupa de realizar prescripciones y predicciones sobre cómo debería ser la economía."
+            },
+            // Pregunta 61
+            {
+                question: "En un libre mercado, ¿qué sucede si un sector económico presenta altas tasas de ganancia?",
+                options: [
+                    "Las empresas existentes suben sus precios para aumentar aún más sus ganancias.",
+                    "Nuevas empresas son incentivadas a entrar al sector, aumentando la oferta y bajando los precios.",
+                    "El gobierno interviene para regular las ganancias.",
+                    "La demanda de los consumidores disminuye drásticamente."
+                ],
+                answer: 1,
+                explanation: "En un libre mercado, las altas tasas de ganancias de un sector, incentivan a las empresas a incorporarse al mismo, lo cual provoca un aumento de los oferentes y la oferta, disminuyendo los precios."
+            },
+            // Pregunta 62
+            {
+                question: "¿Cuál era la visión de los mercantilistas sobre el comercio internacional?",
+                options: [
+                    "Defendían el libre comercio sin restricciones.",
+                    "Creían que la riqueza de una nación no dependía del comercio.",
+                    "Apoyaban la intervención del Estado para fomentar la acumulación de oro mediante políticas proteccionistas.",
+                    "Consideraban que la agricultura era la única fuente de riqueza."
+                ],
+                answer: 2,
+                explanation: "Los mercantilistas defendían la idea de la intervención en la economía para fomentar la acumulación de oro mediante medidas proteccionistas. De esta manera, se podían desarrollar los mercados y acumular riquezas."
+            },
+            // Pregunta 63
+            {
+                question: "Según la teoría del valor-trabajo, ¿qué determina el valor de un bien?",
+                options: [
+                    "La utilidad que le asigna el consumidor.",
+                    "La cantidad de trabajo socialmente necesario para producirlo.",
+                    "El precio fijado por el productor.",
+                    "La escasez del bien en el mercado."
+                ],
+                answer: 1,
+                explanation: "La cantidad de trabajo que una sociedad, en promedio, tarda en producir un bien es el que determina su valor. Es importante distinguir el trabajo socialmente necesario del trabajo individualmente necesario."
+            },
+            // Pregunta 64
+            {
+                question: "En el modelo de la Frontera de Posibilidades de Producción (FPP), ¿qué representa una combinación de bienes ubicada por fuera de la curva?",
+                options: [
+                    "Una producción eficiente.",
+                    "Una producción ineficiente con recursos ociosos.",
+                    "Una combinación de bienes alcanzable pero no deseada.",
+                    "Una producción inalcanzable con la tecnología y recursos disponibles."
+                ],
+                answer: 3,
+                explanation: "Una canasta sobre la curva es eficiente porque no se tienen bienes excedentes y es asequible. Las combinaciones por fuera de la curva son inalcanzables y las que están hacia adentro de la curva FPP son ineficientes."
+            },
+            // Pregunta 65
+            {
+                question: "¿Qué efecto tiene una catástrofe natural, como un terremoto, sobre la FPP de un país?",
+                options: [
+                    "La desplaza hacia la derecha, aumentando la producción.",
+                    "La desplaza hacia la izquierda, contrayendo la producción.",
+                    "No tiene ningún efecto sobre la FPP.",
+                    "Cambia su forma de cóncava a convexa."
+                ],
+                answer: 1,
+                explanation: "Una catástrofe natural genera pérdidas graves en la cantidad de bienes disponibles, por lo que la curva FPP se correrá hacia la izquierda, es decir que hay una menor producción de todos los bienes."
+            },
+            // Pregunta 66
+            {
+                question: "Si una campaña de salud pública genera mayor conciencia sobre los beneficios de comer frutas, ¿qué efecto se espera en el mercado de frutas?",
+                options: [
+                    "Un aumento en la oferta de frutas.",
+                    "Un aumento en la demanda de frutas.",
+                    "Una disminución en el precio de las frutas.",
+                    "Ningún cambio en el mercado."
+                ],
+                answer: 1,
+                explanation: "Una mayor concientización sobre la ingesta de bienes saludables modifica la demanda de alimentos, no así su oferta. El aumento de la demanda de bienes saludables provoca una suba del precio y con ella un incremento de la cantidad ofrecida, lo cual es un movimiento sobre la curva de oferta y no produce desplazamiento alguno en ella."
+            },
+            // Pregunta 67
+            {
+                question: "Si el ingreso de los consumidores disminuye y el bien X es un bien normal, ¿qué ocurrirá en el mercado del bien X?",
+                options: [
+                    "La demanda aumentará y el precio subirá.",
+                    "La demanda disminuirá y el precio bajará.",
+                    "La oferta aumentará y el precio bajará.",
+                    "La oferta disminuirá y el precio subirá."
+                ],
+                answer: 1,
+                explanation: "En un bien normal existe una relación directa entre el ingreso y la demanda. Dada la oferta, una caída de la demanda provoca una reducción del precio del bien."
+            },
+            // Pregunta 68
+            {
+                question: "Un aumento en los costos de transporte de mercaderías, ¿qué efecto tendrá sobre la curva de oferta de esos productos?",
+                options: [
+                    "La desplazará hacia la derecha.",
+                    "La desplazará hacia la izquierda.",
+                    "No la afectará.",
+                    "La convertirá en una curva vertical."
+                ],
+                answer: 1,
+                explanation: "La suba de costos tales como los relacionados a la logística (transporte) disminuye la oferta de un bien, sin que se modifique la demanda. En consecuencia, el precio del bien aumentará."
+            },
+            // Pregunta 69
+            {
+                question: "¿Qué mide la elasticidad cruzada de la demanda?",
+                options: [
+                    "La sensibilidad de la cantidad demandada de un bien ante cambios en el ingreso.",
+                    "La sensibilidad de la cantidad demandada de un bien ante cambios en su propio precio.",
+                    "La sensibilidad de la cantidad demandada de un bien ante cambios en el precio de otro bien.",
+                    "La sensibilidad de la cantidad ofrecida de un bien ante cambios en su precio."
+                ],
+                answer: 2,
+                explanation: "La elasticidad cruzada mide la variación de las cantidades demandadas de un bien respecto de una pequeña variación en el precio de otro bien relacionado."
+            },
+            // Pregunta 70
+            {
+                question: "Si la elasticidad ingreso de la demanda de un bien es 1.5, ¿de qué tipo de bien se trata?",
+                options: [
+                    "Bien inferior.",
+                    "Bien normal y necesario.",
+                    "Bien normal y de lujo.",
+                    "Bien Giffen."
+                ],
+                answer: 2,
+                explanation: "La elasticidad ingreso mide la relación entre la variación en las cantidades demandadas de un bien respecto de la variación en el ingreso. Si el resultado de dicha elasticidad es un valor positivo y mayor que uno se trata de un bien normal y de lujo."
+            },
+            // Pregunta 71
+            {
+                question: "Si aumenta el precio de la levadura, un insumo clave para hacer pan, ¿qué sucederá en el mercado del pan?",
+                options: [
+                    "La oferta de pan aumentará y el precio bajará.",
+                    "La oferta de pan disminuirá y el precio subirá.",
+                    "La demanda de pan aumentará y el precio subirá.",
+                    "La demanda de pan disminuirá y el precio bajará."
+                ],
+                answer: 1,
+                explanation: "Al aumentar el precio de uno de los insumos para la elaboración del pan, en el mercado que utiliza dichos insumos se observa una contracción de la oferta, aumentando el precio de dicho bien o servicio, desplazándose la función de la oferta hacia la izquierda."
+            },
+            // Pregunta 72
+            {
+                question: "Si las impresoras y los cartuchos de tinta son bienes complementarios, y el precio de las impresoras aumenta, ¿qué pasará en el mercado de cartuchos de tinta?",
+                options: [
+                    "La demanda de cartuchos aumentará.",
+                    "La demanda de cartuchos disminuirá.",
+                    "La oferta de cartuchos aumentará.",
+                    "No habrá ningún cambio."
+                ],
+                answer: 1,
+                explanation: "Al tratarse de bienes complementarios, el aumento en el precio de uno de ellos, genera una contracción de la demanda del otro, generando un descenso del precio del bien complementario."
+            },
+            // Pregunta 73
+            {
+                question: "Si el precio de un bien sube un 10% y la cantidad demandada cae un 5%, la demanda de ese bien es:",
+                options: [
+                    "Elástica.",
+                    "Inelástica.",
+                    "Unitaria.",
+                    "Perfectamente elástica."
+                ],
+                answer: 1,
+                explanation: "La demanda de un bien es inelástica cuando la cantidad reacciona en menor proporción que el cambio en el precio. En este caso, la variación de la cantidad (5%) es menor a la del precio (10%)."
+            },
+            // Pregunta 74
+            {
+                question: "¿En cuál de las siguientes situaciones los ingresos de un vendedor aumentan?",
+                options: [
+                    "Sube el precio y la demanda es elástica.",
+                    "Baja el precio y la demanda es inelástica.",
+                    "Sube el precio y la demanda es inelástica.",
+                    "Baja el precio y la demanda es unitaria."
+                ],
+                answer: 2,
+                explanation: "Los ingresos del empresario aumentan cuando el precio sube y la demanda es inelástica, o cuando el precio baja y la demanda es elástica."
+            },
+            // Pregunta 75
+            {
+                question: "Un mercado con muchos compradores y muchos vendedores que ofrecen productos ligeramente diferenciados (como los restaurantes) es un ejemplo de:",
+                options: [
+                    "Competencia perfecta.",
+                    "Monopolio.",
+                    "Competencia monopolística.",
+                    "Oligopolio."
+                ],
+                answer: 2,
+                explanation: "Cuando consideramos el número de participantes en un mercado, la homogeneidad del bien comercializado o la capacidad de influir en el precio de mercado, podemos observar distintos tipos de mercados de competencia imperfecta. En este caso son muchos participantes del lado de la oferta y del lado de la demanda, se trata de una competencia monopolística."
+            },
+            // Pregunta 76
+            {
+                question: "Una campaña de vacunación masiva y gratuita es un ejemplo de política que genera:",
+                options: [
+                    "Externalidades negativas.",
+                    "Externalidades positivas.",
+                    "Un bien privado.",
+                    "Un monopolio natural."
+                ],
+                answer: 1,
+                explanation: "Las campañas de vacunación son un ejemplo de cómo se generan externalidades positivas, esto es efectos colaterales positivos, que no están considerados por el mercado."
+            },
+            // Pregunta 77
+            {
+                question: "Una señal de radio AM/FM que puede ser escuchada por cualquiera que tenga un receptor es un ejemplo de:",
+                options: [
+                    "Bien privado.",
+                    "Bien mixto.",
+                    "Bien público.",
+                    "Bien de club."
+                ],
+                answer: 2,
+                explanation: "Los bienes pueden analizarse según las características de exclusión y rivalidad. Una señal de radio la cual no permite excluir a los consumidores y a la vez no posee rivalidad se considera es un bien público. Si en esta señal se cobrara algún arancel para escucharla, en ese caso nos encontraríamos con un bien mixto."
+            },
+            // Pregunta 78
+            {
+                question: "En el corto plazo, ¿cuál es el comportamiento del costo variable total a medida que aumenta la producción?",
+                options: [
+                    "Permanece constante.",
+                    "Disminuye.",
+                    "Aumenta.",
+                    "Primero disminuye y luego aumenta."
+                ],
+                answer: 2,
+                explanation: "El costo variable total a diferencia del costo fijo, va aumentando a medida que se incrementa la producción. Cabe destacar que no nos estamos refiriéndonos al costo variable promedio, el cual posee distintos comportamientos a lo largo de las distintas etapas productivas, sino al costo variable total."
+            },
+            // Pregunta 79
+            {
+                question: "Si una empresa duplica todos sus insumos y, como resultado, la producción se triplica, se dice que la empresa presenta:",
+                options: [
+                    "Rendimientos constantes a escala.",
+                    "Rendimientos decrecientes a escala.",
+                    "Rendimientos crecientes a escala.",
+                    "Deseconomías de escala."
+                ],
+                answer: 2,
+                explanation: "Cuando la modificación en todos los insumos conduce a un aumento en mayor proporción en la producción, estamos hablando de que la empresa posee rendimientos crecientes de escala."
+            },
+            // Pregunta 80
+            {
+                question: "En un mercado de competencia perfecta, una empresa maximiza sus beneficios cuando:",
+                options: [
+                    "El precio es igual al costo marginal.",
+                    "El precio es mayor al costo marginal.",
+                    "El precio es menor al costo marginal.",
+                    "El ingreso total es máximo."
+                ],
+                answer: 0,
+                explanation: "En competencia perfecta, la producción de máxima utilidad que podrá obtener una empresa será para el nivel de producción en el cual el costo marginal iguale al precio de mercado."
+            },
+            // Pregunta 81
+            {
+                question: "La escuela de pensamiento Fisiócrata consideraba que la fuente de toda riqueza era:",
+                options: [
+                    "El comercio internacional.",
+                    "La acumulación de oro.",
+                    "La industria manufacturera.",
+                    "La tierra y la agricultura."
+                ],
+                answer: 3,
+                explanation: "La escuela de pensamiento fisiócrata toma a la tierra y las actividades asociadas a esta como fuentes de riqueza y de generación de valor. Esto es lo que las distingue de otras escuelas."
+            },
+            // Pregunta 82
+            {
+                question: "Si el precio de un bien baja un 10% y la cantidad demandada aumenta un 15%, la demanda es:",
+                options: [
+                    "Elástica.",
+                    "Inelástica.",
+                    "Unitaria.",
+                    "Perfectamente inelástica."
+                ],
+                answer: 0,
+                explanation: "El precio de la carne vacuna bajó un 12% y la cantidad demandada aumentó un 15%. La demanda de la carne vacuna es elástica. La elasticidad precio de la demanda, mide el grado de sensibilidad que tiene la cantidad frente a la variación del precio. De acuerdo con esto podemos calificar a la demanda como elástica cuando la cantidad reacciona en una proporción mayor, inelástica cuando la cantidad reacciona en menor proporción y unitaria cuando la cantidad reacciona en igual proporción."
+            },
+            // Pregunta 83
+            {
+                question: "Un servicio de streaming como Netflix, que requiere una suscripción para acceder (exclusión) pero cuyo consumo por un usuario no impide el de otro (no rivalidad), es un ejemplo de:",
+                options: [
+                    "Bien público.",
+                    "Bien privado.",
+                    "Bien mixto o de club.",
+                    "Bien común."
+                ],
+                answer: 2,
+                explanation: "Según sus características de exclusión y rivalidad, los bienes pueden clasificarse en públicos, privados o mixtos. En esta pregunta se consulta acerca de un servicio de streaming (como Netflix, Disney+, u otro), donde el mismo no posee rivalidad, es decir, un nuevo usuario no afecta a los demás, pero si posee exclusión a través de la suscripción del servicio. Por lo tanto, es un bien mixto."
+            },
+            // Pregunta 84
+            {
+                question: "A medida que aumenta la producción, ¿qué sucede con el costo fijo promedio (CFP)?",
+                options: [
+                    "Aumenta.",
+                    "Permanece constante.",
+                    "Disminuye.",
+                    "Aumenta y luego disminuye."
+                ],
+                answer: 2,
+                explanation: "La pregunta busca que se logre comprender los distintos costos en la producción, enfocando en los costos variables y fijos. En particular, se consulta acerca del costo fijo promedio, el cual es decreciente en la medida que aumenta la producción. El costo fijo promedio (CFP), al considerar el monto del costo fijo y las cantidades producidas, para dividir el costo fijo (CF) entre las cantidades (q) representándose por la división CFP = CF/q. Por lo cual, a medida que aumentan las cantidades producidas, irá disminuyendo el costo fijo promedio."
+            },
+            // Pregunta 85
+            {
+                question: "La ley de los rendimientos decrecientes establece que:",
+                options: [
+                    "Al aumentar todos los insumos, la producción aumenta en la misma proporción.",
+                    "Al añadir unidades de un insumo variable a un insumo fijo, la producción adicional eventually disminuirá.",
+                    "La producción siempre disminuye al aumentar los insumos.",
+                    "El costo promedio siempre aumenta con la producción."
+                ],
+                answer: 1,
+                explanation: "La ley de los rendimientos decrecientes afirma que se obtendrá menos y menos producción adicional cuando se añaden dosis adicionales de un insumo mientras los demás insumos se mantengan constantes. En otras palabras, el producto marginal de cada unidad de insumo se reducirá a medida que la cantidad de ese insumo se incremente, si todos los demás insumos se mantienen constantes."
+            },
+            // Pregunta 86
+            {
+                question: "La teoría keynesiana sostiene que el nivel de empleo en una economía depende principalmente de:",
+                options: [
+                    "La flexibilidad de los salarios.",
+                    "La decisión individual de las personas de trabajar o no.",
+                    "El nivel de actividad económica e inversión agregada.",
+                    "La tasa de interés fijada por el banco central."
+                ],
+                answer: 2,
+                explanation: "La teoría keynesiana explica que el nivel de empleo no es una decisión individual de las personas, sino que depende del nivel de actividad e inversión, por lo tanto, existen momentos del ciclo económico en donde las empresas no contratan empleados y la decisión de no trabajar no es del individuo."
+            },
+            // Pregunta 87
+            {
+                question: "Según Karl Marx, la 'explotación del trabajador' en el sistema capitalista se debe a que:",
+                options: [
+                    "Los trabajadores no son dueños de los medios de producción.",
+                    "No existen leyes laborales que protejan al trabajador.",
+                    "Los salarios son demasiado bajos.",
+                    "Todas las anteriores son correctas."
+                ],
+                answer: 3,
+                explanation: "Marx, ve en el capitalismo importantes desequilibrios, pero pone especial énfasis en las condiciones en las que se desarrolla el trabajo de los obreros, ya que en esos tiempos no existían prácticamente las leyes laborales y la protección al trabajador, por lo que considera que existe la explotación del trabajador."
+            },
+            // Pregunta 88
+            {
+                question: "Un impuesto a la producción de un bien generalmente causa:",
+                options: [
+                    "Un aumento en la cantidad demandada y una baja en el precio.",
+                    "Una disminución en la cantidad demandada y una suba en el precio.",
+                    "Un aumento en la oferta y una baja en el precio.",
+                    "Una disminución en la demanda y una baja en el precio."
+                ],
+                answer: 1,
+                explanation: "El impuesto aumenta el costo de producir o vender gaseosas, lo que suele trasladarse a precios más altos para los consumidores. Como resultado, muchas personas compran menos, reduciendo la cantidad demandada."
+            },
+            // Pregunta 89
+            {
+                question: "Si una helada destruye gran parte de la cosecha de tomates, ¿qué se espera que suceda en el mercado de tomates?",
+                options: [
+                    "La oferta aumenta, el precio baja y la cantidad intercambiada sube.",
+                    "La demanda disminuye, el precio baja y la cantidad intercambiada baja.",
+                    "La oferta disminuye, el precio sube y la cantidad intercambiada baja.",
+                    "La demanda aumenta, el precio sube y la cantidad intercambiada sube."
+                ],
+                answer: 2,
+                explanation: "Una helada reduce la cantidad disponible de tomates, lo que representa una caída en la oferta. En el gráfico, eso se muestra como un desplazamiento de la curva de oferta hacia la izquierda, generando escasez relativa, suba de precios y caída en la cantidad intercambiada."
+            },
+            // Pregunta 90
+            {
+                question: "Si los consumidores esperan que el precio del café aumente la próxima semana, ¿qué sucederá con la demanda de café hoy?",
+                options: [
+                    "Disminuirá.",
+                    "Aumentará.",
+                    "No cambiará.",
+                    "Se volverá perfectamente elástica."
+                ],
+                answer: 1,
+                explanation: "Los consumidores intentan comprar más café ahora, antes de que suba el precio, lo que genera un aumento de la demanda actual."
+            },
+            // Pregunta 91
+            {
+                question: "Un bien cuya elasticidad ingreso de la demanda está entre 0 y 1 se clasifica como:",
+                options: [
+                    "Bien de lujo.",
+                    "Bien inferior.",
+                    "Bien normal y necesario.",
+                    "Bien Giffen."
+                ],
+                answer: 2,
+                explanation: "Los bienes normales son aquellos cuya elasticidad ingreso de la demanda se encuentra entre 0 y 1. Sus cantidades demandadas aumentan para cualquier nivel de precio cuando aumenta el ingreso de los consumidores."
+            },
+            // Pregunta 92
+            {
+                question: "Si la elasticidad precio de la oferta de un bien es 2, esto significa que:",
+                options: [
+                    "Si el precio aumenta un 1%, la cantidad ofrecida aumenta un 0.5%.",
+                    "Si el precio aumenta un 1%, la cantidad ofrecida aumenta un 2%.",
+                    "Si el precio aumenta un 2%, la cantidad ofrecida aumenta un 1%.",
+                    "La oferta es inelástica."
+                ],
+                answer: 1,
+                explanation: "Si al aumentar un 1% el precio de un bien la respuesta de los productores es incrementar un 2% la cantidad ofrecida de dicho bien, entonces la elasticidad precio de la oferta es igual a 2."
+            },
+            // Pregunta 93
+            {
+                question: "Si la demanda de un bien es inelástica (ej. elasticidad = 0.8) y el precio del bien sube, ¿qué pasará con el ingreso total de los vendedores?",
+                options: [
+                    "Aumentará.",
+                    "Disminuirá.",
+                    "Permanecerá constante.",
+                    "Es imposible de determinar."
+                ],
+                answer: 0,
+                explanation: "Si la demanda de un bien es inelástica, entonces ante una suba del precio la cantidad demandada disminuirá proporcionalmente menos, por lo cual el ingreso total de los vendedores se incrementará. Es el caso del ejercicio, dado que se informa que la elasticidad precio de la demanda es igual a 0,8."
+            },
+            // Pregunta 94
+            {
+                question: "Si la elasticidad cruzada entre dos bienes es negativa, ¿qué tipo de bienes son?",
+                options: [
+                    "Sustitutos.",
+                    "Complementarios.",
+                    "Independientes.",
+                    "De lujo."
+                ],
+                answer: 1,
+                explanation: "Cuando dos bienes son complementarios entre sí, al calcular su elasticidad cruzada su resultado será negativo, ya que, al aumentar el precio de uno de ellos, la cantidad demandada del otro será menor."
+            },
+            // Pregunta 95
+            {
+                question: "El desarrollo de una nueva tecnología que beneficia a toda una industria sin que la empresa innovadora pueda cobrar por ello es un ejemplo de:",
+                options: [
+                    "Externalidad negativa.",
+                    "Bien público.",
+                    "Externalidad positiva.",
+                    "Monopolio."
+                ],
+                answer: 2,
+                explanation: "Si una empresa desarrolla una tecnología que beneficia a toda una industria, le está generando un beneficio a un tercero el cual no paga por dicho beneficio ni tampoco el beneficio es tenido en cuenta por la empresa desarrolladora. Estamos en presencia pues, de una externalidad positiva."
+            },
+            // Pregunta 96
+            {
+                question: "La ley de la utilidad marginal decreciente establece que:",
+                options: [
+                    "A medida que se consume más de un bien, la utilidad total disminuye.",
+                    "La utilidad marginal de la última unidad consumida es siempre la más alta.",
+                    "A medida que se consume más de un bien, la utilidad adicional de cada nueva unidad tiende a ser menor.",
+                    "La utilidad es constante sin importar la cantidad consumida."
+                ],
+                answer: 2,
+                explanation: "La ley de la utilidad marginal decreciente dice que a medida que aumenta la cantidad consumida de un bien, la utilidad marginal del mismo tiende a reducirse. El término marginal significa “adicional”."
+            },
+            // Pregunta 97
+            {
+                question: "En un mercado de competencia perfecta, las empresas son precio-aceptantes. Esto significa que:",
+                options: [
+                    "Pueden fijar el precio que deseen.",
+                    "Deben aceptar el precio determinado por el mercado.",
+                    "El precio es siempre igual al costo fijo.",
+                    "No hay un precio de equilibrio."
+                ],
+                answer: 1,
+                explanation: "En mercados de competencia perfecta, las empresas no tienen poder de mercado y no fijan el precio al que venden su producto, son precio-aceptantes. Por ello el beneficio que obtienen se denomina 'normal' y este es el que determina la cantidad a vender, en el punto donde el costo marginal es igual al precio de venta."
+            },
+            // Pregunta 98
+            {
+                question: "Si al aumentar todos los factores de producción en un 10%, la producción aumenta en un 10%, estamos en presencia de:",
+                options: [
+                    "Rendimientos crecientes a escala.",
+                    "Rendimientos decrecientes a escala.",
+                    "Rendimientos constantes a escala.",
+                    "Deseconomías de escala."
+                ],
+                answer: 2,
+                explanation: "Al aumentar todos los factores de producción en la misma cantidad, la producción del bien no siempre aumenta en esta misma cantidad. Aparecen así, los distintos rendimientos a escala que se pueden presentar en la producción. En este caso, como la producción y los factores productivos aumentan en idéntica proporción, se dice que la empresa presenta rendimientos constantes a escala."
+            },
+            // Pregunta 99
+            {
+                question: "Un mercado donde hay un solo comprador y muchos vendedores se denomina:",
+                options: [
+                    "Monopolio.",
+                    "Oligopolio.",
+                    "Monopsonio.",
+                    "Competencia perfecta."
+                ],
+                answer: 2,
+                explanation: "La compra y operación de los semáforos tiene un solo vendedor, la empresa que provee de los mismos, y un solo comprador, el Estado, que tiene el monopolio de la compra, por eso se trata de un monopolio bilateral."
+            },
+            // Pregunta 100
+            {
+                question: "Si la curva de demanda es más inelástica que la de oferta, ¿quién soporta la mayor parte de un impuesto a la producción?",
+                options: [
+                    "Los productores.",
+                    "Los consumidores.",
+                    "Se reparte por igual entre ambos.",
+                    "El Estado."
+                ],
+                answer: 1,
+                explanation: "Si la curva de Demanda es más inelástica con respecto al precio que la curva de Oferta, la incidencia del impuesto va a afectar más a los consumidores, ya que estos tendrán que afrontar la mayor parte de ese impuesto. En otras palabras, son los que perderán más excedente del consumidor pagando un precio mucho mayor por cada bien o servicio."
+            }
+        ];
+
+        // Variables del juego
+        let currentQuizQuestions = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedAnswer = null;
+        let questionsAnswered = false;
+
+        // Función para mezclar un array
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Función para iniciar un cuestionario
+        function startQuiz(quizIndex) {
+            // Seleccionar 20 preguntas aleatorias
+            const shuffledQuestions = shuffleArray([...allQuestions]);
+            currentQuizQuestions = shuffledQuestions.slice(0, 20);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            selectedAnswer = null;
+            questionsAnswered = false;
+
+            // Ocultar pantalla de selección y mostrar pantalla de cuestionario
+            document.getElementById('quiz-selection-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            document.getElementById('results-screen').classList.add('hidden');
+
+            loadQuestion();
+        }
+
+        // Función para cargar una pregunta
+        function loadQuestion() {
+            const question = currentQuizQuestions[currentQuestionIndex];
+            
+            document.getElementById('current-question-number').textContent = currentQuestionIndex + 1;
+            document.getElementById('score').textContent = score;
+            document.getElementById('question').textContent = question.question;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'answer-button';
+                button.textContent = `${String.fromCharCode(65 + index)}. ${option}`;
+                button.onclick = () => selectAnswer(index);
+                optionsContainer.appendChild(button);
+            });
+
+            // Limpiar feedback y deshabilitar botón siguiente
+            document.getElementById('feedback-message').classList.add('hidden');
+            document.getElementById('next-button').disabled = true;
+            selectedAnswer = null;
+            questionsAnswered = false;
+        }
+
+        // Función para seleccionar una respuesta
+        function selectAnswer(index) {
+            if (questionsAnswered) return;
+
+            selectedAnswer = index;
+            const question = currentQuizQuestions[currentQuestionIndex];
+            const buttons = document.querySelectorAll('.answer-button');
+            
+            buttons.forEach((button, i) => {
+                button.disabled = true;
+                if (i === question.answer) {
+                    button.classList.add('correct');
+                } else if (i === selectedAnswer && i !== question.answer) {
+                    button.classList.add('incorrect');
+                }
+            });
+
+            // Mostrar feedback
+            const feedbackMessage = document.getElementById('feedback-message');
+            feedbackMessage.classList.remove('hidden');
+            
+            if (selectedAnswer === question.answer) {
+                score++;
+                feedbackMessage.className = 'text-center p-4 my-4 rounded-lg font-semibold bg-green-100 text-green-800';
+                feedbackMessage.innerHTML = `<strong>¡Correcto!</strong><br><div class="explanation mt-2">${question.explanation}</div>`;
+            } else {
+                feedbackMessage.className = 'text-center p-4 my-4 rounded-lg font-semibold bg-red-100 text-red-800';
+                feedbackMessage.innerHTML = `<strong>Incorrecto.</strong> La respuesta correcta es: ${String.fromCharCode(65 + question.answer)}<br><div class="explanation mt-2">${question.explanation}</div>`;
+            }
+
+            document.getElementById('score').textContent = score;
+            document.getElementById('next-button').disabled = false;
+            questionsAnswered = true;
+        }
+
+        // Función para ir a la siguiente pregunta
+        function nextQuestion() {
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex < currentQuizQuestions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        // Función para mostrar resultados
+        function showResults() {
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('results-screen').classList.remove('hidden');
+            document.getElementById('final-score').textContent = score;
+        }
+
+        // Función para reiniciar
+        function restartQuiz() {
+            document.getElementById('results-screen').classList.add('hidden');
+            document.getElementById('quiz-selection-screen').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

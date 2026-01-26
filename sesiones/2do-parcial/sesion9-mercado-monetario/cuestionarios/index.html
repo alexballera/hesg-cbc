@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cuestionario interactivo de Mercado Monetario para el CBC de la UBA. 80 preguntas sobre base monetaria, oferta monetaria, multiplicador y política monetaria.">
+    <meta name="keywords" content="economía, CBC, UBA, mercado monetario, base monetaria, oferta monetaria, multiplicador monetario, demanda de dinero, política monetaria, tasa de interés, cuestionario">
+    <meta name="author" content="Economía CBC - UBA">
+    <title>Cuestionario: Sesión 9 - Mercado Monetario | Economía CBC-UBA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4f46e5 0%, #a78bfa 100%);
+        }
+        .quiz-button {
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .quiz-button:hover {
+            background-color: #4338ca;
+            transform: translateY(-2px);
+        }
+        .quiz-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .answer-button {
+            width: 100%;
+            background-color: #e5e7eb;
+            color: #1f2937;
+            text-align: left;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .answer-button:hover:not(:disabled) {
+            background-color: #d1d5db;
+        }
+        .answer-button.correct {
+            background-color: #10b981;
+            color: white;
+            animation: pulse-correct 0.8s;
+        }
+        .answer-button.incorrect {
+            background-color: #ef4444;
+            color: white;
+            animation: shake 0.5s;
+        }
+        .explanation {
+            background-color: #f0f4f8;
+            border-left: 4px solid #4f46e5;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+        }
+        @keyframes pulse-correct {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div id="app" class="container bg-white p-8 rounded-2xl shadow-xl w-full">
+        <!-- Pantalla de selección de cuestionarios -->
+        <div id="quiz-selection-screen">
+            <h1 class="text-3xl font-bold text-center mb-4 text-indigo-700">Sesión 9 - Mercado Monetario</h1>
+            <p class="text-center text-gray-600 mb-8">Cuestionario sobre base monetaria, oferta monetaria, multiplicador monetario, demanda de dinero y política monetaria</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+                <button onclick="startQuiz(0)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 1</button>
+                <button onclick="startQuiz(1)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 2</button>
+                <button onclick="startQuiz(2)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 3</button>
+                <button onclick="startQuiz(3)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 4</button>
+                <button onclick="startQuiz(4)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 5</button>
+                <button onclick="startQuiz(5)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 6</button>
+                <button onclick="startQuiz(6)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 7</button>
+                <button onclick="startQuiz(7)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 8</button>
+                <button onclick="startQuiz(8)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 9</button>
+                <button onclick="startQuiz(9)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none">Examen de Práctica 10</button>
+            </div>
+        </div>
+
+        <!-- Pantalla del cuestionario -->
+        <div id="quiz-screen" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <div class="text-lg font-semibold text-gray-700">Pregunta <span id="current-question-number"></span> de 20</div>
+                <div class="text-lg font-semibold text-gray-700">Puntaje: <span id="score">0</span></div>
+            </div>
+            <div class="card p-6 mb-6">
+                <h2 id="question" class="text-xl font-semibold text-gray-900 mb-6"></h2>
+                <div id="options-container" class="space-y-4"></div>
+            </div>
+            <div id="feedback-message" class="text-center p-4 my-4 rounded-lg font-semibold hidden"></div>
+            <button id="next-button" class="quiz-button w-full py-4 mt-6 gradient-bg text-white font-bold text-lg rounded-lg shadow-md focus:outline-none" onclick="nextQuestion()" disabled>Siguiente</button>
+        </div>
+
+        <!-- Pantalla de resultados -->
+        <div id="results-screen" class="hidden text-center">
+            <h1 class="text-3xl font-bold text-indigo-700 mb-4">¡Examen Completo!</h1>
+            <p class="text-xl text-gray-700 mb-6">Tu puntaje final es:</p>
+            <div class="text-5xl font-extrabold text-white gradient-bg p-8 rounded-full inline-block shadow-lg mb-8">
+                <span id="final-score"></span>
+                <span class="block text-2xl font-normal mt-2">de 20</span>
+            </div>
+            <p class="text-lg text-gray-600 mb-4">¡Sigue practicando para dominar los conceptos de Microeconomía!</p>
+            <button class="quiz-button py-4 px-8 mt-4 bg-indigo-600 text-white font-bold text-lg rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none" onclick="restartQuiz()">Volver a la selección</button>
+        </div>
+    </div>
+
+    <script>
+        // Base de preguntas sobre Mercado Monetario
+        const allQuestions = [
+            {
+                question: "¿Qué es el dinero según el enfoque del capítulo?",
+                options: [
+                    "Una mercancía con utilidad intrínseca respaldada por oro",
+                    "Un acuerdo social realizado frecuentemente en forma inconsciente",
+                    "Un conjunto de bienes tangibles almacenados por el Estado",
+                    "Una obligación emitida por el sector bancario privado"
+                ],
+                answer: 1,
+                explanation: "El dinero no es una cosa, sino más bien un acuerdo social que con frecuencia se realiza en forma inconsciente."
+            },
+            {
+                question: "¿Qué diferencia al dinero-mercancía del dinero fiduciario?",
+                options: [
+                    "El dinero-mercancía tiene utilidad intrínseca además de servir para intercambios",
+                    "El dinero fiduciario siempre está respaldado por metales preciosos",
+                    "El dinero-mercancía solo lo emiten los gobiernos nacionales",
+                    "El dinero fiduciario es convertible a oro a tipo fijo"
+                ],
+                answer: 0,
+                explanation: "El dinero-mercancía (ganado, oro) tenía utilidad intrínseca además de usarse para intercambios, mientras el fiduciario no tiene más utilidad que el intercambio."
+            },
+            {
+                question: "¿Qué significa que el dinero sea 'fiduciario' (fiat money)?",
+                options: [
+                    "Está respaldado por reservas de oro depositadas en el Tesoro",
+                    "Es creado de la nada a partir de una deuda sin intereses",
+                    "Solo circula dentro del territorio del país emisor",
+                    "Tiene valor intrínseco como mercancía antes de ser moneda"
+                ],
+                answer: 1,
+                explanation: "El dinero fiduciario es literalmente creado de la nada a partir de una deuda sobre la que no se pagan intereses ('fiat' significa 'hágase')."
+            },
+            {
+                question: "¿Qué monopolio otorga el Estado sobre el dinero?",
+                options: [
+                    "El derecho exclusivo a operar todos los bancos comerciales",
+                    "El derecho a emitir dinero de alta potencia legalmente",
+                    "La capacidad de fijar todas las tasas de interés",
+                    "El control total sobre los depósitos bancarios privados"
+                ],
+                answer: 1,
+                explanation: "El derecho a emitir dinero de alta potencia es siempre monopolio legal de cada uno de los estados."
+            },
+            {
+                question: "¿Qué son los activos financieros?",
+                options: [
+                    "Bienes de capital fijo como maquinarias y edificios productivos",
+                    "Títulos por los que el comprador recibe ingreso futuro del vendedor",
+                    "Mercancías almacenadas con valor de reventa garantizado",
+                    "Propiedades inmobiliarias con potencial de apreciación"
+                ],
+                answer: 1,
+                explanation: "Los activos financieros son títulos por los cuales el comprador adquiere el derecho a recibir un ingreso futuro del vendedor."
+            },
+            {
+                question: "¿Cuáles son las tres características principales de los activos financieros?",
+                options: [
+                    "Liquidez, riesgo y rentabilidad según sus propiedades",
+                    "Plazo, garantía y tasa de interés nominal",
+                    "Divisibilidad, durabilidad y facilidad de transporte",
+                    "Escasez, utilidad y valor de mercado corriente"
+                ],
+                answer: 0,
+                explanation: "Los activos financieros poseen tres características principales: liquidez, riesgo y rentabilidad."
+            },
+            {
+                question: "¿Qué característica esencial distingue al dinero de otros activos?",
+                options: [
+                    "Genera intereses más altos que otros activos financieros",
+                    "Puede usarse para realizar transacciones como medio de cambio aceptado",
+                    "Está respaldado por reservas de metales preciosos",
+                    "Mantiene su valor real constante a través del tiempo"
+                ],
+                answer: 1,
+                explanation: "La característica esencial del dinero es que puede usarse para realizar transacciones, es decir, ser un medio de cambio aceptado por todos."
+            },
+            {
+                question: "¿Qué condición esencial requiere el trueque para funcionar?",
+                options: [
+                    "Que todos los bienes tengan el mismo valor unitario",
+                    "La doble o múltiple coincidencia de deseos entre participantes",
+                    "Que exista un mercado centralizado con precios fijos",
+                    "La existencia de un patrón oro que respalde los intercambios"
+                ],
+                answer: 1,
+                explanation: "En una economía de trueque debe producirse la doble o múltiple coincidencia en los deseos respecto de los bienes a intercambiar."
+            },
+            {
+                question: "¿Qué función cumple el dinero como 'unidad de cuenta'?",
+                options: [
+                    "Permite acumular riqueza para intercambios futuros",
+                    "Permite la contabilización de las transacciones monetarias",
+                    "Facilita el pago de impuestos al gobierno central",
+                    "Garantiza el poder adquisitivo constante del ingreso"
+                ],
+                answer: 1,
+                explanation: "Como unidad de cuenta o numerario, el dinero permite la contabilización de las transacciones comerciales."
+            },
+            {
+                question: "¿Cuáles son las tres funciones fundamentales del dinero?",
+                options: [
+                    "Inversión, ahorro y consumo de las familias",
+                    "Medio de cambio, unidad de cuenta y reserva de valor",
+                    "Emisión, circulación y cancelación de obligaciones",
+                    "Producción, distribución y acumulación de riqueza"
+                ],
+                answer: 1,
+                explanation: "El dinero cumple tres funciones: medio de cambio o pago, unidad de cuenta y reserva de valor."
+            },
+            {
+                question: "¿Cuándo el dinero pierde su función de reserva de valor?",
+                options: [
+                    "Cuando el gobierno cambia el diseño de los billetes",
+                    "Cuando la inflación erosiona el poder adquisitivo futuro",
+                    "Cuando los bancos cobran comisiones por mantener depósitos",
+                    "Cuando se introducen nuevas monedas de curso legal"
+                ],
+                answer: 1,
+                explanation: "El dinero pierde potencia como reserva de valor cuando con la misma cantidad nominal no se puede comprar lo mismo en el futuro por inflación."
+            },
+            {
+                question: "¿Qué significa liquidez de un activo financiero?",
+                options: [
+                    "La capacidad de un activo para convertirse en efectivo sin perder valor",
+                    "El porcentaje de agua que contiene un bien almacenado",
+                    "La tasa de interés que genera el activo anualmente",
+                    "La garantía gubernamental que respalda el activo"
+                ],
+                answer: 0,
+                explanation: "La liquidez es la capacidad de un activo para convertirse en efectivo sin perder valor, es decir, de la manera menos costosa."
+            },
+            {
+                question: "¿Qué es la base monetaria o dinero de alta potencia?",
+                options: [
+                    "El total de depósitos a plazo fijo en bancos comerciales",
+                    "Billetes, monedas y reservas bancarias en el banco central",
+                    "Los créditos otorgados por el sistema financiero total",
+                    "Las acciones y bonos negociados en la bolsa de valores"
+                ],
+                answer: 1,
+                explanation: "La base monetaria está compuesta por billetes, monedas y reservas que los bancos guardan en el banco central (alta liquidez)."
+            },
+            {
+                question: "¿Qué es el agregado monetario M1?",
+                options: [
+                    "Solo las reservas bancarias depositadas en el banco central",
+                    "Billetes, monedas y depósitos a la vista disponibles",
+                    "La suma de todos los depósitos a plazo fijo",
+                    "El total de créditos otorgados por bancos comerciales"
+                ],
+                answer: 1,
+                explanation: "M1 es la suma de billetes y monedas más los depósitos a la vista que pueden ser solicitados en cualquier momento sin recargo."
+            },
+            {
+                question: "¿Cómo cambia la liquidez entre M1, M2 y M3?",
+                options: [
+                    "M3 es más líquido que M1 por incluir más activos",
+                    "Cuanto más alto el subíndice, menos líquido es el agregado",
+                    "Todos tienen la misma liquidez independiente del número",
+                    "Solo M1 es líquido, los demás son ilíquidos"
+                ],
+                answer: 1,
+                explanation: "Cuanto más alto es el subíndice (M2, M3), menos líquido es el conjunto de activos que encierra."
+            },
+            {
+                question: "¿Qué diferencia hay entre depósito a la vista y plazo fijo?",
+                options: [
+                    "El depósito a plazo siempre paga menor tasa de interés",
+                    "El depósito a la vista puede retirarse sin costo en cualquier momento",
+                    "El depósito a plazo no está protegido por el banco central",
+                    "El depósito a la vista solo puede hacerse en efectivo"
+                ],
+                answer: 1,
+                explanation: "El depósito a la vista puede retirarse en cualquier momento sin costo, mientras el plazo fijo requiere esperar o pagar recargo."
+            },
+            {
+                question: "¿Cuál es el rol de los bancos comerciales como intermediarios?",
+                options: [
+                    "Fabricar billetes y monedas para el banco central",
+                    "Aceptar depósitos de un grupo y prestarlos a otro",
+                    "Regular la política monetaria del país directamente",
+                    "Determinar el tipo de cambio oficial de la moneda"
+                ],
+                answer: 1,
+                explanation: "Los bancos comerciales son intermediarios financieros que aceptan depósitos o fondos de un grupo y los prestan a otro."
+            },
+            {
+                question: "¿Cuál es el pilar fundamental del sistema financiero?",
+                options: [
+                    "La regulación estricta impuesta por organismos internacionales",
+                    "La confianza de las personas en el dinero y los bancos",
+                    "El respaldo en oro de todos los billetes emitidos",
+                    "La tasa de interés fijada por el banco central"
+                ],
+                answer: 1,
+                explanation: "Todos los sistemas financieros descansan sobre un pilar fundamental: la confianza o fe en el dinero y los bancos."
+            },
+            {
+                question: "¿Qué sucede cuando se deteriora la confianza en el sistema financiero?",
+                options: [
+                    "El banco central emite más billetes para tranquilizar al público",
+                    "Las personas salen a retirar dinero iniciando una posible crisis",
+                    "Los depósitos aumentan por temor a mantener efectivo",
+                    "El gobierno toma el control directo de todos los bancos"
+                ],
+                answer: 1,
+                explanation: "La sola sospecha de problemas hace que las personas pierdan confianza y salgan a retirar dinero, iniciando una crisis."
+            },
+            {
+                question: "¿Quién puede crear dinero legal (billetes y monedas)?",
+                options: [
+                    "Cualquier banco comercial autorizado por el Ministerio de Economía",
+                    "Solo el banco central tiene derecho exclusivo a emitirlo",
+                    "Los bancos comerciales y cooperativas de crédito conjuntamente",
+                    "El Poder Legislativo mediante leyes presupuestarias"
+                ],
+                answer: 1,
+                explanation: "El banco central es el único que puede crear o generar dinero legal, es decir, billetes y monedas."
+            },
+            {
+                question: "¿Cómo se divide el dinero total de una economía?",
+                options: [
+                    "Entre dinero interno producido y dinero externo importado",
+                    "Entre dinero legal (base monetaria) y dinero bancario",
+                    "Entre dinero físico tangible y dinero virtual electrónico",
+                    "Entre dinero del sector público y del sector privado"
+                ],
+                answer: 1,
+                explanation: "El dinero total se divide entre el legal (base monetaria creada por el banco central) y el bancario (creado por interacción del sistema)."
+            },
+            {
+                question: "¿Qué son las operaciones de mercado abierto del banco central?",
+                options: [
+                    "Préstamos directos a empresas del sector productivo real",
+                    "Compra y venta de bonos para modificar la base monetaria",
+                    "Emisión de billetes nuevos para reemplazar los deteriorados",
+                    "Fijación del tipo de cambio oficial de la moneda"
+                ],
+                answer: 1,
+                explanation: "Las operaciones de mercado abierto son la compra y venta de bonos que realiza el banco central para afectar la base monetaria."
+            },
+            {
+                question: "¿Qué efecto tiene una compra de bonos por el banco central?",
+                options: [
+                    "Disminuye la base monetaria porque retira dinero del sistema",
+                    "Incrementa la oferta de dinero de alta potencia circulante",
+                    "No afecta la cantidad de dinero en la economía",
+                    "Reduce los depósitos bancarios del sector privado"
+                ],
+                answer: 1,
+                explanation: "Una compra de bonos por el banco central provoca un incremento de la oferta de dinero de alta potencia porque paga con dinero nuevo."
+            },
+            {
+                question: "¿Qué sucede cuando el banco central vende bonos?",
+                options: [
+                    "Aumenta la base monetaria porque ingresa dinero al sistema",
+                    "Disminuye la base monetaria porque retira dinero circulante",
+                    "Se mantiene constante la cantidad de dinero total",
+                    "Se duplica el multiplicador monetario de la economía"
+                ],
+                answer: 1,
+                explanation: "Una venta de bonos por el banco central provoca una disminución de la base monetaria porque retira dinero de la circulación."
+            },
+            {
+                question: "¿Qué es la tasa de redescuento del banco central?",
+                options: [
+                    "La tasa que cobran los bancos comerciales a sus clientes",
+                    "La tasa que cobra el banco central a bancos comerciales por préstamos",
+                    "El porcentaje de reservas obligatorias sobre depósitos",
+                    "La inflación esperada descontada del tipo de interés nominal"
+                ],
+                answer: 1,
+                explanation: "La tasa de redescuento es la tasa de interés que cobra el banco central a los bancos comerciales por préstamos que les otorga."
+            },
+            {
+                question: "¿Qué efecto tiene aumentar la tasa de redescuento?",
+                options: [
+                    "Aumentan los préstamos porque son más rentables para el central",
+                    "Disminuyen los préstamos porque se vuelve más caro endeudarse",
+                    "No afecta la cantidad de préstamos otorgados al sistema",
+                    "Se duplican automáticamente las reservas bancarias obligatorias"
+                ],
+                answer: 1,
+                explanation: "Si se aumenta la tasa de redescuento, disminuyen los préstamos a bancos comerciales porque se vuelve más caro el endeudamiento."
+            },
+            {
+                question: "¿Qué son las operaciones en moneda extranjera del banco central?",
+                options: [
+                    "Regulaciones sobre movimientos de capital internacional",
+                    "Compra o venta de divisas para afectar la base monetaria",
+                    "Préstamos en dólares a empresas del sector privado",
+                    "Fijación administrativa del tipo de cambio oficial"
+                ],
+                answer: 1,
+                explanation: "El banco central compra o vende activos denominados en moneda extranjera (divisas) para afectar la base monetaria."
+            },
+            {
+                question: "¿Cómo se expresa matemáticamente la base monetaria (BM)?",
+                options: [
+                    "BM = Depósitos totales + Créditos otorgados",
+                    "BM = Billetes y monedas + Reservas bancarias",
+                    "BM = M1 + M2 + M3 según todos los agregados",
+                    "BM = Oferta monetaria / Multiplicador monetario"
+                ],
+                answer: 1,
+                explanation: "La base monetaria BM = ByM (billetes y monedas en poder del público) + R (reservas bancarias en el banco central)."
+            },
+            {
+                question: "¿Qué es el coeficiente de encaje o tasa de encaje (λ)?",
+                options: [
+                    "El porcentaje de depósitos que se mantienen como reservas",
+                    "La proporción de créditos sobre el total de activos",
+                    "El cociente entre billetes emitidos y depósitos totales",
+                    "La tasa de interés promedio cobrada por préstamos"
+                ],
+                answer: 0,
+                explanation: "El coeficiente de encaje λ = R/D es el porcentaje de los depósitos que se mantienen en forma de reservas."
+            },
+            {
+                question: "¿Quién establece el encaje legal o reservas exigidas?",
+                options: [
+                    "Cada banco comercial según su criterio de prudencia",
+                    "El banco central como autoridad monetaria del país",
+                    "El Ministerio de Economía mediante decretos anuales",
+                    "La asociación de bancos comerciales por consenso"
+                ],
+                answer: 1,
+                explanation: "El banco central establece el nivel de reservas exigidas o encaje legal que todo banco debe mantener."
+            },
+            {
+                question: "¿Cómo se define la oferta monetaria (OM)?",
+                options: [
+                    "OM = Base monetaria × Multiplicador monetario",
+                    "OM = Billetes y monedas + Depósitos a la vista",
+                    "OM = Créditos totales - Depósitos totales",
+                    "OM = Reservas bancarias + Bonos del gobierno"
+                ],
+                answer: 1,
+                explanation: "La oferta monetaria OM = ByM (billetes y monedas) + D (depósitos totales a la vista en el sistema bancario)."
+            },
+            {
+                question: "¿Qué diferencia a la base monetaria de la oferta monetaria?",
+                options: [
+                    "La base incluye depósitos y la oferta incluye reservas",
+                    "La base incluye reservas bancarias y la oferta incluye depósitos",
+                    "Ambas son idénticas en economías modernas desarrolladas",
+                    "La base solo incluye monedas y la oferta incluye billetes"
+                ],
+                answer: 1,
+                explanation: "La BM incluye reservas bancarias (R), mientras que la OM incluye depósitos del público (D)."
+            },
+            {
+                question: "¿Por qué la oferta monetaria es mayor que la base monetaria?",
+                options: [
+                    "Porque el gobierno emite bonos que se suman al dinero",
+                    "Por el proceso de creación de dinero del sistema bancario",
+                    "Porque incluye también las monedas extranjeras circulantes",
+                    "Por los intereses acumulados en todos los depósitos"
+                ],
+                answer: 1,
+                explanation: "La OM es mayor que la BM debido al proceso de creación de dinero característico del sistema bancario (multiplicador)."
+            },
+            {
+                question: "¿Qué es la preferencia por la liquidez (e)?",
+                options: [
+                    "La eficiencia del sistema bancario al otorgar créditos",
+                    "La razón billetes y monedas sobre depósitos (ByM/D)",
+                    "El coeficiente de encaje legal exigido por el central",
+                    "La elasticidad de la demanda de dinero respecto al ingreso"
+                ],
+                answer: 1,
+                explanation: "La preferencia por la liquidez e = ByM/D es la razón entre billetes y monedas en manos del público y los depósitos."
+            },
+            {
+                question: "¿De qué depende la preferencia por la liquidez (e)?",
+                options: [
+                    "De las preferencias del público y condiciones para transacciones",
+                    "De la tasa de encaje fijada por el banco central",
+                    "Del nivel de inflación esperada para el próximo período",
+                    "De las reservas internacionales del banco central"
+                ],
+                answer: 0,
+                explanation: "La preferencia por la liquidez depende de las preferencias del público y las condiciones que impone la economía para transacciones."
+            },
+            {
+                question: "¿Cómo se calcula el multiplicador monetario (m)?",
+                options: [
+                    "m = Base monetaria / Oferta monetaria total",
+                    "m = (e + 1) / (e + λ) donde e y λ son coeficientes",
+                    "m = Depósitos totales / Reservas bancarias obligatorias",
+                    "m = Tasa de interés / Tasa de inflación esperada"
+                ],
+                answer: 1,
+                explanation: "El multiplicador monetario m = (e+1)/(e+λ), donde e es la preferencia por liquidez y λ el coeficiente de encaje."
+            },
+            {
+                question: "¿Por qué el multiplicador monetario siempre es mayor que 1?",
+                options: [
+                    "Porque la inflación siempre aumenta el valor nominal del dinero",
+                    "Porque λ es menor que 1 y el numerador supera al denominador",
+                    "Porque los bancos siempre prestan más de lo que depositan",
+                    "Porque el banco central emite dinero constantemente"
+                ],
+                answer: 1,
+                explanation: "El multiplicador es mayor que 1 porque λ (reservas/depósitos) es menor que 1, haciendo que el numerador supere al denominador."
+            },
+            {
+                question: "¿Qué sucede con el multiplicador si aumenta λ (encaje)?",
+                options: [
+                    "El multiplicador aumenta y la oferta monetaria crece",
+                    "El multiplicador disminuye y genera menor oferta monetaria",
+                    "El multiplicador no se ve afectado por cambios en λ",
+                    "El multiplicador se duplica automáticamente por ley"
+                ],
+                answer: 1,
+                explanation: "Un aumento del coeficiente λ disminuye el multiplicador y genera menor oferta monetaria, ceteris paribus."
+            },
+            {
+                question: "¿Qué relación existe entre OM, BM y el multiplicador (m)?",
+                options: [
+                    "OM = BM + m según la identidad contable",
+                    "OM = m × BM según el proceso de creación de dinero",
+                    "OM = BM / m por definición del multiplicador",
+                    "OM = BM - m restando las reservas bancarias"
+                ],
+                answer: 1,
+                explanation: "La oferta monetaria es OM = m × BM, es decir, la base monetaria multiplicada por el multiplicador monetario."
+            },
+            {
+                question: "Si e=0.1, λ=0.2 y BM=100MM, ¿cuál es la oferta monetaria aproximada?",
+                options: [
+                    "OM = 200 MM por el efecto multiplicador",
+                    "OM = 367 MM aplicando m = (e+1)/(e+λ)",
+                    "OM = 100 MM porque la base no cambia",
+                    "OM = 500 MM por el encaje fraccionario"
+                ],
+                answer: 1,
+                explanation: "m = (0.1+1)/(0.1+0.2) = 1.1/0.3 = 3.67, entonces OM = 3.67 × 100 = 367 MM aproximadamente."
+            },
+            {
+                question: "¿Por qué la curva de oferta monetaria es vertical respecto a la tasa de interés?",
+                options: [
+                    "Porque la tasa de interés no afecta las decisiones del banco central",
+                    "Porque la OM no depende de la tasa de interés sino de BM, λ y e",
+                    "Porque los bancos siempre prestan al mismo tipo de interés",
+                    "Porque está fijada administrativamente por el gobierno"
+                ],
+                answer: 1,
+                explanation: "La OM se representa vertical porque depende de BM, λ y e, no de la tasa de interés, por lo que no hay relación causal."
+            },
+            {
+                question: "Según los neoclásicos, ¿por qué se demanda dinero?",
+                options: [
+                    "Únicamente por la necesidad de realizar transacciones corrientes",
+                    "Por motivos de especulación en mercados financieros",
+                    "Por precaución ante contingencias futuras imprevistas",
+                    "Por los tres motivos: transacción, precaución y especulación"
+                ],
+                answer: 0,
+                explanation: "Desde el punto de vista neoclásico, únicamente se demanda dinero por la necesidad de realizar transacciones."
+            },
+            {
+                question: "¿Cuáles son los tres motivos keynesianos de demanda de dinero?",
+                options: [
+                    "Consumo, ahorro e inversión de las familias",
+                    "Transacción, precaución y especulación del público",
+                    "Emisión, circulación y atesoramiento de billetes",
+                    "Depósitos, préstamos y reservas del sistema bancario"
+                ],
+                answer: 1,
+                explanation: "Keynes identificó tres motivos: transacción (operaciones cotidianas), precaución (contingencias) y especulación (invertir cuando convenga)."
+            },
+            {
+                question: "¿Qué es el motivo transacción de la demanda de dinero?",
+                options: [
+                    "La necesidad de efectivo para enfrentar gastos imprevistos",
+                    "La liquidez necesaria para transacciones cotidianas ordinarias",
+                    "El deseo de especular con cambios en tasas de interés",
+                    "La obligación legal de mantener reservas en el central"
+                ],
+                answer: 1,
+                explanation: "El motivo transacción es la liquidez necesaria para hacer frente a las transacciones cotidianas ordinarias."
+            },
+            {
+                question: "¿De qué depende la demanda de dinero por motivo transacción?",
+                options: [
+                    "Depende directamente del nivel de renta o ingreso",
+                    "Depende inversamente de la tasa de inflación esperada",
+                    "Depende del tipo de cambio nominal de la moneda",
+                    "Depende del nivel de reservas internacionales del país"
+                ],
+                answer: 0,
+                explanation: "El saldo monetario para transacciones depende directamente del nivel de renta o ingreso de las personas."
+            },
+            {
+                question: "¿Qué caracteriza al motivo precaución?",
+                options: [
+                    "Mantener dinero para especular en mercados de valores",
+                    "Mantener dinero para enfrentar contingencias imprevistas futuras",
+                    "Ahorrar para comprar bienes de consumo duradero",
+                    "Invertir en activos de largo plazo más rentables"
+                ],
+                answer: 1,
+                explanation: "El motivo precaución implica mantener dinero para enfrentar contingencias imprevistas, asociado también al nivel de renta."
+            },
+            {
+                question: "¿Qué relación tiene la demanda especulativa con la tasa de interés?",
+                options: [
+                    "Es directa: más interés, más demanda de dinero líquido",
+                    "Es inversa: más interés esperado a futuro, más demanda de dinero hoy",
+                    "No existe relación entre especulación e interés",
+                    "Es proporcional al cuadrado de la tasa de interés"
+                ],
+                answer: 1,
+                explanation: "La demanda especulativa está inversamente relacionada con el tipo de interés: si se espera que suba, se mantiene dinero líquido."
+            },
+            {
+                question: "¿Qué pendiente tiene la curva de demanda de dinero?",
+                options: [
+                    "Pendiente positiva porque más ingreso aumenta la demanda",
+                    "Pendiente negativa por relación inversa entre demanda e interés",
+                    "Pendiente vertical porque es independiente del interés",
+                    "Pendiente horizontal porque la demanda es perfectamente elástica"
+                ],
+                answer: 1,
+                explanation: "La curva de demanda tiene pendiente negativa: existe relación inversa entre tasa de interés y saldos monetarios reales demandados."
+            },
+            {
+                question: "¿Qué determina la tasa de interés de equilibrio en el mercado monetario?",
+                options: [
+                    "La fija administrativamente el banco central cada trimestre",
+                    "La oferta y demanda de dinero conjuntamente determinan ie",
+                    "Depende únicamente del nivel de inflación corriente",
+                    "La establece la asociación de bancos comerciales"
+                ],
+                answer: 1,
+                explanation: "La oferta y la demanda de dinero determinan conjuntamente la tasa de interés de equilibrio del mercado (ie)."
+            },
+            {
+                question: "¿Qué son los saldos monetarios reales (SMR)?",
+                options: [
+                    "El dinero nominal multiplicado por la tasa de interés",
+                    "El dinero medido en unidades de poder adquisitivo (M/P)",
+                    "Los depósitos a plazo fijo ajustados por inflación",
+                    "Las reservas bancarias depositadas en el banco central"
+                ],
+                answer: 1,
+                explanation: "Los saldos monetarios reales son el dinero medido en unidades de poder adquisitivo: cantidades nominales sobre índice de precios."
+            },
+            {
+                question: "¿Qué sucede si la tasa de interés está por encima del equilibrio?",
+                options: [
+                    "Hay exceso de demanda y la tasa sube aún más",
+                    "Hay saldos monetarios excesivos y la gente reduce efectivo líquido",
+                    "El banco central interviene comprando bonos masivamente",
+                    "Los bancos quiebran por falta de reservas suficientes"
+                ],
+                answer: 1,
+                explanation: "Con tasa de interés alta hay saldos excesivos: la gente no mantiene tanto efectivo porque el mercado paga mucho por depósitos."
+            },
+            {
+                question: "¿Qué es una política monetaria expansiva?",
+                options: [
+                    "Aumentar impuestos para reducir el déficit fiscal del gobierno",
+                    "Aumentar la oferta monetaria desplazándola hacia la derecha",
+                    "Reducir el gasto público para controlar la inflación",
+                    "Devaluar la moneda para mejorar la competitividad exportadora"
+                ],
+                answer: 1,
+                explanation: "Una política monetaria expansiva aumenta la oferta monetaria (OM se desplaza a la derecha), reduciendo la tasa de interés."
+            },
+            {
+                question: "¿Cómo afecta una política monetaria expansiva a la tasa de interés?",
+                options: [
+                    "La tasa de interés aumenta por exceso de demanda",
+                    "La tasa de interés disminuye con mayor oferta monetaria",
+                    "La tasa permanece constante por intervención del central",
+                    "La tasa se duplica automáticamente por la expansión"
+                ],
+                answer: 1,
+                explanation: "Una política monetaria expansiva (OM aumenta) hace que la tasa de interés de equilibrio disminuya."
+            },
+            {
+                question: "¿Qué instrumentos puede usar el banco central para política expansiva?",
+                options: [
+                    "Aumentar encaje, aumentar redescuento, vender bonos",
+                    "Disminuir encaje, disminuir redescuento, comprar bonos o aumentar BM",
+                    "Aumentar impuestos, reducir gasto público, devaluar moneda",
+                    "Nacionalizar bancos, fijar precios, controlar importaciones"
+                ],
+                answer: 1,
+                explanation: "Para política expansiva: disminuir λ o tasa redescuento, disminuir e, aumentar BM o comprar bonos (operaciones mercado abierto)."
+            },
+            {
+                question: "¿Cómo afecta la política monetaria expansiva a la inversión?",
+                options: [
+                    "Reduce la inversión porque hay más dinero circulante",
+                    "Aumenta la inversión porque baja la tasa de interés",
+                    "No afecta la inversión que depende solo de expectativas",
+                    "Duplica la inversión automáticamente por la expansión"
+                ],
+                answer: 1,
+                explanation: "La política expansiva reduce la tasa de interés, y como hay relación inversa entre i e I, la inversión aumenta."
+            },
+            {
+                question: "¿Cómo afecta indirectamente la política monetaria a la demanda agregada?",
+                options: [
+                    "No tiene efecto sobre la demanda agregada total",
+                    "Afecta la inversión que es componente de la demanda agregada",
+                    "Solo afecta el consumo pero no otros componentes",
+                    "Reduce siempre la demanda agregada sin excepción"
+                ],
+                answer: 1,
+                explanation: "La política monetaria afecta la tasa de interés, que afecta la inversión (componente de DA), modificando así indirectamente la DA."
+            },
+            {
+                question: "¿Qué es una política monetaria contractiva?",
+                options: [
+                    "Aumentar el gasto público financiado con emisión monetaria",
+                    "Disminuir la oferta monetaria desplazándola hacia la izquierda",
+                    "Reducir impuestos para estimular el consumo privado",
+                    "Depreciar el tipo de cambio nominal de la moneda"
+                ],
+                answer: 1,
+                explanation: "Una política monetaria contractiva disminuye la oferta monetaria (OM se desplaza a la izquierda), aumentando la tasa de interés."
+            },
+            {
+                question: "¿Qué instrumentos usa el banco central para política contractiva?",
+                options: [
+                    "Disminuir encaje, disminuir redescuento, comprar bonos",
+                    "Aumentar encaje, aumentar redescuento, vender bonos o reducir BM",
+                    "Aumentar gasto público, reducir impuestos, apreciar moneda",
+                    "Congelar precios, controlar salarios, racionar crédito"
+                ],
+                answer: 1,
+                explanation: "Para política contractiva: aumentar λ o tasa redescuento, aumentar e, reducir BM o vender bonos del banco central."
+            },
+            {
+                question: "¿Cómo afecta la política contractiva a la tasa de interés y la inversión?",
+                options: [
+                    "Reduce la tasa y aumenta la inversión privada",
+                    "Aumenta la tasa y disminuye la inversión privada",
+                    "No afecta ni la tasa ni la inversión",
+                    "Duplica tanto la tasa como la inversión"
+                ],
+                answer: 1,
+                explanation: "La política contractiva aumenta la tasa de interés, lo que por relación inversa disminuye la inversión."
+            },
+            {
+                question: "¿Qué sucede con la demanda de dinero si aumenta el ingreso nacional?",
+                options: [
+                    "La demanda de dinero disminuye porque hay más riqueza",
+                    "La demanda de dinero se desplaza a la derecha aumentando",
+                    "La demanda de dinero permanece constante siempre",
+                    "La demanda de dinero se vuelve perfectamente inelástica"
+                ],
+                answer: 1,
+                explanation: "Un incremento del ingreso lleva a elevar la demanda de dinero para transacciones, desplazando DM a la derecha."
+            },
+            {
+                question: "¿Cómo afecta un aumento del ingreso a la tasa de interés de equilibrio?",
+                options: [
+                    "La tasa disminuye porque hay más dinero disponible",
+                    "La tasa aumenta porque aumenta la demanda de dinero líquido",
+                    "La tasa permanece constante porque el central interviene",
+                    "La tasa se reduce a cero por exceso de oferta"
+                ],
+                answer: 1,
+                explanation: "Un aumento del ingreso aumenta la demanda de dinero, y con oferta fija, la tasa de interés de equilibrio sube."
+            },
+            {
+                question: "¿Qué relación existe entre nivel de producto y tasa de interés?",
+                options: [
+                    "Relación directa: más producto, más tasa de interés",
+                    "Relación inversa: más producto, menor tasa de interés",
+                    "No existe relación entre producto e interés",
+                    "Relación cuadrática según función de producción"
+                ],
+                answer: 0,
+                explanation: "El equilibrio financiero implica que cuanto más alto es el producto, mayor es la demanda de dinero y más alta la tasa de interés."
+            },
+            {
+                question: "Si disminuye la renta nacional, ¿qué pasa con la demanda de dinero?",
+                options: [
+                    "Aumenta porque las personas necesitan más liquidez",
+                    "Se traslada hacia la izquierda disminuyendo la demanda",
+                    "Permanece constante independiente del ingreso",
+                    "Se duplica automáticamente por precaución"
+                ],
+                answer: 1,
+                explanation: "Cuando disminuye la renta, la demanda de dinero se traslada hacia la izquierda y la tasa de interés disminuye."
+            },
+            {
+                question: "¿Por qué el shekel sumerio era considerado un símbolo sagrado?",
+                options: [
+                    "Porque era fabricado con oro extraído de templos",
+                    "Porque representaba los misterios de la fertilidad vital",
+                    "Porque solo podían usarlo los sacerdotes religiosos",
+                    "Porque estaba inscrito con textos de leyes divinas"
+                ],
+                answer: 1,
+                explanation: "El shekel sumerio era un símbolo sagrado que representaba los misterios de la fertilidad vital (She=trigo, kel=celemín)."
+            },
+            {
+                question: "¿Qué paradoja tiene el dólar estadounidense respecto a religión?",
+                options: [
+                    "Está prohibido su uso en ceremonias religiosas oficiales",
+                    "Dice 'In God we trust' en país con separación Iglesia-Estado",
+                    "Solo puede ser emitido por instituciones religiosas",
+                    "Representa deidades paganas en todos sus símbolos"
+                ],
+                answer: 1,
+                explanation: "Es irónico que el dólar diga 'In God we trust' en un país que estableció separación entre Iglesia y Estado desde su fundación."
+            },
+            {
+                question: "¿Qué significa 'esterilizar' variaciones de la base monetaria?",
+                options: [
+                    "Destruir billetes deteriorados para reemplazarlos por nuevos",
+                    "Compensar con operaciones de mercado abierto variaciones de otras fuentes",
+                    "Impedir completamente cualquier cambio en la cantidad de dinero",
+                    "Eliminar el dinero falsificado que ingresa al sistema"
+                ],
+                answer: 1,
+                explanation: "Esterilizar significa compensar con operaciones de mercado abierto las variaciones de BM provenientes de redescuento o divisas."
+            },
+            {
+                question: "¿Cuáles son los objetivos finales de la política monetaria?",
+                options: [
+                    "Maximizar únicamente las ganancias de los bancos comerciales",
+                    "Promover estabilidad, crecimiento del producto, empleo y baja inflación",
+                    "Mantener constante la tasa de interés nominal siempre",
+                    "Garantizar rentabilidad de inversiones del sector financiero"
+                ],
+                answer: 1,
+                explanation: "Los objetivos finales de la política monetaria son promover estabilidad y crecimiento económico con bajo desempleo y poca inflación."
+            },
+            {
+                question: "¿Qué papel cumplen las tasas de interés como objetivo de política?",
+                options: [
+                    "Son objetivos finales que el banco central busca maximizar",
+                    "Son objetivos intermedios para influir sobre producto, empleo e inflación",
+                    "No tienen ningún rol en la política monetaria moderna",
+                    "Son variables exógenas que el central no puede controlar"
+                ],
+                answer: 1,
+                explanation: "Las tasas de interés y agregados monetarios son objetivos intermedios que se controlan para influir sobre objetivos finales."
+            },
+            {
+                question: "¿Qué relación existe entre confianza y 'ficción' del sistema financiero?",
+                options: [
+                    "El sistema es una ficción porque todo el dinero es falso",
+                    "El sistema es ficción aceptada porque el dinero que creen poseer no existe totalmente",
+                    "No existe relación entre confianza y funcionamiento del sistema",
+                    "La confianza elimina toda ficción del sistema financiero"
+                ],
+                answer: 1,
+                explanation: "El sistema financiero es una 'ficción' aceptada por todos: el dinero que las personas creen poseer no existe totalmente en realidad."
+            },
+            {
+                question: "¿Qué lección histórica da la crisis argentina de 2001?",
+                options: [
+                    "La inflación siempre destruye los sistemas financieros",
+                    "El deterioro de la confianza puede deteriorar todo el sistema",
+                    "Los bancos extranjeros son más seguros que los locales",
+                    "El tipo de cambio fijo garantiza la estabilidad monetaria"
+                ],
+                answer: 1,
+                explanation: "La crisis de finales de 2001 en Argentina demostró que el deterioro de la confianza puede deteriorar todo el sistema financiero."
+            },
+            {
+                question: "¿Por qué el efectivo es el activo más líquido?",
+                options: [
+                    "Porque genera la tasa de interés más alta del mercado",
+                    "Porque no tiene costo utilizarlo para realizar transacciones inmediatas",
+                    "Porque está respaldado por reservas de oro del central",
+                    "Porque puede depositarse en cualquier banco sin comisión"
+                ],
+                answer: 1,
+                explanation: "El dinero en efectivo es el activo más líquido porque no tiene costo o recargo utilizarlo para realizar transacciones ('se liquida' instantáneamente)."
+            },
+            {
+                question: "¿Qué significa que el dinero sea 'moneda de curso legal'?",
+                options: [
+                    "Que solo circula dentro del territorio del país emisor",
+                    "Que la ley establece que puede cancelar todas las obligaciones",
+                    "Que está respaldado por reservas del tesoro nacional",
+                    "Que solo puede ser emitido por bancos autorizados"
+                ],
+                answer: 1,
+                explanation: "Moneda de curso legal significa que la ley establece que todas las obligaciones pueden cancelarse con ese dinero."
+            }
+        ];
+        
+        let quizzes = [];
+        let currentQuiz;
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const quizSelectionScreen = document.getElementById('quiz-selection-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const questionElement = document.getElementById('question');
+        const optionsContainer = document.getElementById('options-container');
+        const currentQuestionNumberElement = document.getElementById('current-question-number');
+        const scoreElement = document.getElementById('score');
+        const nextButton = document.getElementById('next-button');
+        const feedbackMessage = document.getElementById('feedback-message');
+        const finalScoreElement = document.getElementById('final-score');
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        
+        function generateQuizzes() {
+            quizzes = [];
+            for (let i = 0; i < 10; i++) {
+                shuffleArray(allQuestions);
+                const quizQuestions = allQuestions.slice(0, 20);
+                quizzes.push({ questions: quizQuestions });
+            }
+        }
+
+        function startQuiz(quizIndex) {
+            currentQuiz = quizzes[quizIndex];
+            currentQuestionIndex = 0;
+            score = 0;
+            
+            quizSelectionScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+
+            updateScore();
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const currentQuestionData = currentQuiz.questions[currentQuestionIndex];
+
+            currentQuestionNumberElement.textContent = currentQuestionIndex + 1;
+            questionElement.textContent = currentQuestionData.question;
+            optionsContainer.innerHTML = '';
+            feedbackMessage.classList.add('hidden');
+            feedbackMessage.innerHTML = '';
+            nextButton.disabled = true;
+
+            const options = [...currentQuestionData.options];
+            
+            options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('answer-button');
+                button.onclick = () => checkAnswer(button, index);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedButton, selectedIndex) {
+            const currentQuestionData = currentQuiz.questions[currentQuestionIndex];
+            const correctIndex = currentQuestionData.answer;
+
+            Array.from(optionsContainer.children).forEach((button, index) => {
+                button.disabled = true;
+                if (index === correctIndex) {
+                    button.classList.add('correct');
+                } else if (index === selectedIndex) {
+                    button.classList.add('incorrect');
+                }
+            });
+
+            if (selectedIndex === correctIndex) {
+                score++;
+                feedbackMessage.innerHTML = `<div class="font-bold">¡Correcto!</div><div class="explanation mt-2">${currentQuestionData.explanation}</div>`;
+                feedbackMessage.className = 'text-left p-4 my-4 rounded-lg font-semibold bg-green-100 text-green-800';
+            } else {
+                feedbackMessage.innerHTML = `<div class="font-bold">Incorrecto.</div><div class="explanation mt-2">${currentQuestionData.explanation}</div>`;
+                feedbackMessage.className = 'text-left p-4 my-4 rounded-lg font-semibold bg-red-100 text-red-800';
+            }
+
+            feedbackMessage.classList.remove('hidden');
+            updateScore();
+            nextButton.disabled = false;
+            nextButton.focus();
+        }
+
+        function updateScore() {
+            scoreElement.textContent = score;
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuiz.questions.length) {
+                showQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        function endQuiz() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            finalScoreElement.textContent = score;
+        }
+
+        function restartQuiz() {
+            resultsScreen.classList.add('hidden');
+            quizSelectionScreen.classList.remove('hidden');
+            generateQuizzes(); // Regenerar los exámenes para que sean diferentes cada vez
+        }
+
+        window.onload = function() {
+            generateQuizzes();
+            quizSelectionScreen.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
