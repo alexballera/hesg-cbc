@@ -8,6 +8,8 @@ action:
   
   Desde la carpeta lecturas realiza una lectura profunda del contenido para que lo tengas en el contexto
 
+  En la carpeta de lecturas encontrarás varias guías de lectura, cada una con un tema específico relacionado con el curso. Estas guías contienen información clave, conceptos importantes y detalles relevantes que deben ser cubiertos en el cuestionario.
+
   Del archivo de cuestionario elimina la base de preguntas y luego reemplázala con una nueva base de preguntas y respuestas de al menos 80 preguntas con sus respuestas correctas e incorrectas basadas y enfocadas en responder las guías de lecturas.
 
   La base de preguntas y respuestas deben ser al menos 80 y no debes crear un archivo aparte de javascript que lo maneje.
@@ -23,3 +25,5 @@ action:
   Las opciones incorrectas deben ser plausibles para evitar que sean fácilmente descartadas.
 
   Debes mantener la estructura y estilos del archivo original, sólo debes reemplazar la base de preguntas y respuestas por las nuevas que vas a generar basadas en las lecturas.
+
+  Debes realizar 6 pruebas tipo, y debes asegurarte de que el cuestionario funcione correctamente, que las preguntas se muestren adecuadamente, que las respuestas se registren correctamente y que el sistema de puntuación funcione como se espera. La respuesta correcta no debe ser obvia por su formulación o longitud, y las opciones incorrectas deben ser plausibles para evitar que sean fácilmente descartadas.

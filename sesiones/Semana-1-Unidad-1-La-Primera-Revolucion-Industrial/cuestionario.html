@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Exámenes de práctica sobre la Primera Revolución Industrial - Unidad 1 HESG CBC UBA">
+    <meta name="keywords" content="Primera Revolución Industrial, Barbero, Hobsbawm, Parejo Antonio, enclosures, máquina de vapor, Revolución Industrial, ferrocarril, doble revolución, Gerschenkron, Zollverein, HESG CBC UBA">
+    <meta name="author" content="HESG CBC - UBA CIV 2026">
+    <title>Exámenes de Práctica - Primera Revolución Industrial - Unidad 1 HESG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #92400e 0%, #d97706 100%);
+        }
+        .quiz-button {
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .quiz-button:hover {
+            background-color: #78350f;
+            transform: translateY(-2px);
+        }
+        .quiz-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .answer-button {
+            width: 100%;
+            background-color: #e5e7eb;
+            color: #1f2937;
+            text-align: left;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .answer-button:hover:not(:disabled) {
+            background-color: #d1d5db;
+        }
+        .answer-button.correct {
+            background-color: #10b981;
+            color: white;
+            animation: pulse-correct 0.8s;
+        }
+        .answer-button.incorrect {
+            background-color: #ef4444;
+            color: white;
+            animation: shake 0.5s;
+        }
+        .explanation {
+            background-color: #fef3c7;
+            border-left: 4px solid #d97706;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+        }
+        @keyframes pulse-correct {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+    </style>
+</head>
+<body class="bg-amber-50 flex items-center justify-center min-h-screen">
+    <div id="app" class="container bg-white p-8 rounded-2xl shadow-xl w-full">
+
+        <!-- Pantalla de selección de cuestionarios -->
+        <div id="quiz-selection-screen">
+            <h1 class="text-3xl font-bold text-center mb-2 text-amber-800">Primera Revolución Industrial</h1>
+            <p class="text-center text-amber-700 font-semibold mb-1">Unidad 1 — HESG CBC UBA · CIV 2026</p>
+            <p class="text-center text-gray-500 text-sm mb-2">Fuentes: Barbero cap. 5 · Hobsbawm cap. 4 · Parejo Antonio</p>
+            <p class="text-center text-gray-600 mb-8">Cada examen contiene 20 preguntas aleatorias del pool completo. ¡Mucha suerte!</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <button onclick="startQuiz(0)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md focus:outline-none">Examen de Práctica 1</button>
+                <button onclick="startQuiz(1)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md focus:outline-none">Examen de Práctica 2</button>
+                <button onclick="startQuiz(2)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md focus:outline-none">Examen de Práctica 3</button>
+                <button onclick="startQuiz(3)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md focus:outline-none">Examen de Práctica 4</button>
+                <button onclick="startQuiz(4)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md focus:outline-none">Examen de Práctica 5</button>
+                <button onclick="startQuiz(5)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md focus:outline-none">Examen de Práctica 6</button>
+            </div>
+        </div>
+
+        <!-- Pantalla del cuestionario -->
+        <div id="quiz-screen" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <div class="text-lg font-semibold text-gray-700">Pregunta <span id="current-question-number"></span> de 20</div>
+                <div class="text-lg font-semibold text-gray-700">Puntaje: <span id="score">0</span></div>
+            </div>
+            <div class="card p-6 mb-6">
+                <h2 id="question" class="text-xl font-semibold text-gray-900 mb-6"></h2>
+                <div id="options-container" class="space-y-4"></div>
+            </div>
+            <div id="feedback-message" class="text-center p-4 my-4 rounded-lg font-semibold hidden"></div>
+            <button id="next-button" class="quiz-button w-full py-4 mt-6 gradient-bg text-white font-bold text-lg rounded-lg shadow-md focus:outline-none" onclick="nextQuestion()" disabled>Siguiente</button>
+        </div>
+
+        <!-- Pantalla de resultados -->
+        <div id="results-screen" class="hidden text-center">
+            <h1 class="text-3xl font-bold text-amber-800 mb-4">¡Examen Completo!</h1>
+            <p class="text-xl text-gray-700 mb-6">Tu puntaje final es:</p>
+            <div class="text-5xl font-extrabold text-white gradient-bg p-8 rounded-full inline-block shadow-lg mb-8">
+                <span id="final-score"></span>
+                <span class="block text-2xl font-normal mt-2">de 20</span>
+            </div>
+            <p class="text-lg text-gray-600 mb-4">¡Sigue practicando para dominar el contenido!</p>
+            <button class="quiz-button py-4 px-8 mt-4 bg-amber-700 text-white font-bold text-lg rounded-lg shadow-md focus:outline-none" onclick="restartQuiz()">Volver a la selección</button>
+        </div>
+    </div>
+
+    <script>
+        const allQuestions = [
+
+            // =====================================================================
+            // BLOQUE A — PRERREQUISITOS DE INGLATERRA (Barbero cap. 5)
+            // =====================================================================
+            {
+                question: "Según Barbero, ¿cuál fue el rol de los 'enclosures' en el proceso de industrialización inglesa?",
+                options: [
+                    "Protegieron las tierras comunales garantizando el sustento del campesinado rural",
+                    "Expulsaron a los campesinos de las tierras comunales, generando mano de obra disponible para las fábricas",
+                    "Concentraron la producción agrícola en cooperativas estatales que financiaron la industria",
+                    "Fragmentaron las grandes propiedades nobiliarias para distribuirlas entre pequeños agricultores"
+                ],
+                answer: 1,
+                explanation: "Según Barbero cap. 5, los enclosures (cerramientos de tierras comunales) expulsaron a los campesinos del campo, proletarizándolos y creando el ejército de trabajadores asalariados que necesitaban las fábricas."
+            },
+            {
+                question: "¿Cuál fue la importancia de la Revolución Gloriosa de 1688 para la industrialización inglesa, según Barbero?",
+                options: [
+                    "Instauró una monarquía absoluta que planificó centralmente la industrialización",
+                    "Expulsó a los comerciantes extranjeros y protegió el mercado interno inglés",
+                    "Consolidó derechos de propiedad y limitó el poder absolutista, generando estabilidad institucional",
+                    "Unificó los distintos reinos de las islas británicas bajo un mismo sistema fiscal"
+                ],
+                answer: 2,
+                explanation: "Barbero señala que la Revolución Gloriosa de 1688 consolidó el poder del Parlamento y los derechos de propiedad privada, creando un marco institucional estable que incentivó la inversión y la innovación."
+            },
+            {
+                question: "Según Barbero cap. 5, ¿por qué la abundancia de carbón y hierro en Inglaterra fue un factor clave para la industrialización?",
+                options: [
+                    "Porque permitió exportar estos minerales a toda Europa y acumular capital comercial",
+                    "Porque posibilitó alimentar las máquinas de vapor y construir maquinaria e infraestructura industrial",
+                    "Porque sustituyó la necesidad de mano de obra agrícola y liberó recursos para el sector textil",
+                    "Porque atrajo a ingenieros franceses y alemanes que introdujeron nueva tecnología en Inglaterra"
+                ],
+                answer: 1,
+                explanation: "Barbero destaca que la proximidad geográfica de yacimientos de carbón (energía) y hierro (materia prima para máquinas, rieles y estructuras) fue una ventaja natural decisiva de Inglaterra frente al continente."
+            },
+            {
+                question: "¿Qué papel cumplió el comercio colonial y el comercio triangular en la industrialización inglesa, según Barbero?",
+                options: [
+                    "Introdujo tecnología textil africana que luego fue adaptada en las fábricas de Manchester",
+                    "Generó acumulación de capital comercial que pudo invertirse en la industria manufacturera",
+                    "Proveyó mano de obra especializada para las primeras fábricas del norte de Inglaterra",
+                    "Eliminó la competencia exterior y garantizó mercados cautivos para los productos agrícolas"
+                ],
+                answer: 1,
+                explanation: "Según Barbero, el comercio triangular atlántico (Europa-África-América) generó enormes ganancias que se acumularon como capital comercial y financiero, disponible luego para invertir en maquinaria y fábricas."
+            },
+            {
+                question: "¿Cuál era el 'putting-out system' o sistema de trabajo a domicilio previo a la fábrica?",
+                options: [
+                    "Un sistema de producción centralizada en grandes talleres urbanos financiados por el Estado",
+                    "Un sistema donde los comerciantes distribuían materia prima a trabajadores rurales que producían en sus hogares",
+                    "Un método de producción agrícola en el que los nobles controlaban el trabajo campesino bajo servidumbre",
+                    "Un sistema de subcontratación entre fábricas para repartir pedidos en épocas de alta demanda"
+                ],
+                answer: 1,
+                explanation: "El putting-out system era la forma de organización pre-industrial donde los comerciantes entregaban materia prima (lana, hilo) a trabajadores rurales que producían en sus casas; la fábrica lo reemplazó concentrando la producción."
+            },
+            {
+                question: "Según Barbero, ¿qué transformación agrícola precedió y posibilitó la Revolución Industrial en Inglaterra?",
+                options: [
+                    "La introducción del riego artificial que triplicó los rendimientos de los cultivos cerealeros",
+                    "La abolición de los derechos señoriales que liberó a los siervos para trabajar en ciudades",
+                    "La Revolución Agrícola de los siglos XVII-XVIII: mejoras técnicas y cerramientos que elevaron la productividad",
+                    "La importación masiva de alimentos de las colonias americanas que redujo el costo de vida obrero"
+                ],
+                answer: 2,
+                explanation: "Barbero explica que la Revolución Agrícola (rotación de cultivos, nuevas herramientas, enclosures) aumentó la productividad del campo, liberando mano de obra hacia las industrias y garantizando la alimentación de la población urbana."
+            },
+            {
+                question: "¿Por qué Inglaterra y no Francia u Holanda fue el país que lideró la Primera Revolución Industrial, según Barbero?",
+                options: [
+                    "Porque Inglaterra tenía mayor población y por ende mayor demanda interna que sus rivales europeos",
+                    "Por la confluencia de recursos naturales, instituciones estables, capital acumulado, mercado colonial y cultura pragmática",
+                    "Porque el Estado inglés planificó centralmente el proceso industrial desde el siglo XVII",
+                    "Porque Francia y Holanda carecían de industria artesanal previa que pudiera mecanizarse"
+                ],
+                answer: 1,
+                explanation: "Barbero señala que ningún factor aislado explica el liderazgo inglés; fue la combinación de carbón, hierro, enclosures, capital comercial, derechos de propiedad, Imperio colonial y una burguesía emprendedora lo que diferenció a Inglaterra."
+            },
+            {
+                question: "¿Cómo se transformó la organización del trabajo con el paso del putting-out system a la fábrica, según Barbero?",
+                options: [
+                    "El trabajo se descentralizó aún más, permitiendo mayor autonomía al trabajador artesanal",
+                    "Se concentró la producción bajo un mismo techo, con disciplina horaria, división de tareas y supervisión directa",
+                    "El trabajo familiar fue reemplazado por cooperativas de artesanos que se autoorganizaban",
+                    "El Estado asumió la propiedad de los medios de producción y organizó el trabajo colectivamente"
+                ],
+                answer: 1,
+                explanation: "Barbero describe la fábrica como la nueva forma de organización del trabajo: producción concentrada, jornadas fijas, supervisión del patrón, división del trabajo mecanizado y pérdida de la autonomía del trabajador artesanal."
+            },
+            {
+                question: "¿Qué sector industrial lideró la Primera Revolución Industrial en Inglaterra según Barbero?",
+                options: [
+                    "La siderurgia, gracias a la nueva técnica de fundición con coque desarrollada por Abraham Darby",
+                    "La industria textil del algodón, primer sector en mecanizarse masivamente con Manchester como epicentro",
+                    "La construcción naval, impulsada por la demanda del comercio imperial atlántico",
+                    "La industria química, que proveyó tintes y fertilizantes a toda la economía"
+                ],
+                answer: 1,
+                explanation: "Según Barbero, la industria textil algodonera fue el sector líder de la industrialización inglesa: fue el primero en adoptar maquinaria a gran escala, articuló la demanda de carbón y acero, y convirtió a Manchester en capital industrial del mundo."
+            },
+            {
+                question: "¿Qué es la 'acumulación originaria de capital' en el contexto de la industrialización inglesa?",
+                options: [
+                    "El proceso por el cual el Estado inglés reinvirtió los fondos de la deuda pública en fábricas",
+                    "La acumulación previa de riqueza —por comercio, colonias y desposesión campesina— que financió la inversión industrial",
+                    "El ahorro forzoso de los trabajadores industriales descontado de sus salarios para capitalizarse",
+                    "La entrada de capitales extranjeros holandeses y genoveses que impulsaron los primeros emprendimientos fabriles"
+                ],
+                answer: 1,
+                explanation: "La acumulación originaria refiere al proceso histórico por el cual se concentró riqueza (por comercio triangular, piratería, enclosures y despojo colonial) antes de la industrialización, generando el capital disponible para invertir en maquinaria."
+            },
+
+            // =====================================================================
+            // BLOQUE B — INNOVACIONES TECNOLÓGICAS Y FECHAS (Barbero / Línea de tiempo)
+            // =====================================================================
+            {
+                question: "¿Quién inventó la Spinning Jenny y en qué año aproximado?",
+                options: [
+                    "Richard Arkwright, en 1769, como mejora de los telares de agua",
+                    "James Hargreaves, hacia 1764, una máquina de hilar con múltiples husos",
+                    "Samuel Crompton, en 1779, combinando la Jenny y el Water Frame",
+                    "Edmund Cartwright, en 1785, como primer telar mecánico a vapor"
+                ],
+                answer: 1,
+                explanation: "La Spinning Jenny fue inventada por James Hargreaves hacia 1764; permitía hilar varios hilos simultáneamente y fue una de las primeras innovaciones que mecanizaron la industria textil algodonera."
+            },
+            {
+                question: "¿Qué innovación representó el Water Frame de Richard Arkwright?",
+                options: [
+                    "Un telar mecánico movido por agua que automatizó el tejido de telas de algodón",
+                    "Una máquina de hilar accionada por energía hidráulica que producía hilo más resistente que la Spinning Jenny",
+                    "Una bomba de agua para drenar las minas de carbón y extraer el mineral más profundo",
+                    "Un sistema de canales artificiales para transportar mercancías textiles al puerto de Liverpool"
+                ],
+                answer: 1,
+                explanation: "El Water Frame (1769) de Arkwright era una máquina hilandera accionada por agua que producía hilo resistente y de calidad superior al de la Spinning Jenny; obligó a concentrar la producción en fábricas junto a ríos."
+            },
+            {
+                question: "¿Cuál fue la importancia de la máquina de vapor perfeccionada por James Watt (1769-1782)?",
+                options: [
+                    "Fue la primera fuente de energía eléctrica que reemplazó el carbón en las fábricas textiles",
+                    "Convirtió el vapor en movimiento rotatorio continuo, aplicable a cualquier maquinaria industrial y al transporte",
+                    "Permitió extraer agua de los ríos para regar los campos agrícolas y aumentar la producción de alimentos",
+                    "Aceleró la navegación fluvial inglesa pero no tuvo impacto directo en la producción fabril"
+                ],
+                answer: 1,
+                explanation: "El perfeccionamiento rotativo de Watt (1782) transformó el vapor en movimiento continuo aplicable a cualquier máquina; esto liberó a la industria de la dependencia del agua corriente y permitió instalar fábricas en cualquier lugar."
+            },
+            {
+                question: "¿Qué fue el Spinning Mule de Samuel Crompton (1779)?",
+                options: [
+                    "Una locomotora de vapor que combinaba la tracción animal con la energía del carbón",
+                    "Una máquina híbrida que combinaba la Spinning Jenny y el Water Frame, produciendo hilo fino y resistente",
+                    "Un sistema de transmisión mecánica que conectaba varias máquinas de vapor en serie",
+                    "Un horno de fundición mejorado que permitía producir acero de alta calidad con coque"
+                ],
+                answer: 1,
+                explanation: "El Spinning Mule fue una máquina hilandera que combinaba las ventajas de la Spinning Jenny (finura) y el Water Frame (resistencia), produciendo hilo de altísima calidad que impulsó la expansión del textil inglés."
+            },
+            {
+                question: "¿Qué significó el primer ferrocarril de vapor entre Stockton y Darlington en 1825?",
+                options: [
+                    "Fue el primer ferrocarril de pasajeros urbanos que unió dos barrios de Londres",
+                    "Fue la primera línea comercial a vapor que conectó una zona minera con el mar, inaugurando la era del ferrocarril",
+                    "Fue un experimento fallido que demostró que el vapor no era viable para el transporte terrestre",
+                    "Fue financiado íntegramente por el Estado inglés como proyecto de obras públicas nacionales"
+                ],
+                answer: 1,
+                explanation: "La línea Stockton-Darlington (1825), construida por George Stephenson, fue el primer ferrocarril comercial a vapor; transportaba carbón de las minas al puerto y demostró la viabilidad del tren, abriendo la era ferroviaria."
+            },
+            {
+                question: "¿Qué aportó el Power Loom de Edmund Cartwright (1785) a la industria textil?",
+                options: [
+                    "Mecanizó el proceso de hilado, reduciendo el tiempo de producción del hilo a la décima parte",
+                    "Automatizó el tejido mediante energía mecánica, completando la mecanización del ciclo textil algodonero",
+                    "Introdujo el uso del carbón en la industria textil, reemplazando la energía hidráulica en los telares",
+                    "Permitió tejer seda y lana con la misma máquina, diversificando la producción textil inglesa"
+                ],
+                answer: 1,
+                explanation: "El Power Loom (telar mecánico) de Cartwright automatizó el tejido, completando junto con las máquinas de hilar la plena mecanización del ciclo textil; con él se podía producir tela a escala y velocidad sin precedentes."
+            },
+            {
+                question: "¿Qué innovación siderúrgica permitió producir hierro y acero usando carbón mineral en lugar de carbón vegetal?",
+                options: [
+                    "El convertidor Bessemer, que inyectaba aire a presión en el hierro fundido para eliminar impurezas",
+                    "El uso del coque (carbón de hulla refinado), desarrollado por Abraham Darby a principios del siglo XVIII",
+                    "El horno de pudelado de Henry Cort, que removía el hierro fundido con barras para oxidar el carbono",
+                    "La laminadora de Thomas Newcomen, que estiraba el hierro en láminas delgadas aptas para la construcción"
+                ],
+                answer: 1,
+                explanation: "Abraham Darby desarrolló a comienzos del siglo XVIII la técnica de fundir hierro con coque (carbón de hulla procesado) en lugar de carbón vegetal, lo cual multiplicó enormemente la producción siderúrgica al librarla de la escasez de madera."
+            },
+            {
+                question: "¿En qué año se inauguró la línea Liverpool-Manchester y cuál fue su importancia?",
+                options: [
+                    "En 1825: fue la primera línea construida para transportar carbón de las minas del norte",
+                    "En 1838: fue la primera línea trasatlántica de vapores que unió Inglaterra con las colonias",
+                    "En 1830: fue la primera línea ferroviaria diseñada para el transporte masivo de mercancías y pasajeros",
+                    "En 1843: fue la primera línea subterránea urbana que conectó los puertos del noroeste inglés"
+                ],
+                answer: 2,
+                explanation: "La línea Liverpool-Manchester (1830, Stephenson) fue la primera diseñada específicamente para el transporte de mercancías y pasajeros a gran escala; marcó el inicio de la 'fiebre del ferrocarril' y la integración del mercado nacional inglés."
+            },
+            {
+                question: "¿Qué es la lanzadera volante (flying shuttle) de John Kay (1733) y cuál fue su impacto?",
+                options: [
+                    "Un tipo de máquina de vapor portátil que podía instalarse en cualquier fábrica textil de campo",
+                    "Un dispositivo que aceleró el tejido duplicando la velocidad del telar manual y creando demanda insatisfecha de hilo",
+                    "Un instrumento de navegación que mejoró el comercio marítimo colonial inglés durante el siglo XVIII",
+                    "Un tipo de lanza militar adaptada para la minería del carbón en las minas del norte de Inglaterra"
+                ],
+                answer: 1,
+                explanation: "La lanzadera volante de Kay (1733) aceleró el proceso de tejido, generando una demanda de hilo que los hiladores manuales no podían satisfacer; esa brecha estimuló la invención de máquinas de hilar como la Spinning Jenny."
+            },
+            {
+                question: "¿Qué representa la Gran Exposición de Crystal Palace en Londres (1851)?",
+                options: [
+                    "La primera feria internacional donde los países europeos presentaron sus ejércitos y armamentos modernos",
+                    "La exhibición mundial de la madurez industrial inglesa: máquinas, ferrocarriles y productos manufacturados de todo el mundo",
+                    "Una feria agrícola que demostró el liderazgo de Inglaterra en la Revolución Agrícola del siglo XIX",
+                    "El primer congreso internacional de trabajadores que reclamó jornada de 8 horas y salario mínimo"
+                ],
+                answer: 1,
+                explanation: "La Gran Exposición de 1851 en el Crystal Palace fue la primera exposición universal de la historia; exhibió los logros industriales de Inglaterra y otras naciones, simbolizando la consolidación de la Primera Revolución Industrial."
+            },
+            {
+                question: "¿Cuál fue la secuencia correcta de las principales innovaciones textiles de la Revolución Industrial?",
+                options: [
+                    "Power Loom (1785) → Spinning Jenny (1764) → Water Frame (1769) → Spinning Mule (1779)",
+                    "Spinning Jenny (1764) → Water Frame (1769) → Spinning Mule (1779) → Power Loom (1785)",
+                    "Water Frame (1769) → Spinning Mule (1779) → Spinning Jenny (1764) → Power Loom (1785)",
+                    "Spinning Mule (1779) → Spinning Jenny (1764) → Power Loom (1785) → Water Frame (1769)"
+                ],
+                answer: 1,
+                explanation: "La secuencia correcta es: Spinning Jenny (Hargreaves, ~1764) → Water Frame (Arkwright, 1769) → Spinning Mule (Crompton, 1779) → Power Loom (Cartwright, 1785). Cada innovación resolvía un cuello de botella del proceso textil anterior."
+            },
+            {
+                question: "¿Qué publicó Adam Smith en 1776 y qué relación tiene con la Revolución Industrial?",
+                options: [
+                    "El Manifiesto Comunista, que anticipó la lucha de clases entre la burguesía industrial y el proletariado",
+                    "La Riqueza de las Naciones, que teorizó la división del trabajo, el mercado libre y la acumulación de capital",
+                    "Los Principios de Economía Política, que propuso el proteccionismo como motor del desarrollo industrial inglés",
+                    "La Teoría del Capital, que describió el proceso de mecanización de la industria textil algodonera"
+                ],
+                answer: 1,
+                explanation: "Adam Smith publicó La Riqueza de las Naciones en 1776, obra fundacional del liberalismo económico que describió la división del trabajo como fuente de riqueza y defendió el libre mercado; sus ideas acompañaron ideológicamente la industrialización inglesa."
+            },
+            {
+                question: "¿Por qué el ferrocarril fue considerado la 'locomotora' de la Segunda fase de la industrialización?",
+                options: [
+                    "Porque fue el único medio de transporte disponible en el siglo XIX para el servicio de correos nacionales",
+                    "Porque generó una demanda masiva de hierro, acero, carbón e ingeniería, articulando toda la economía industrial",
+                    "Porque su construcción fue financiada exclusivamente por el Estado, lo que impulsó el gasto público productivo",
+                    "Porque reemplazó a la máquina de vapor en las fábricas textiles, liberando energía para otros usos"
+                ],
+                answer: 1,
+                explanation: "El ferrocarril funcionó como multiplicador económico: demandó enormes cantidades de hierro, acero y carbón; creó empleos; integró mercados nacionales; y estimuló la inversión bancaria a gran escala, potenciando toda la economía."
+            },
+            {
+                question: "¿Qué es la 'Pax Britannica' y cuándo se inicia?",
+                options: [
+                    "El período de paz interna en Inglaterra tras la Revolución Gloriosa de 1688 que permitió el desarrollo industrial",
+                    "El período de hegemonía naval y comercial británica que se inicia tras el fin de las Guerras Napoleónicas en 1815",
+                    "El acuerdo de libre comercio firmado entre Inglaterra y Francia en 1840 que eliminó los aranceles entre ambos países",
+                    "La política de neutralidad inglesa en los conflictos europeos entre 1789 y 1815"
+                ],
+                answer: 1,
+                explanation: "La Pax Britannica es el período de predominio hegemónico británico iniciado en 1815 (fin de las Guerras Napoleónicas); Inglaterra dominó los mares, el comercio mundial y las finanzas internacionales durante gran parte del siglo XIX."
+            },
+
+            // =====================================================================
+            // BLOQUE C — LA DOBLE REVOLUCIÓN Y CLASE OBRERA (Hobsbawm cap. 4)
+            // =====================================================================
+            {
+                question: "¿Qué entiende Hobsbawm por la 'doble revolución'?",
+                options: [
+                    "La doble revolución técnica del vapor y del ferrocarril que transformó la economía en dos etapas sucesivas",
+                    "La Revolución Industrial británica (económica) y la Revolución Francesa (política) como los dos procesos que transformaron el mundo entre 1789 y 1848",
+                    "La revolución obrera en Francia de 1848 y la revolución liberal en los estados alemanes del mismo año",
+                    "El doble proceso de urbanización e industrialización que ocurrió simultáneamente en Inglaterra y Bélgica"
+                ],
+                answer: 1,
+                explanation: "Hobsbawm denomina 'doble revolución' a la articulación entre la Revolución Industrial inglesa (transformación económica) y la Revolución Francesa de 1789 (transformación política), los dos procesos que, juntos, rehicieron el mundo moderno entre 1789 y 1848."
+            },
+            {
+                question: "Según Hobsbawm, ¿qué caracterizó las condiciones de vida de los trabajadores en las ciudades industriales inglesas?",
+                options: [
+                    "Una rápida mejora del nivel de vida gracias al aumento de salarios y a la reducción de las jornadas laborales",
+                    "Hacinamiento urbano, trabajo infantil, jornadas de 14 a 16 horas, salarios miserables y muy alta mortalidad",
+                    "Una transición gradual y pacífica del campo a la ciudad sin mayor deterioro de las condiciones materiales",
+                    "Condiciones comparables a las del artesanado previo, sin cambios significativos en la calidad de vida"
+                ],
+                answer: 1,
+                explanation: "Hobsbawm describe con crudeza las condiciones brutales del proletariado industrial: hacinamiento en barrios insalubres (Manchester, Leeds, Birmingham), trabajo infantil desde los 6-7 años, jornadas extenuantes y total ausencia de protección social."
+            },
+            {
+                question: "¿Qué fue el ludismo y qué representó como respuesta obrera a la industrialización, según Hobsbawm?",
+                options: [
+                    "Un movimiento intelectual que propuso reformas legislativas para regular el trabajo infantil en las fábricas",
+                    "La primera respuesta organizada de los trabajadores: destrucción de maquinaria vista como causante del desempleo y la miseria",
+                    "Un partido político obrero que reclamó el sufragio universal masculino en el Parlamento inglés",
+                    "Una corriente filosófica que rechazaba el progreso técnico y propugnaba el retorno a la vida artesanal y rural"
+                ],
+                answer: 1,
+                explanation: "El ludismo (1811-1816) fue el movimiento de destrucción de maquinaria protagonizado por artesanos textiles (ludditas) que veían en las máquinas la causa directa de su desplazamiento; Hobsbawm lo analiza como la primera forma de 'negociación colectiva por el motín'."
+            },
+            {
+                question: "Según Hobsbawm, ¿cuál fue el papel del algodón en la economía mundial durante la Primera Revolución Industrial?",
+                options: [
+                    "Fue un sector marginal limitado al mercado interno inglés, con escaso impacto en el comercio exterior",
+                    "Fue el sector locomotora: estimuló la demanda de máquinas, carbón y transporte, e impulsó el comercio global",
+                    "Fue el principal motor de la industrialización continental europea, especialmente en Francia y Bélgica",
+                    "Fue relevante solo hasta 1815; luego fue superado por la siderurgia como sector líder de la economía inglesa"
+                ],
+                answer: 1,
+                explanation: "Hobsbawm coloca al algodón en el centro de la industrialización: generó la demanda de máquinas de hilar y tejer, consumió carbón y acero, y sus exportaciones conectaron a Inglaterra con los mercados mundiales; India proveyó materia prima y fue forzada a consumir textiles ingleses."
+            },
+            {
+                question: "¿Qué característica central distingue al proletariado industrial como nueva clase social, según Hobsbawm?",
+                options: [
+                    "Está formado por artesanos que poseen sus propias herramientas y venden sus productos en el mercado",
+                    "No posee medios de producción y debe vender su fuerza de trabajo a cambio de un salario en las fábricas",
+                    "Es una clase propietaria de pequeñas parcelas rurales que complementa sus ingresos con trabajo fabril estacional",
+                    "Está integrado por inmigrantes extranjeros llegados al norte de Inglaterra desde Irlanda y Escocia"
+                ],
+                answer: 1,
+                explanation: "Hobsbawm define al proletariado industrial por su separación total de los medios de producción: el trabajador industrial solo posee su fuerza de trabajo, que vende al capitalista a cambio de un salario; esta relación es el núcleo del capitalismo industrial."
+            },
+            {
+                question: "Según Hobsbawm, ¿qué paradoja presenta la Revolución Industrial?",
+                options: [
+                    "Fue la primera revolución planificada conscientemente por el Estado inglés sin participación de la burguesía privada",
+                    "Fue una revolución sin 'revolucionarios': nadie la planificó, surgió de la acumulación de decisiones individuales de los capitalistas",
+                    "Fue la única revolución de la historia que mejoró simultáneamente las condiciones de vida de todas las clases sociales",
+                    "Fue una revolución que comenzó en el campo y solo tardíamente se trasladó a las ciudades industriales"
+                ],
+                answer: 1,
+                explanation: "Hobsbawm señala la paradoja de que nadie planificó conscientemente la transformación más profunda de la historia humana: fue el resultado agregado de miles de decisiones de capitalistas individuales buscando ganancias, no de un proyecto colectivo deliberado."
+            },
+            {
+                question: "¿A qué período sitúa Hobsbawm el núcleo de la Primera Revolución Industrial?",
+                options: [
+                    "1750-1800, centrado en las innovaciones textiles y el desarrollo de los canales fluviales",
+                    "1780-1840, período en que se consolidó la industrialización y surgió el proletariado como clase",
+                    "1815-1870, después de las Guerras Napoleónicas hasta la Segunda Revolución Industrial",
+                    "1840-1880, dominado por el ferrocarril y la expansión del capitalismo industrial al continente"
+                ],
+                answer: 1,
+                explanation: "Hobsbawm sitúa el núcleo de la Revolución Industrial en el período 1780-1840, que incluye tanto el despegue industrial (take-off sensu Rostow) como la formación de la clase obrera industrial y sus primeras formas de organización."
+            },
+            {
+                question: "¿Qué fueron los trade unions y cuándo comenzaron a desarrollarse en Inglaterra?",
+                options: [
+                    "Asociaciones de comerciantes que regulaban el precio de los textiles exportados a las colonias",
+                    "Primeras organizaciones sindicales de trabajadores industriales que surgieron tras la derogación de las Combination Acts en 1824",
+                    "Compañías de inversión que canalizaban el ahorro de los trabajadores hacia la industria ferroviaria",
+                    "Cooperativas agrícolas que agrupaban a los campesinos expulsados por los enclosures para comprar tierras"
+                ],
+                answer: 1,
+                explanation: "Las trade unions fueron los primeros sindicatos obreros ingleses; comenzaron a organizarse legalmente tras la derogación de las Combination Acts (1824-1825), que antes las prohibían. Fueron la segunda fase de organización obrera, tras el ludismo."
+            },
+            {
+                question: "Según Hobsbawm, ¿cómo impactó la Revolución Industrial en la urbanización inglesa?",
+                options: [
+                    "Frenó el crecimiento urbano porque las fábricas se instalaron en zonas rurales junto a ríos y yacimientos",
+                    "Generó un explosivo crecimiento de ciudades industriales como Manchester, Birmingham y Leeds, con condiciones de vida muy precarias",
+                    "Redistribuyó la población desde las ciudades hacia zonas rurales donde se construyeron las nuevas fábricas",
+                    "Concentró la población solo en Londres, que absorbió la totalidad del crecimiento demográfico del siglo XIX"
+                ],
+                answer: 1,
+                explanation: "Hobsbawm describe cómo la industrialización generó un crecimiento urbano sin precedentes: Manchester pasó de 25.000 habitantes en 1772 a más de 300.000 en 1850; las nuevas ciudades industriales crecieron sin planificación, generando condiciones sanitarias deplorables."
+            },
+            {
+                question: "¿Qué fue el cartismo (chartism) y qué relación tiene con el desarrollo del movimiento obrero inglés?",
+                options: [
+                    "Un movimiento de pequeños propietarios rurales que reclamó la revisión de los enclosures ante el Parlamento",
+                    "El primer movimiento político obrero masivo que reclamó derechos políticos (sufragio universal, parlamento anual) en la Carta del Pueblo de 1838",
+                    "Una organización patronal de los industriales textiles que presionó al Parlamento para reducir los aranceles",
+                    "Un movimiento republicano de clase media que exigió la abolición de la monarquía y la reforma educativa"
+                ],
+                answer: 1,
+                explanation: "El cartismo fue el primer movimiento político-obrero de masas en la historia; surgió en 1838 y reclamó reformas democráticas (sufragio universal masculino, voto secreto, salario para parlamentarios) reflejando la madurez política del proletariado industrial inglés."
+            },
+
+            // =====================================================================
+            // BLOQUE D — ALGODÓN, LUDISMO, TRADE UNIONS (Hobsbawm cap. 4)
+            // =====================================================================
+            {
+                question: "¿Por qué la India cumplió un papel clave en la industria algodonera inglesa, según Hobsbawm?",
+                options: [
+                    "India fue el principal destino de inversiones inglesas en ferrocarriles durante todo el siglo XIX",
+                    "Proveyó materia prima (algodón) y fue forzada a importar textiles ingleses, destruyendo su industria artesanal local",
+                    "India envió millones de trabajadores migrantes que constituyeron la mano de obra de las fábricas de Manchester",
+                    "India fue el principal financiador de la Royal Navy que protegió el comercio colonial inglés"
+                ],
+                answer: 1,
+                explanation: "Hobsbawm describe la relación colonial con India como central para el algodón inglés: India suministraba la materia prima y era forzada a consumir los textiles baratos ingleses, lo que destruyó su milenaria industria artesanal textil."
+            },
+            {
+                question: "¿Qué entendía Hobsbawm por 'negociación colectiva por el motín' en el contexto del primer movimiento obrero?",
+                options: [
+                    "La estrategia sindical de huelga general coordinada desde los trade unions centralizados de Londres",
+                    "El uso de la violencia (destrucción de máquinas, amenazas a patrones) como forma de negociación laboral antes del sindicalismo formal",
+                    "La práctica de los trabajadores de presentar peticiones masivas firmadas al Parlamento inglés",
+                    "La formación de cooperativas de consumo que compraban alimentos al por mayor para bajar el costo de vida obrero"
+                ],
+                answer: 1,
+                explanation: "Hobsbawm acuñó la expresión 'negociación colectiva por el motín' para describir cómo los trabajadores preindustriales e industriales tempranos usaban la amenaza de violencia (ludismo, motines) como método de presión sobre patronos en ausencia de sindicatos legales."
+            },
+            {
+                question: "¿Cuál fue la actitud del Estado inglés ante el ludismo y la organización obrera hasta mediados del siglo XIX?",
+                options: [
+                    "Apoyó activamente la organización sindical como forma de estabilizar las relaciones laborales en las fábricas",
+                    "Reprimió duramente el ludismo y prohibió las organizaciones obreras mediante las Combination Acts (1799-1800)",
+                    "Mantuvo una postura neutral, sin intervenir ni en favor de los trabajadores ni de los industriales",
+                    "Impulsó legislación social temprana que reguló las jornadas y prohibió el trabajo infantil desde 1800"
+                ],
+                answer: 1,
+                explanation: "El Estado inglés respondió al ludismo y la organización obrera con represión: las Combination Acts de 1799-1800 prohibieron las asociaciones de trabajadores, y los líderes luditas fueron ahorcados o deportados a Australia."
+            },
+            {
+                question: "Según Hobsbawm, ¿qué distingue la Revolución Industrial inglesa de todas las transformaciones económicas anteriores?",
+                options: [
+                    "Fue la primera que contó con apoyo estatal planificado y con un programa educativo para los trabajadores",
+                    "Fue la primera que creó un crecimiento económico autosostenido, capaz de generar su propio capital y expandirse indefinidamente",
+                    "Fue la única revolución económica que no produjo conflictos sociales ni resistencias de los grupos desplazados",
+                    "Fue la primera basada exclusivamente en el comercio exterior, sin desarrollar un mercado interno significativo"
+                ],
+                answer: 1,
+                explanation: "Hobsbawm destaca que la gran singularidad de la Revolución Industrial fue crear un mecanismo de crecimiento autosostenido: la industria generaba el capital para reinvertir y expandirse, algo sin precedentes en la historia económica anterior."
+            },
+            {
+                question: "¿Cómo describe Hobsbawm la ciudad de Manchester como símbolo de la Revolución Industrial?",
+                options: [
+                    "Como una ciudad planificada modelo, con viviendas obreras dignas y parques diseñados por filántropos industriales",
+                    "Como el infierno del capitalismo industrial: humo, ríos contaminados, barrios hacinados y una burguesía opulenta frente a un proletariado miserable",
+                    "Como un centro financiero global comparable a Londres, donde se concentraban los bancos y las sociedades por acciones",
+                    "Como una ciudad de artesanos especializados que resistieron exitosamente la mecanización de la industria textil"
+                ],
+                answer: 1,
+                explanation: "Manchester fue para Hobsbawm el símbolo del capitalismo industrial en estado puro: una ciudad que creció explosivamente sin planificación, con contaminación extrema, hacinamiento obrero, y la más feroz polarización entre burguesía industrial y proletariado."
+            },
+
+            // =====================================================================
+            // BLOQUE E — DIFUSIÓN CONTINENTAL: BÉLGICA, FRANCIA, ALEMANIA (Parejo Antonio)
+            // =====================================================================
+            {
+                question: "¿Qué país fue el primero del continente europeo en industrializarse y por qué, según Parejo Antonio?",
+                options: [
+                    "Francia, porque su Revolución de 1789 liberó las fuerzas productivas del feudalismo",
+                    "Bélgica, por sus cuencas carboníferas en Lieja y Charleroi, la contratación de técnicos ingleses y su burguesía comercial activa",
+                    "Alemania, gracias al Zollverein de 1834 que unificó su mercado interior antes de la unificación política",
+                    "Suiza, por su tradición artesanal relojera que se transformó en industria mecánica de precisión"
+                ],
+                answer: 1,
+                explanation: "Parejo Antonio señala a Bélgica como la primera nación continental industrializada (1820s-1840s), gracias a sus ricas cuencas de carbón en Lieja y Charleroi, la importación de tecnología y técnicos ingleses, y una burguesía comercial emprendedora."
+            },
+            {
+                question: "¿Cuáles fueron las características del proceso de industrialización francés según Parejo Antonio?",
+                options: [
+                    "Fue el proceso más rápido del continente, superando a Inglaterra en producción textil hacia 1850",
+                    "Fue más lento y gradual que el inglés; coexistieron la manufactura tradicional y la industria mecanizada por mucho tiempo",
+                    "Estuvo liderado por el Estado a través de empresas públicas que construyeron ferrocarriles y fábricas",
+                    "Se concentró exclusivamente en la siderurgia y la industria química, sin desarrollar la industria textil"
+                ],
+                answer: 1,
+                explanation: "Parejo describe la industrialización francesa como más lenta y gradual que la inglesa: la manufactura tradicional y la industria mecanizada coexistieron largo tiempo; Francia carecía del carbón abundante de Inglaterra y tenía una estructura social rural más sólida."
+            },
+            {
+                question: "¿Qué fue el Zollverein y qué rol cumplió en la industrialización alemana, según Parejo Antonio?",
+                options: [
+                    "Un banco de inversión prusiano fundado en 1834 para financiar la construcción del ferrocarril alemán",
+                    "Una unión aduanera alemana (1834) que eliminó barreras comerciales entre los estados germanos, creando un mercado interior unificado",
+                    "Un sindicato de industriales alemanes que acordó precios y cuotas de producción para evitar la competencia inglesa",
+                    "Un tratado militar prusiano que protegió a los estados alemanes de la expansión del Imperio francés"
+                ],
+                answer: 1,
+                explanation: "El Zollverein (1834) fue la unión aduanera impulsada por Prusia que eliminó los aranceles internos entre los estados alemanes; al crear un gran mercado integrado avant la letra de la unificación política (1871), estimuló el comercio y la industrialización alemana."
+            },
+            {
+                question: "¿Qué argumentó Friedrich List sobre el desarrollo industrial alemán que lo diferencia del librecambismo inglés?",
+                options: [
+                    "Que Alemania debía especializarse en la exportación de productos agrícolas y dejar la industria a Inglaterra",
+                    "Que los países en proceso de industrialización necesitaban proteccionismo arancelario temporario para proteger su industria naciente",
+                    "Que el libre comercio era beneficioso para todos los países independientemente de su grado de desarrollo",
+                    "Que el Estado no debía intervenir en la economía y que el mercado abierto era la mejor vía para industrializarse"
+                ],
+                answer: 1,
+                explanation: "Friedrich List (Sistema Nacional de Economía Política, 1841) argumentó que el libre comercio predicado por Inglaterra beneficiaba solo a quien ya era industrial; los países 'atrasados' necesitaban proteger su industria naciente con aranceles hasta alcanzar capacidad competitiva."
+            },
+            {
+                question: "¿Qué papel jugaron los bancos de inversión en la industrialización continental tardía, según Parejo Antonio?",
+                options: [
+                    "Jugaron un papel secundario ya que el capital para industrializarse provino del ahorro de los propios industriales",
+                    "Fueron cruciales: financiaron ferrocarriles, siderurgia y textiles, supliendo la falta de capital privado acumulado",
+                    "Solo financiaron el comercio exterior, sin involucrarse en la industria manufacturera continental",
+                    "Fueron controlados por capitales ingleses que impusieron condiciones favorables a las exportaciones británicas"
+                ],
+                answer: 1,
+                explanation: "Parejo Antonio destaca el rol central de la banca de inversión en el continente: instituciones como el Crédit Mobilier francés (1852) financiaron masivamente el ferrocarril y la industria pesada, supliendo la escasez de capital privado acumulado que sí tenía Inglaterra."
+            },
+            {
+                question: "¿Cómo fue el proceso de industrialización estadounidense en comparación con el europeo, según Parejo Antonio?",
+                options: [
+                    "Fue más lento por la escasez de mano de obra, que obligó a un ritmo de crecimiento más moderado que en Europa",
+                    "Desarrolló soluciones propias (sistema americano de manufactura) por la escasez relativa de mano de obra y la abundancia de recursos naturales",
+                    "Dependió totalmente de la tecnología inglesa importada, sin desarrollar innovaciones propias hasta el siglo XX",
+                    "Fue liderado por el sur algodonero, que industrializó sus plantaciones antes que el norte manufacturero"
+                ],
+                answer: 1,
+                explanation: "Parejo señala que EE.UU. desarrolló el 'sistema americano de manufactura' (partes intercambiables, máquinas-herramienta, producción en serie) como respuesta a su escasez relativa de mano de obra y a su abundancia de recursos naturales, generando un camino propio hacia la industrialización."
+            },
+            {
+                question: "¿Cómo se produjo la transferencia tecnológica de Inglaterra al continente durante la difusión industrial?",
+                options: [
+                    "A través de acuerdos intergubernamentales de cooperación técnica firmados entre el Parlamento inglés y los estados continentales",
+                    "Por el traslado de ingenieros y técnicos ingleses al continente, la copia de maquinaria y la emigración de trabajadores especializados",
+                    "Mediante la venta legal de patentes inglesas por parte del gobierno, que así generó recursos para financiar el Imperio",
+                    "A través del espionaje industrial organizado por los gobiernos continentales que robaron planos en las fábricas inglesas"
+                ],
+                answer: 1,
+                explanation: "La difusión tecnológica ocurrió principalmente por el traslado (muchas veces ilegal, ya que Inglaterra prohibía durante un tiempo la emigración de técnicos) de ingenieros y trabajadores cualificados ingleses al continente, que llevaban consigo el conocimiento tácito de las nuevas máquinas."
+            },
+            {
+                question: "¿Cuál fue el rol del ferrocarril en la integración de los mercados nacionales en Europa continental, según Parejo Antonio?",
+                options: [
+                    "Fue irrelevante para la integración económica porque los estados principales ya tenían sistemas de canales eficientes",
+                    "Fue central: articuló regiones, redujo costos de transporte, integró mercados nacionales y generó demanda de siderurgia",
+                    "Solo fue importante en Alemania; en Francia y Bélgica la navegación fluvial siguió siendo el transporte dominante",
+                    "Fue utilizado casi exclusivamente para fines militares hasta la segunda mitad del siglo XIX"
+                ],
+                answer: 1,
+                explanation: "Parejo Antonio destaca que el ferrocarril fue el gran articulador de la industrialización continental: integró mercados nacionales previamente fragmentados, redujo drásticamente los costos de transporte y generó una demanda masiva de hierro, acero y carbón que impulsó la industria pesada."
+            },
+            {
+                question: "¿Qué diferencias señala Parejo entre la industrialización inglesa (temprana) y las continentales (tardías)?",
+                options: [
+                    "Las industrializaciones tardías fueron más lentas, menos violentas y generaron menores transformaciones sociales que la inglesa",
+                    "Las industrializaciones tardías requirieron mayor intervención del Estado y de la banca, y pudieron importar tecnología ya desarrollada",
+                    "Las industrializaciones tardías solo se produjeron en países con colonias propias, siguiendo el modelo inglés estrictamente",
+                    "Las industrializaciones tardías se financiaron exclusivamente con capital inglés transferido a través del libre comercio"
+                ],
+                answer: 1,
+                explanation: "Parejo, siguiendo el modelo de Gerschenkron, señala que las industrializaciones tardías se diferenciaron de la inglesa por el mayor papel del Estado y los bancos (en lugar del capital privado acumulado), la posibilidad de importar tecnología ya desarrollada y la tendencia a la concentración industrial."
+            },
+            {
+                question: "¿Qué sector industrial lideró el despegue alemán según Parejo Antonio?",
+                options: [
+                    "La industria textil algodonera concentrada en Renania, siguiendo el modelo de Manchester",
+                    "La industria pesada (siderurgia y minería del carbón) de la cuenca del Ruhr, articulada con el ferrocarril",
+                    "La industria química de Bavaria, que desarrolló los primeros colorantes sintéticos para la exportación",
+                    "La construcción naval en los puertos del Mar del Norte, impulsada por la expansión del comercio atlántico"
+                ],
+                answer: 1,
+                explanation: "Parejo Antonio señala que Alemania se industrializó con fuerte énfasis en la industria pesada: las cuencas carboníferas del Ruhr y la siderurgia renana fueron el corazón del despegue industrial alemán, articuladas por una densa red ferroviaria."
+            },
+
+            // =====================================================================
+            // BLOQUE F — GERSCHENKRON, ZOLLVEREIN, LIBRECAMBISMO, ROL DEL ESTADO
+            // =====================================================================
+            {
+                question: "¿En qué consiste el modelo de Alexander Gerschenkron sobre el 'atraso relativo' y la industrialización tardía?",
+                options: [
+                    "Sostiene que los países con mayor atraso económico nunca pueden industrializarse sin ayuda de las naciones avanzadas",
+                    "Plantea que el atraso relativo es una ventaja: los países tardíos pueden copiar tecnología ya probada y el Estado suple la falta de capital privado",
+                    "Argumenta que todos los países siguen el mismo camino de industrialización que siguió Inglaterra, solo que más tarde",
+                    "Afirma que el librecambismo es la única política capaz de superar el atraso económico en países no industrializados"
+                ],
+                answer: 1,
+                explanation: "Gerschenkron (Atraso económico en perspectiva histórica) sostuvo que cuanto mayor el atraso relativo de un país, mayor es el rol del Estado y/o de los bancos de inversión en la industrialización, y que los países tardíos tienen la 'ventaja del atraso': pueden importar tecnología desarrollada sin reinventarla."
+            },
+            {
+                question: "¿Qué es el librecambismo y cuál fue su relación con la hegemonía industrial inglesa en el siglo XIX?",
+                options: [
+                    "El librecambismo es una política proteccionista que ayudó a Inglaterra a consolidar su industria antes de abrirse al mundo",
+                    "El librecambismo (libre comercio sin aranceles) fue la política inglesa que, desde su posición dominante, le convenía para exportar manufacturas e importar materias primas",
+                    "Es una política económica que solo beneficia a los países agrícolas exportadores de commodities",
+                    "El librecambismo fue una propuesta radical de Friedrich List para proteger la industria naciente alemana"
+                ],
+                answer: 1,
+                explanation: "El librecambismo fue la política exterior comercial de Inglaterra que convino perfectamente a su posición de potencia industrial dominante: sin aranceles, sus manufacturas baratas inundaban los mercados mundiales e impedían el desarrollo industrial rival."
+            },
+            {
+                question: "¿Qué fue el Banco de Inglaterra (fundado en 1694) y qué importancia tuvo para la industrialización?",
+                options: [
+                    "Fue el primer banco central público que financió directamente las fábricas textiles del norte de Inglaterra",
+                    "Fue la institución que estabilizó el crédito y la moneda inglesa, generando confianza para la inversión privada a largo plazo",
+                    "Fue una institución creada exclusivamente para financiar las guerras coloniales y la expansión del Imperio Británico",
+                    "Fue el banco que administró los enclosures y organizó el desplazamiento de los campesinos hacia las ciudades industriales"
+                ],
+                answer: 1,
+                explanation: "La fundación del Banco de Inglaterra (1694) estabilizó el sistema crediticio inglés: garantizó la deuda pública, reguló la emisión monetaria y generó confianza institucional para la inversión privada a largo plazo, uno de los prerrequisitos financieros de la industrialización."
+            },
+            {
+                question: "¿Qué diferencia fundamental existe entre la industrialización inglesa y la alemana respecto al rol del Estado?",
+                options: [
+                    "En Inglaterra el Estado fue el principal inversor; en Alemania la industrialización fue completamente privada",
+                    "En Inglaterra predominó el capital privado con poco intervencionismo; en Alemania el Estado prusiano y los grandes bancos tuvieron un rol activo y central",
+                    "En Alemania el Estado prohibió la inversión extranjera; en Inglaterra el capital holandés fue decisivo en el arranque industrial",
+                    "Ambos procesos tuvieron igual grado de intervención estatal; la diferencia estuvo en los recursos naturales disponibles"
+                ],
+                answer: 1,
+                explanation: "Siguiendo a Gerschenkron y Parejo, en Inglaterra la industrialización fue resultado del capital privado acumulado con mínima intervención estatal; en Alemania, el Estado prusiano (a través de políticas arancelarias, ferrocarriles y el Zollverein) y la gran banca jugaron un rol activo en la industrialización."
+            },
+            {
+                question: "¿Qué fue la 'fiebre del ferrocarril' (railway mania) de la década de 1840 en Gran Bretaña?",
+                options: [
+                    "Un proceso de especulación bursátil masiva con acciones ferroviarias que terminó en crisis financiera en 1847",
+                    "La expansión planificada de la red ferroviaria inglesa financiada por el Estado para conectar todas las ciudades industriales",
+                    "El proceso por el cual los países continentales importaron locomotoras y rieles ingleses para construir sus propias redes",
+                    "La primera crisis de sobreproducción del capitalismo industrial, vinculada al exceso de capacidad ferroviaria"
+                ],
+                answer: 0,
+                explanation: "La 'railway mania' fue el episodio especulativo de los años 1844-1847 en el que miles de inversores ingleses compraron masivamente acciones de nuevas compañías ferroviarias; la burbuja estalló en 1847 pero la red ferroviaria construida fue un legado duradero."
+            },
+            {
+                question: "¿Qué significa que la Primera Revolución Industrial fue liderada por el 'sector textil' y no por la siderurgia?",
+                options: [
+                    "Que la siderurgia no existía en Inglaterra antes de 1850 y solo se desarrolló en la Segunda Revolución Industrial",
+                    "Que el textil fue el primer sector en mecanizarse masivamente y el que estableció el modelo fabril que luego se generalizó",
+                    "Que la producción de telas fue más rentable que la de hierro durante todo el siglo XVIII y XIX en Inglaterra",
+                    "Que el sector textil fue el que introdujo la máquina de vapor antes que ningún otro sector de la economía"
+                ],
+                answer: 1,
+                explanation: "El sector textil algodonero fue el primero en mecanizar su proceso productivo a gran escala y en adoptar el sistema fabril; sentó el modelo organizativo y tecnológico que luego fue imitado por la siderurgia, la minería y otros sectores industriales."
+            },
+            {
+                question: "¿Qué es el patrón oro y cómo se relacionó con la hegemonía económica inglesa del siglo XIX?",
+                options: [
+                    "Es un sistema monetario en el que los billetes son convertibles en oro; Inglaterra lo adoptó y su libra esterlina se convirtió en moneda de reserva mundial",
+                    "Es un estándar de calidad para la producción de joyería que Inglaterra exportó como norma internacional",
+                    "Es la política por la cual Inglaterra acumuló reservas de oro en el Banco de Inglaterra para financiar sus guerras coloniales",
+                    "Es el acuerdo monetario multilateral firmado en 1860 que estableció tipos de cambio fijos entre las principales potencias"
+                ],
+                answer: 0,
+                explanation: "El patrón oro, adoptado por Inglaterra en 1816, convirtió a la libra esterlina en la principal moneda de reserva internacional durante el siglo XIX; otros países adoptaron progresivamente el sistema, y la City de Londres se convirtió en el centro financiero del mundo."
+            },
+            {
+                question: "¿Cómo caracteriza Parejo Antonio la relación entre la industria y la agricultura durante la Primera Revolución Industrial?",
+                options: [
+                    "La agricultura colapsó durante la industrialización, generando una crisis alimentaria que frenó el crecimiento demográfico",
+                    "La Revolución Agrícola precedente aumentó la productividad del campo, liberando mano de obra y proveyendo alimentos para la creciente población urbana",
+                    "La industria y la agricultura fueron sectores completamente independientes que no tuvieron ninguna relación durante la industrialización",
+                    "La agricultura fue destruida por la competencia de las importaciones coloniales y nunca se recuperó durante el siglo XIX"
+                ],
+                answer: 1,
+                explanation: "Parejo Antonio, siguiendo a Barbero, destaca que la Revolución Agrícola fue una condición previa de la industrialización: la mayor productividad agraria liberó mano de obra para las fábricas y proveyó los alimentos necesarios para alimentar a una población urbana en rápido crecimiento."
+            },
+            {
+                question: "¿Qué es el 'take-off' o 'despegue' económico como concepto aplicado a la Revolución Industrial?",
+                options: [
+                    "La fase en que un país abandona definitivamente la agricultura y se convierte en una economía exclusivamente industrial",
+                    "El período en que la tasa de inversión productiva supera un umbral crítico y el crecimiento económico se vuelve autosostenido",
+                    "El momento en que un país logra exportar más manufacturas de las que importa, alcanzando el equilibrio comercial",
+                    "La etapa en que la industrialización se difunde desde el sector textil hacia todos los demás sectores de la economía"
+                ],
+                answer: 1,
+                explanation: "El concepto de 'take-off' fue desarrollado por W.W. Rostow para describir la fase en que la tasa de inversión productiva supera un umbral (10-12% del PNB) y el crecimiento económico se vuelve autosostenido y continuo; Hobsbawm lo aplica al período inglés 1780-1800."
+            },
+            {
+                question: "¿Qué impacto tuvo la Primera Revolución Industrial sobre el comercio internacional, según los textos de la unidad?",
+                options: [
+                    "Redujo el comercio internacional porque las fábricas inglesas satisfacían la demanda interna sin necesidad de exportar",
+                    "Transformó la economía mundial: Inglaterra exportó manufacturas baratas e importó materias primas, desarticulando las artesanías de los países no industrializados",
+                    "Solo benefició a las colonias inglesas, que pudieron vender sus materias primas a precios mejores que antes",
+                    "Fue irrelevante para el comercio mundial hasta que el ferrocarril conectó los mercados internacionales en la segunda mitad del siglo XIX"
+                ],
+                answer: 1,
+                explanation: "La industrialización transformó radicalmente el comercio mundial: la producción masiva ingles permitió exportar textiles y manufacturas a precios imbatibles, destruyendo las artesanías locales en Asia, América Latina y África, mientras importaba materias primas a bajo costo."
+            },
+
+            // =====================================================================
+            // BLOQUE G — FECHAS Y SECUENCIA CRONOLÓGICA (Línea de tiempo Semana 1)
+            // =====================================================================
+            {
+                question: "¿En qué año se publicó 'La Riqueza de las Naciones' de Adam Smith y qué coincidencia histórica notable ocurrió ese año?",
+                options: [
+                    "1769, el mismo año en que Watt patentó su máquina de vapor y Arkwright desarrolló el Water Frame",
+                    "1776, el mismo año de la Declaración de Independencia de los Estados Unidos",
+                    "1789, el mismo año de la Revolución Francesa que transformó el orden político europeo",
+                    "1815, el mismo año del fin de las Guerras Napoleónicas y el inicio de la Pax Britannica"
+                ],
+                answer: 1,
+                explanation: "La Riqueza de las Naciones se publicó en 1776, el mismo año de la Declaración de Independencia de EE.UU.; ambos eventos simbolizan el ascenso del liberalismo (económico y político) como nuevo paradigma del mundo moderno."
+            },
+            {
+                question: "¿Qué ocurrió en 1848 que marcó el fin del período analizado por Hobsbawm en 'La Era de la Revolución'?",
+                options: [
+                    "La unificación alemana bajo Prusia y la derrota de Austria en la guerra por la hegemonía centroeuropea",
+                    "La publicación del Manifiesto Comunista de Marx y Engels y las revoluciones liberales en toda Europa",
+                    "La muerte de la reina Victoria y el inicio del período eduardiano de expansión colonial inglesa",
+                    "La inauguración del Canal de Suez que transformó las rutas comerciales entre Europa y Asia"
+                ],
+                answer: 1,
+                explanation: "1848 fue el 'año de las revoluciones': levantamientos liberales y nacionales en casi toda Europa, y también el año del Manifiesto Comunista; para Hobsbawm marca el fin del período de la 'doble revolución' y el inicio de una nueva fase del capitalismo industrial."
+            },
+            {
+                question: "¿Cuál fue la secuencia correcta de los siguientes eventos de la Revolución Industrial?",
+                options: [
+                    "Ferrocarril Stockton-Darlington (1825) → Zollverein alemán (1834) → Gran Exposición Crystal Palace (1851) → Manifiesto Comunista (1848)",
+                    "Manifiesto Comunista (1848) → Ferrocarril Stockton-Darlington (1825) → Gran Exposición (1851) → Zollverein (1834)",
+                    "Ferrocarril Stockton-Darlington (1825) → Zollverein alemán (1834) → Manifiesto Comunista (1848) → Gran Exposición Crystal Palace (1851)",
+                    "Zollverein alemán (1834) → Gran Exposición (1851) → Manifiesto Comunista (1848) → Ferrocarril Stockton-Darlington (1825)"
+                ],
+                answer: 2,
+                explanation: "La secuencia correcta es: Ferrocarril Stockton-Darlington (1825) → Zollverein alemán (1834) → Manifiesto Comunista y revoluciones europeas (1848) → Gran Exposición de Crystal Palace (1851)."
+            },
+            {
+                question: "¿En qué año se fundó el Banco de Inglaterra y qué evento político lo hizo posible?",
+                options: [
+                    "En 1776, tras la independencia de las colonias americanas que obligó a reorganizar las finanzas del Imperio",
+                    "En 1694, pocas años después de la Revolución Gloriosa de 1688 que estabilizó el régimen político inglés",
+                    "En 1815, al final de las Guerras Napoleónicas, para financiar la reconstrucción económica de posguerra",
+                    "En 1733, como respuesta a la burbuja de los Mares del Sur de 1720 que arruinó a miles de inversores"
+                ],
+                answer: 1,
+                explanation: "El Banco de Inglaterra fue fundado en 1694, apenas seis años después de la Revolución Gloriosa (1688); el nuevo régimen parlamentario necesitaba financiar sus guerras y consolidar el crédito público, creando así la institución financiera más importante de la historia inglesa."
+            },
+            {
+                question: "¿Qué evento de 1815 fue fundamental para la expansión del capitalismo industrial inglés en el siglo XIX?",
+                options: [
+                    "La promulgación de las Corn Laws que protegieron la agricultura inglesa de la competencia extranjera",
+                    "El fin de las Guerras Napoleónicas que inauguró la Pax Britannica y la hegemonía comercial y naval inglesa",
+                    "La abolición oficial de la trata de esclavos que modificó las rutas del comercio triangular atlántico",
+                    "La fundación de la primera cooperativa de trabajadores en Rochdale que inició el movimiento cooperativista"
+                ],
+                answer: 1,
+                explanation: "El fin de las Guerras Napoleónicas en 1815 inauguró la Pax Britannica: sin rivales navales ni militares significativos, Inglaterra pudo dominar el comercio mundial, exportar sus manufacturas libres de trabas y consolidar su hegemonía imperial durante todo el siglo XIX."
+            }
+        ];
+
+        let quizzes = [];
+        let currentQuiz;
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const quizSelectionScreen = document.getElementById('quiz-selection-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const questionElement = document.getElementById('question');
+        const optionsContainer = document.getElementById('options-container');
+        const currentQuestionNumberElement = document.getElementById('current-question-number');
+        const scoreElement = document.getElementById('score');
+        const nextButton = document.getElementById('next-button');
+        const feedbackMessage = document.getElementById('feedback-message');
+        const finalScoreElement = document.getElementById('final-score');
+
+        // Mezcla un array de forma aleatoria (algoritmo Fisher-Yates)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Genera los 6 exámenes, cada uno con 20 preguntas aleatorias del pool
+        function generateQuizzes() {
+            quizzes = [];
+            for (let i = 0; i < 6; i++) {
+                const shuffled = [...allQuestions];
+                shuffleArray(shuffled);
+                const selectedQuestions = shuffled.slice(0, 20);
+                quizzes.push({
+                    title: `Examen de Práctica ${i + 1}`,
+                    questions: selectedQuestions
+                });
+            }
+        }
+
+        // Inicia un examen específico por su índice
+        function startQuiz(quizIndex) {
+            currentQuiz = quizzes[quizIndex];
+            currentQuestionIndex = 0;
+            score = 0;
+
+            quizSelectionScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+
+            showQuestion();
+        }
+
+        // Muestra la pregunta actual y sus opciones
+        function showQuestion() {
+            const currentQuestionData = currentQuiz.questions[currentQuestionIndex];
+
+            currentQuestionNumberElement.textContent = currentQuestionIndex + 1;
+            scoreElement.textContent = score;
+            questionElement.textContent = currentQuestionData.question;
+            optionsContainer.innerHTML = '';
+            feedbackMessage.classList.add('hidden');
+            feedbackMessage.innerHTML = '';
+            nextButton.disabled = true;
+
+            currentQuestionData.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('answer-button', 'block');
+                button.onclick = () => checkAnswer(button, index);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        // Verifica la respuesta seleccionada
+        function checkAnswer(selectedButton, selectedIndex) {
+            const currentQuestionData = currentQuiz.questions[currentQuestionIndex];
+            const correctIndex = currentQuestionData.answer;
+
+            // Deshabilitar todos los botones para evitar cambios
+            Array.from(optionsContainer.children).forEach((button) => {
+                button.disabled = true;
+            });
+
+            // Marcar la respuesta correcta en verde
+            optionsContainer.children[correctIndex].classList.add('correct');
+
+            if (selectedIndex === correctIndex) {
+                score++;
+                feedbackMessage.textContent = '¡Respuesta Correcta!';
+                feedbackMessage.classList.remove('hidden', 'bg-red-100', 'text-red-700');
+                feedbackMessage.classList.add('bg-green-100', 'text-green-700');
+            } else {
+                // Marcar la respuesta incorrecta en rojo
+                selectedButton.classList.add('incorrect');
+                feedbackMessage.innerHTML = `
+                    <div class="font-bold mb-2">¡Respuesta Incorrecta!</div>
+                    <div class="explanation">
+                        <strong class="text-amber-700">Explicación:</strong>
+                        <p class="text-sm mt-1 text-gray-700">${currentQuestionData.explanation}</p>
+                    </div>
+                `;
+                feedbackMessage.classList.remove('hidden', 'bg-green-100', 'text-green-700');
+                feedbackMessage.classList.add('bg-red-100', 'text-red-700');
+            }
+
+            feedbackMessage.classList.remove('hidden');
+            scoreElement.textContent = score;
+            nextButton.disabled = false;
+            nextButton.focus();
+        }
+
+        // Pasa a la siguiente pregunta o finaliza el examen
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuiz.questions.length) {
+                showQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        // Muestra la pantalla de resultados finales
+        function endQuiz() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            finalScoreElement.textContent = score;
+        }
+
+        // Vuelve a la pantalla de selección de cuestionarios
+        function restartQuiz() {
+            resultsScreen.classList.add('hidden');
+            quizSelectionScreen.classList.remove('hidden');
+            generateQuizzes(); // Regenerar para que sean diferentes cada vez
+        }
+
+        // Inicializa la aplicación
+        window.onload = function() {
+            generateQuizzes();
+            quizSelectionScreen.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
