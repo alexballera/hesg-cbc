@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Exámenes de práctica sobre La Economía Mundial y la Guerra - Unidad 3 HESG CBC UBA">
+    <meta name="keywords" content="Economía entreguerras, Gran Depresión, Primera Guerra Mundial, Segunda Guerra Mundial, América Latina, Aldcroft, Marichal, Saborido, crisis 1929, plan Marshall, Bretton Woods, modelo agroexportador, ISI, deuda externa, HESG CBC UBA">
+    <meta name="author" content="HESG CBC - UBA CIV 2026">
+    <title>Exámenes de Práctica - La Economía Mundial y la Guerra - Unidad 3 HESG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #92400e 0%, #d97706 100%);
+        }
+        .quiz-button {
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .quiz-button:hover {
+            background-color: #78350f;
+            transform: translateY(-2px);
+        }
+        .quiz-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .answer-button {
+            width: 100%;
+            background-color: #e5e7eb;
+            color: #1f2937;
+            text-align: left;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .answer-button:hover:not(:disabled) {
+            background-color: #d1d5db;
+        }
+        .answer-button.correct {
+            background-color: #10b981;
+            color: white;
+            animation: pulse-correct 0.8s;
+        }
+        .answer-button.incorrect {
+            background-color: #ef4444;
+            color: white;
+            animation: shake 0.5s;
+        }
+        .explanation {
+            background-color: #fef3c7;
+            border-left: 4px solid #d97706;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+        }
+        @keyframes pulse-correct {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+    </style>
+</head>
+<body class="bg-amber-50 flex items-center justify-center min-h-screen">
+    <div id="app" class="container bg-white p-8 rounded-2xl shadow-xl w-full">
+
+        <!-- Pantalla de selección de cuestionarios -->
+        <div id="quiz-selection-screen">
+            <h1 class="text-3xl font-bold text-center mb-2 text-amber-800">La Economía Mundial y la Guerra</h1>
+            <p class="text-center text-amber-700 font-semibold mb-1">Unidad 3 — HESG CBC UBA · CIV 2026</p>
+            <p class="text-center text-gray-500 text-sm mb-2">Fuentes: Aldcroft · Marichal cap. 2 · Saborido caps. 3 y 4</p>
+            <p class="text-center text-gray-600 mb-8">Cada examen contiene 20 preguntas aleatorias del pool completo. ¡Mucha suerte!</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <button onclick="startQuiz(0)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md focus:outline-none">Examen de Práctica 1</button>
+                <button onclick="startQuiz(1)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md focus:outline-none">Examen de Práctica 2</button>
+                <button onclick="startQuiz(2)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md focus:outline-none">Examen de Práctica 3</button>
+                <button onclick="startQuiz(3)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md focus:outline-none">Examen de Práctica 4</button>
+                <button onclick="startQuiz(4)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md focus:outline-none">Examen de Práctica 5</button>
+                <button onclick="startQuiz(5)" class="card p-6 text-center gradient-bg text-white font-bold text-xl rounded-lg shadow-md focus:outline-none">Examen de Práctica 6</button>
+            </div>
+        </div>
+
+        <!-- Pantalla del cuestionario -->
+        <div id="quiz-screen" class="hidden">
+            <div class="flex justify-between items-center mb-6">
+                <div class="text-lg font-semibold text-gray-700">Pregunta <span id="current-question-number"></span> de 20</div>
+                <div class="text-lg font-semibold text-gray-700">Puntaje: <span id="score">0</span></div>
+            </div>
+            <div class="card p-6 mb-6">
+                <h2 id="question" class="text-xl font-semibold text-gray-900 mb-6"></h2>
+                <div id="options-container" class="space-y-4"></div>
+            </div>
+            <div id="feedback-message" class="text-center p-4 my-4 rounded-lg font-semibold hidden"></div>
+            <button id="next-button" class="quiz-button w-full py-4 mt-6 gradient-bg text-white font-bold text-lg rounded-lg shadow-md focus:outline-none" onclick="nextQuestion()" disabled>Siguiente</button>
+        </div>
+
+        <!-- Pantalla de resultados -->
+        <div id="results-screen" class="hidden text-center">
+            <h1 class="text-3xl font-bold text-amber-800 mb-4">¡Examen Completo!</h1>
+            <p class="text-xl text-gray-700 mb-6">Tu puntaje final es:</p>
+            <div class="text-5xl font-extrabold text-white gradient-bg p-8 rounded-full inline-block shadow-lg mb-8">
+                <span id="final-score"></span>
+                <span class="block text-2xl font-normal mt-2">de 20</span>
+            </div>
+            <p class="text-lg text-gray-600 mb-4">¡Sigue practicando para dominar el contenido!</p>
+            <button class="quiz-button py-4 px-8 mt-4 bg-amber-700 text-white font-bold text-lg rounded-lg shadow-md focus:outline-none" onclick="restartQuiz()">Volver a la selección</button>
+        </div>
+    </div>
+
+    <script>
+        const allQuestions = [
+        {
+            question: "Según Aldcroft, ¿cuáles fueron las principales consecuencias económicas de la Primera Guerra Mundial para Europa?",
+            options: ["Europa salió fortalecida industrialmente porque la guerra obligó a modernizar sus plantas productivas para el esfuerzo bélico", "La guerra destruyó capital físico y humano, desorganizó el comercio mundial y transfirió el liderazgo económico hacia EEUU", "La guerra tuvo efectos mínimos porque se libró en zonas despobladas y no afectó las principales plantas industriales", "La guerra benefició a todos los países europeos al estimular la producción industrial y reducir el desempleo"],
+            answer: 1,
+            explanation: "Aldcroft muestra que la Gran Guerra fue un quiebre catastrófico: destruyó millones de vidas y capital físico, generó enormes deudas públicas, desorganizó el comercio y los flujos financieros internacionales, y desplazó a Europa del centro de la economía mundial en favor de EEUU."
+        },
+        {
+            question: "¿Cuál es la crítica central de Keynes al Tratado de Versalles que Aldcroft recoge en su análisis del período de entreguerras?",
+            options: ["Las reparaciones eran demasiado bajas y no compensaban los daños reales causados por Alemania a los aliados", "Las reparaciones eran excesivas e impagables y desestabilizarían la economía europea, sembrando las semillas de otro conflicto", "El Tratado fue justo económicamente pero sus cláusulas territoriales generaron resentimiento político innecesario", "El problema fue la falta de un mecanismo de control internacional para verificar el cumplimiento de las reparaciones"],
+            answer: 1,
+            explanation: "Aldcroft retoma la tesis de Keynes en 'Las consecuencias económicas de la paz' (1919): las reparaciones (33.000 millones de dólares) superaban la capacidad real de pago alemana, generarían inestabilidad crónica y volverían inevitable un nuevo conflicto."
+        },
+        {
+            question: "Según Aldcroft, ¿cuál fue la causa principal de la hiperinflación alemana de 1923?",
+            options: ["La especulación de los bancos privados que compraron divisas extranjeras para sabotear la economía del gobierno republicano", "La emisión masiva de marcos para financiar las reparaciones y sostener la resistencia pasiva durante la ocupación francesa del Ruhr", "La mala cosecha agrícola de 1922 que disparó los precios de los alimentos básicos en todos los centros urbanos", "La subida de los precios del petróleo importado que elevó los costos de producción industrial en cadena"],
+            answer: 1,
+            explanation: "Aldcroft explica que la hiperinflación alemana de 1923 resultó de la ocupación francesa del Ruhr (enero 1923) y la respuesta del gobierno: financiar la resistencia pasiva imprimiendo marcos, destruyendo el valor de la moneda hasta que un dólar valía 4,2 billones de marcos."
+        },
+        {
+            question: "¿Qué fueron los Planes Dawes (1924) y Young (1929) y para qué sirvieron según Aldcroft?",
+            options: ["Fueron planes de inversión americanos para modernizar la industria europea devastada por la guerra", "Fueron reestructuraciones de las deudas de guerra aliadas con EEUU para facilitar el pago durante los años de posguerra", "Fueron planes de restructuración del pago de reparaciones alemanas, financiados con préstamos americanos a Alemania", "Fueron acuerdos de libre comercio entre EEUU y Europa que estimularon el intercambio comercial en los años 20"],
+            answer: 2,
+            explanation: "Aldcroft describe el ciclo de reparaciones: el Plan Dawes (1924) y luego el Plan Young (1929) reestructuraron las reparaciones alemanas reduciéndolas y escalonándolas. Crucialmente, Alemania las pagaba con préstamos americanos, creando un circuito Alemania→aliados→EEUU que colapsó cuando se cortó el crédito en 1929."
+        },
+        {
+            question: "Según Aldcroft, ¿qué error cometió Gran Bretaña al retornar al patrón oro en 1925?",
+            options: ["Retornó a una paridad sobrevaluada de la libra que encareció sus exportaciones y mantuvo un desempleo estructural elevado", "Retornó demasiado tarde, cuando ya todos los demás países habían adoptado el patrón oro y Gran Bretaña quedó fuera", "Retornó a una paridad subvaluada que generó inflación y perjudicó a los consumidores ingleses durante toda la década", "El error fue no adoptar el patrón oro dólar en lugar del patrón oro clásico, perdiendo la posibilidad de anclar la libra al dólar"],
+            answer: 0,
+            explanation: "Aldcroft señala que Churchill, al retornar al patrón oro en 1925 a la paridad de preguerra (4.86 dólares por libra), sobrevaluó la libra alrededor del 10%. Esto encareció las exportaciones inglesas, perjudicó al carbón y al acero, y mantuvo el desempleo en el 10-12% durante todos los años 20."
+        },
+        {
+            question: "¿Cuáles fueron los factores que, según Aldcroft, convergieron para desencadenar la Gran Depresión de 1929?",
+            options: ["Fue causada exclusivamente por la especulación bursátil en Wall Street sin conexión con la economía productiva real", "El crack bursátil, la fragilidad bancaria americana, la sobreproducción agrícola e industrial y los desequilibrios del patrón oro", "Fue principalmente una crisis europea que se contagió a EEUU a través del colapso de sus exportaciones al continente", "Fue causada por la política monetaria contraccionista de la Fed que subió las tasas para frenar la especulación inmobiliaria"],
+            answer: 1,
+            explanation: "Aldcroft ofrece una explicación multicausal de 1929: el crack bursátil (octubre 1929) fue el disparador, pero detrás estaban la sobreproducción agrícola e industrial, los desequilibrios del patrón oro, la debilidad del sistema bancario americano y la compleja cadena de deudas internacionales heredadas de la guerra."
+        },
+        {
+            question: "Según Aldcroft, ¿cómo se transmitió la crisis de 1929 desde EEUU hacia el resto del mundo?",
+            options: ["Solo a través de las tarifas Smoot-Hawley que bloquearon las exportaciones europeas hacia el mercado americano", "Por el retiro abrupto de capitales americanos de Europa y el derrumbe del comercio mundial, afectando primero a los deudores", "La transmisión fue gradual y los bancos centrales europeos la amortiguaron eficazmente con políticas contracíclicas", "La crisis solo afectó a los países endeudados con EEUU y no impactó sobre los países acreedores como Francia"],
+            answer: 1,
+            explanation: "Aldcroft explica la doble vía de transmisión: el retiro de capitales americanos colapsó los bancos europeos (Austria, Alemania, 1931); simultáneamente el desplome de la demanda americana redujo el comercio mundial, perjudicando a los exportadores de materias primas de todos los continentes."
+        },
+        {
+            question: "¿Qué fue la crisis bancaria de 1931 en Europa y por qué fue tan significativa según Aldcroft?",
+            options: ["Fue una crisis menor localizada en Austria que los gobiernos europeos contuvieron rápidamente sin mayor contagio", "La quiebra del Creditanstalt austríaco (mayo 1931) desencadenó pánicos bancarios en Alemania y forzó a Gran Bretaña a abandonar el patrón oro", "Fue causada exclusivamente por el déficit fiscal de los gobiernos europeos que financiaron sus gastos con dinero de los bancos", "Afectó solo a los bancos alemanes por la carga de las reparaciones y no se extendió al resto de Europa"],
+            answer: 1,
+            explanation: "Aldcroft documenta que la quiebra del Creditanstalt (mayo 1931) fue el detonante europeo: el pánico se extendió a los bancos alemanes (Danatbank, Dresdner) y eventualmente a Gran Bretaña, que en septiembre de 1931 abandonó el patrón oro, colapsando el sistema financiero internacional."
+        },
+        {
+            question: "Según Aldcroft, ¿qué consecuencia paradójica tuvo para Gran Bretaña el abandono del patrón oro en 1931?",
+            options: ["Fue catastrófico: la devaluación de la libra generó inflación devastadora y hundió la economía inglesa durante los años 30", "Resultó beneficioso: la libra devaluada estimuló exportaciones y permitió tasas de interés bajas, acelerando la recuperación inglesa", "No tuvo efectos porque Gran Bretaña mantuvo el patrón oro informalmente al fijar la libra al dólar voluntariamente", "Fue neutro economicamente pero generó una crisis política que llevó al colapso del gobierno laborista de MacDonald"],
+            answer: 1,
+            explanation: "Aldcroft destaca la paradoja: percibido inicialmente como catástrofe, el abandono del oro en 1931 resultó beneficioso. La libra devaluada abarató exportaciones, las tasas de interés pudieron reducirse y Gran Bretaña se recuperó antes que Francia y EEUU, que siguieron en el patrón oro hasta 1936 y 1933 respectivamente."
+        },
+        {
+            question: "¿Qué magnitud alcanzó el desempleo durante la Gran Depresión en los países industrializados según Aldcroft?",
+            options: ["El desempleo fue mínimo porque los gobiernos aplicaron políticas keynesianas de inmediato para sostener la demanda efectiva", "Alcanzó cifras sin precedentes: 25-33% de la fuerza laboral en EEUU y Alemania, con millones sin protección social suficiente", "El desempleo afectó principalmente al sector agrícola sin impacto significativo sobre la clase obrera industrial urbana", "El desempleo fue transitorio y se reabsorbió rápidamente en 1930-31 gracias a la recuperación de la demanda privada"],
+            answer: 1,
+            explanation: "Aldcroft documenta la magnitud del desempleo: en 1932-33 era el 25% en EEUU y casi el 33% en Alemania; en Gran Bretaña alcanzó el 22%. Millones de trabajadores sin seguro de desempleo suficiente cayeron en la miseria, con consecuencias políticas devastadoras que alimentaron el fascismo y el nazismo."
+        },
+        {
+            question: "¿Cómo evalúa Aldcroft la eficacia del New Deal de Roosevelt para superar la Gran Depresión?",
+            options: ["Fue una política de austeridad que aceleró la recuperación americana mediante la confianza financiera y el equilibrio presupuestario", "Fue un conjunto de reformas institucionales (Glass-Steagall, seguridad social, obras públicas) que estabilizó el sistema pero no eliminó el desempleo", "Fue una política genuinamente keynesiana de déficit masivo que sacó a EEUU de la depresión antes de 1935", "Fue copiado por todos los países europeos que experimentaron una recuperación similar a la americana gracias al mismo modelo"],
+            answer: 1,
+            explanation: "Aldcroft evalúa el New Deal con matices: Roosevelt introdujo regulación bancaria (Glass-Steagall), seguridad social y obras públicas (TVA), pero los gastos nunca fueron suficientemente grandes para ser genuinamente keynesianos. EEUU no se recuperó completamente hasta el gasto militar de la Segunda Guerra Mundial."
+        },
+        {
+            question: "Según Aldcroft, ¿cómo logró el gobierno nazi reducir el desempleo alemán del 33% (1932) a casi cero en 1938?",
+            options: ["Aplicó políticas de libre mercado que rehabilitaron la confianza empresarial y redujeron el desempleo sin intervención estatal", "Mediante un programa masivo de gasto público en obras de infraestructura y rearme militar financiado con mecanismos monetarios heterodoxos", "Redujo el desempleo forzando la emigración de judíos y minorías que liberaron puestos de trabajo para los alemanes", "Aplicó devaluación del marco que estimuló las exportaciones y generó pleno empleo en la industria exportadora alemana"],
+            answer: 1,
+            explanation: "Aldcroft analiza que la recuperación nazi fue real pero orientada a la guerra: el gasto público masivo en Autobahnen, vivienda y especialmente rearme militar (financiado con letras MEFO) redujo el desempleo del 33% al pleno empleo en 6 años, pero fue el preludio de la Segunda Guerra Mundial."
+        },
+        {
+            question: "¿Cuál fue el impacto del arancel Smoot-Hawley (1930) sobre el comercio mundial según Aldcroft?",
+            options: ["El impacto fue mínimo porque los acuerdos bilaterales preexistentes impedían represalias arancelarias generalizadas", "Desencadenó una guerra arancelaria mundial que redujo el comercio internacional en un 60% entre 1929 y 1933", "Solo afectó al comercio entre EEUU y América Latina sin impacto sobre el comercio europeo o asiático", "Benefició a los países exportadores de materias primas al forzar a EEUU a producir localmente sus alimentos"],
+            answer: 1,
+            explanation: "Aldcroft documenta el colapso del comercio mundial en los años 30: la ley Smoot-Hawley americana desató represalias proteccionistas generalizadas. El comercio internacional cayó del 100 (1929) al 40 en 1933. Este colapso amplificó la depresión al cerrar los mercados externos a los exportadores más vulnerables."
+        },
+        {
+            question: "Según Aldcroft, ¿por qué fracasó la Conferencia Económica de Londres de 1933?",
+            options: ["Fracasó porque Gran Bretaña se negó a reducir los aranceles del sistema de preferencias imperiales de Ottawa (1932)", "Fracasó cuando Roosevelt rechazó estabilizar el dólar, priorizando la recuperación interna americana sobre la cooperación internacional", "Fracasó porque Alemania se negó a pagar reparaciones y los aliados no podían acordar quitas a las deudas de guerra", "Fracasó por la invasión japonesa de Manchuria que creó una crisis de seguridad que desvió la atención de los temas económicos"],
+            answer: 1,
+            explanation: "Aldcroft señala que la Conferencia de Londres (1933) fue el último intento de coordinación económica internacional: fracasó cuando Roosevelt, priorizando la recuperación doméstica y la devaluación del dólar, rechazó cualquier compromiso de estabilización monetaria, hundiendo las posibilidades de cooperación."
+        },
+        {
+            question: "¿Cuál fue la política del 'bloque del oro' liderado por Francia y sus consecuencias según Aldcroft?",
+            options: ["Francia y sus socios abandonaron el patrón oro en 1932, antes que Gran Bretaña, para estimular sus economías mediante la devaluación", "Francia mantuvo el franco ligado al oro hasta 1936, sufriendo deflación severa y deterioro de competitividad que prolongó la depresión", "El bloque del oro lideró la recuperación económica de los años 30 gracias a las políticas de déficit fiscal del Frente Popular", "Francia adoptó reformas similares al New Deal antes que EEUU, siendo el modelo para la política expansiva de Roosevelt"],
+            answer: 1,
+            explanation: "Aldcroft documenta el error del bloque del oro: Francia (con Bélgica, Holanda, Suiza) mantuvo el franco ligado al oro hasta 1936, sufriendo deflación, pérdida de competitividad y prolongación de la depresión. Solo la devaluación de 1936 bajo el Frente Popular permitió comenzar una recuperación."
+        },
+        {
+            question: "Según Aldcroft, ¿cuál fue la relación entre la Gran Depresión y el ascenso del nazismo en Alemania?",
+            options: ["Fue accidental: Hitler habría subido al poder con o sin la depresión porque el apoyo electoral nazi era mayoritario desde 1928", "Fue directa: el desempleo masivo (6 millones en 1932) y la miseria erosionaron la república de Weimar y alimentaron el voto nazi", "Fue indirecta: el nazismo surgió de la derrota de 1918 y las reparaciones de Versalles, no de la depresión de 1929-33", "No hubo relación económica: el nazismo fue exclusivamente el resultado del antisemitismo racial arraigado en la sociedad alemana"],
+            answer: 1,
+            explanation: "Aldcroft muestra la relación directa entre depresión y nazismo: el apoyo electoral nazi pasó del 2% (1928) al 37% (julio 1932) mientras el desempleo subía del 8% al 33%. La crisis económica radicalizó a la clase media y al electorado quebrado, que buscó soluciones autoritarias ante el fracaso de la democracia liberal."
+        },
+        {
+            question: "¿Cómo sufrieron los países exportadores de materias primas la Gran Depresión según Aldcroft?",
+            options: ["Fueron los menos afectados porque el valor de sus productos primarios se mantuvo estable al ser bienes esenciales", "Recibieron el doble golpe: colapso de precios de exportación y corte del crédito internacional, devastando sus economías", "Solo los exportadores de petróleo sufrieron porque el carbón y el acero mantuvieron sus precios relativos", "Se beneficiaron de la depresión porque sus costos de producción también cayeron proporcionalmente a los precios de exportación"],
+            answer: 1,
+            explanation: "Aldcroft muestra el drama de la periferia: los precios de las materias primas cayeron más que los de las manufacturas (deterioro de los términos de intercambio), el crédito externo se cortó abruptamente y las reservas de divisas se agotaron. Para Argentina, Chile, Brasil y Australia la depresión fue aún más profunda que para las potencias industriales."
+        },
+        {
+            question: "Según Aldcroft, ¿qué factor explica que los países que primero abandonaron el patrón oro se recuperasen más rápido de la Gran Depresión?",
+            options: ["Porque los países que abandonaron el oro tenían gobiernos más fuertes con mayor capacidad para implementar políticas fiscales", "Porque al salir del patrón oro podían devaluar, abaratar exportaciones, reducir tasas de interés y aplicar política monetaria expansiva", "Porque los países que abandonaron el oro recibieron más ayuda del Banco Internacional de Pagos (BIS) para financiar su recuperación", "Porque la salida del patrón oro era una señal de fortaleza económica que atraía inversión extranjera hacia esos países"],
+            answer: 1,
+            explanation: "Aldcroft documenta la correlación clave del período: Gran Bretaña (1931) y EEUU (1933) se recuperaron antes que Francia (1936) porque al salir del patrón oro pudieron devaluar su moneda, reducir las tasas de interés y aplicar política monetaria contracíclica que los países del bloque del oro no podían practicar."
+        },
+        {
+            question: "¿Cuál fue el papel de la Reserva Federal americana en el agravamiento de la Gran Depresión según el análisis de Aldcroft?",
+            options: ["La Fed aplicó política expansiva pero no fue suficiente para evitar la recesión dada la profundidad de la crisis crediticia", "La Fed siguió política contraccionista que redujo la oferta monetaria un tercio entre 1929 y 1933, agravando la deflación y las quiebras", "La Fed fue completamente irrelevante porque la crisis era estructural y ninguna política monetaria podría haberla atenuado", "La Fed intentó estimular la economía pero fue bloqueada por el Congreso bajo el argumento del equilibrio presupuestario"],
+            answer: 1,
+            explanation: "Aldcroft (siguiendo a Friedman y Schwartz) analiza el fracaso de la Fed: al no inyectar liquidez cuando quebraron miles de bancos pequeños, la oferta monetaria se contrajo un tercio entre 1929 y 1933, convirtiendo una recesión severa en la Gran Depresión. Fue uno de los mayores errores de política económica del siglo XX."
+        },
+        {
+            question: "Según Aldcroft, ¿cuál fue el impacto de la Segunda Guerra Mundial sobre la posición económica de EEUU en el mundo?",
+            options: ["La guerra debilitó a EEUU porque las deudas de guerra superaron los beneficios obtenidos por las exportaciones de armamento", "Consolidó la hegemonía americana: EEUU produjo el 40% del armamento aliado y emergió controlando el 50% del PIB mundial en 1945", "La guerra perjudicó la economía americana porque la movilización bélica destruyó la capacidad productiva civil difícil de reconstruir", "Los efectos fueron neutros para EEUU porque el programa Lend-Lease fue pagado en bienes sin compensación monetaria de los aliados"],
+            answer: 1,
+            explanation: "Aldcroft destaca la paradoja americana: la Segunda Guerra Mundial terminó con la Gran Depresión y transformó a EEUU en la hegemonía económica mundial. Con el 6% de la población mundial, EEUU producía el 50% del PIB mundial en 1945 y poseía dos tercios del oro monetario del mundo."
+        },
+        {
+            question: "¿Qué sistema monetario internacional establecieron los Acuerdos de Bretton Woods (1944) según Aldcroft?",
+            options: ["Restauraron el patrón oro clásico de antes de 1914, subordinando la política interna a la estabilidad cambiaria", "Crearon tipos de cambio fijos pero ajustables con el dólar como ancla, el FMI y el Banco Mundial como instituciones centrales", "Establecieron un sistema de libre flotación que reemplazó el patrón oro por la confianza en los mercados financieros privados", "Fue diseñado exclusivamente por EEUU sin participación real de Gran Bretaña ni de los países subdesarrollados"],
+            answer: 1,
+            explanation: "Aldcroft analiza Bretton Woods (1944) como el diseño del orden económico de posguerra: dólar convertible en oro como ancla, tipos de cambio fijos pero ajustables, FMI para financiar desequilibrios y Banco Mundial para reconstrucción. Fue la alternativa keynesiana al sistema de entreguerras que había fracasado tan catastróficamente."
+        },
+        {
+            question: "Según Aldcroft, ¿cuál fue el objetivo y el impacto del Plan Marshall (1948-1952)?",
+            options: ["Fue un préstamo a interés que EEUU otorgó solo a Gran Bretaña y Francia excluyendo a Alemania y los países escandinavos", "Fue un programa de 13.000 millones de dólares en ayuda americana que financió la reconstrucción europea y contuvo el comunismo", "Fue una iniciativa humanitaria de alimentos y medicamentos sin inversión en reconstrucción de infraestructura industrial", "Fue financiado por la ONU y repartido equitativamente entre todos los países europeos afectados por la guerra"],
+            answer: 1,
+            explanation: "Aldcroft analiza el Plan Marshall (1948-1952): 13.000 millones de dólares en ayuda americana con doble objetivo: económico (mercados para exportaciones americanas, recuperación del capitalismo europeo) y político (frenar la expansión del comunismo soviético en Europa occidental durante la Guerra Fría naciente)."
+        },
+        {
+            question: "¿Cuál fue el papel del GATT (1947) en el orden económico de posguerra según Aldcroft?",
+            options: ["El GATT fue el precursor del Banco Mundial: un organismo que otorgaba préstamos para el desarrollo de los países pobres", "Fue el Acuerdo General sobre Aranceles: un marco multilateral de reducción arancelaria basado en el principio de nación más favorecida", "Fue el primer acuerdo de libre comercio absoluto que eliminó todos los aranceles entre los países firmantes de inmediato", "Fue un acuerdo bilateral entre EEUU y Gran Bretaña que reguló las condiciones del comercio atlántico de posguerra"],
+            answer: 1,
+            explanation: "Aldcroft analiza el GATT (1947) como respuesta consciente al proteccionismo de los años 30: sistema multilateral de negociaciones arancelarias basado en el principio de nación más favorecida. Permitió la reducción gradual de aranceles que sostuvo el crecimiento del comercio mundial durante los Treinta Gloriosos."
+        },
+        {
+            question: "Según Aldcroft, ¿en qué consistió la 'movilización económica total' que requirieron las dos guerras mundiales?",
+            options: ["Las economías en guerra mantuvieron el mercado libre sin controles, confiando en los precios para asignar recursos militares", "Las guerras exigieron control estatal de la producción, fijación de precios, racionamiento y reconversión industrial masiva al armamento", "La movilización fue eficiente solo en EEUU porque los países europeos no pudieron controlar sus economías de guerra", "La movilización falló generando escasez de materiales militares que prolongó innecesariamente los dos conflictos mundiales"],
+            answer: 1,
+            explanation: "Aldcroft analiza la 'economía de guerra total': las guerras mundiales requirieron la intervención estatal masiva. El Estado planificó la producción, fijó precios, racionó el consumo civil y reconvirtió industrias enteras hacia la producción bélica. Esto cambió permanentemente las expectativas sobre el rol del Estado en la economía."
+        },
+        {
+            question: "¿Cuál fue la 'depresión estructural' que experimentó Gran Bretaña en la década de 1920 según Aldcroft?",
+            options: ["Gran Bretaña tuvo la recuperación más rápida de la posguerra gracias a su superávit comercial y sus inversiones en el Imperio", "Gran Bretaña sufrió desempleo persistente del 10-12% durante toda la década por la libra sobrevaluada que perjudicó sus exportaciones", "Gran Bretaña lideró el crecimiento europeo de los 20 gracias a la modernización de su industria pesada tradicional", "Gran Bretaña disfrutó sus años 20 más prósperos al recuperar todos los mercados externos perdidos durante la guerra"],
+            answer: 1,
+            explanation: "Aldcroft explica la 'depresión estructural' inglesa de los 1920: el retorno al patrón oro a una paridad sobrevaluada, la obsolescencia de sus industrias tradicionales (carbón, acero, textil) y la pérdida de mercados coloniales en favor de EEUU y Japón mantuvieron un desempleo crónico del 10-12% durante toda la década."
+        },
+        {
+            question: "Según Aldcroft, ¿qué compleja red de deudas internacionales heredó la posguerra de 1918?",
+            options: ["La guerra eliminó la deuda internacional porque los Estados beligerantes se declararon en default y los acreedores no pudieron cobrar", "EEUU prestó a Gran Bretaña y Francia para financiar la guerra; ellos dependían de las reparaciones alemanas para pagar a EEUU", "La guerra redujo la deuda internacional porque los países devastados recibieron condonaciones de sus acreedores por solidaridad", "Los préstamos de guerra fueron internalizados por cada nación sin transferencias más allá de las fronteras nacionales"],
+            answer: 1,
+            explanation: "Aldcroft describe el enredo financiero de la posguerra: EEUU era el gran acreedor (préstamos bélicos a aliados); Gran Bretaña y Francia dependían de las reparaciones alemanas para pagar a EEUU; todo el sistema descansaba en préstamos americanos a Alemania (Plan Dawes). Cuando el crédito se cortó en 1929, la cadena de pagos colapsó."
+        },
+        {
+            question: "¿Cómo analiza Aldcroft la fragmentación del sistema monetario internacional en la década de 1930?",
+            options: ["El sistema monetario internacional funcionó perfectamente en los años 30 gracias al liderazgo coordinador de la Liga de Naciones", "El sistema se fragmentó en bloques rivales: bloque esterlina, bloque dólar y bloque del oro, reduciendo el comercio multilateral", "La fragmentación fue beneficiosa porque permitió a cada región adoptar las políticas monetarias más adecuadas a su situación", "El único bloque que funcionó fue el de la libra esterlina; los demás países mantuvieron el patrón oro bilateral"],
+            answer: 1,
+            explanation: "Aldcroft analiza la fragmentación de los años 30: el bloque de la libra esterlina, el bloque del dólar y el bloque del oro (Francia) crearon zonas monetarias rivales. El comercio se desvió hacia los bloques y el comercio multilateral que había sido el pilar de la prosperidad preguerra colapsó."
+        },
+        {
+            question: "Según Aldcroft, ¿cuáles fueron los problemas específicos que dificultaron la reconstrucción europea entre 1945 y 1950?",
+            options: ["Fue muy rápida gracias al Plan Marshall que cubrió el 80% de las necesidades de inversión de los países europeos devastados", "Fue lenta por la destrucción de infraestructura, falta de divisas, inflación de posguerra y controles de racionamiento desorganización productiva", "Fue imposible sin el apoyo soviético, que fue el principal financiador de la reconstrucción de Europa occidental en 1945-47", "Fue liderada por el sector privado sin necesidad de apoyo estatal porque el mercado asignó eficientemente los recursos disponibles"],
+            answer: 1,
+            explanation: "Aldcroft documenta el 'caos europeo' de 1945-1947: la destrucción de infraestructura, la inflación de posguerra, la falta de divisas para importar bienes de capital, el racionamiento y la desorganización productiva crearon una situación de emergencia que justificó el Plan Marshall como respuesta americana."
+        },
+        {
+            question: "¿Cómo caracteriza Aldcroft el período 1945-1973 conocido como 'Treinta Gloriosos' o 'Edad de Oro del capitalismo'?",
+            options: ["Fue un crecimiento artificial sostenido solo por subsidios americanos que colapsó cuando el Plan Marshall terminó en 1952", "Fue el período de mayor crecimiento sostenido: 5-7% anual, pleno empleo, Estado de bienestar, comercio libre y reconstrucción generalizada", "Fue un crecimiento exclusivamente alemán ('milagro económico') sin equivalente en Francia, Italia ni los países escandinavos", "Fue un período de estancamiento relativo en comparación con la primera globalización de 1870-1914"],
+            answer: 1,
+            explanation: "Aldcroft caracteriza los Treinta Gloriosos como el período 'dorado' del capitalismo: crecimiento del 5-7% anual, pleno empleo generalizado, construcción del Estado de bienestar, comercio internacional liberalizado y mejora permanente del nivel de vida. Fue el mejor desempeño sostenido del capitalismo en toda su historia."
+        },
+        {
+            question: "Según Aldcroft, ¿qué transformación permanente produjeron las guerras mundiales y la Gran Depresión en el papel del Estado en la economía?",
+            options: ["El Estado redujo su participación como resultado de las crisis, concluyendo que la intervención pública era contraproducente", "El Estado amplió permanentemente sus funciones: regulación financiera, seguridad social, gestión de la demanda y planificación de inversión", "El papel del Estado se mantuvo igual antes y después, porque la ideología del laissez-faire siguió dominando la política económica", "El Estado solo amplió sus funciones temporalmente durante las guerras, regresando al mínimo liberal clásico en la posguerra"],
+            answer: 1,
+            explanation: "Aldcroft documenta la transformación estructural del capitalismo: las guerras y la Gran Depresión generaron una 'revolución keynesiana' práctica. El capitalismo de posguerra era un 'capitalismo mixto' con Estados de bienestar, regulación financiera, gestión activa de la demanda y planificación del crecimiento."
+        },
+        {
+            question: "¿Qué lecciones del período de entreguerras identifica Aldcroft como vertebradoras del orden económico internacional de posguerra?",
+            options: ["Que el libre comercio y el patrón oro clásico debían restaurarse tal como funcionaron antes de 1914 para recuperar la prosperidad", "Que el multilateralismo institucionalizado, la gestión keynesiana de la demanda y el Estado de bienestar eran pilares del capitalismo estable", "Que la planificación central socialista era el único modelo capaz de evitar las depresiones y guerras del capitalismo libre", "Que el proteccionismo y los acuerdos bilaterales eran más eficientes que el multilateralismo para el crecimiento nacional"],
+            answer: 1,
+            explanation: "Aldcroft sintetiza las lecciones del período de entreguerras que diseñaron el orden de posguerra: no al patrón oro rígido (reemplazado por el FMI con tipos ajustables), no al libre comercio sin instituciones (GATT), no al laissez-faire sin red de seguridad (Estado de bienestar keynesiano), no a las deudas onerosas de guerra (Plan Marshall como donación)."
+        },
+        {
+            question: "Según Marichal, ¿cuándo comenzó el primer ciclo de préstamos internacionales a América Latina y qué lo motivó?",
+            options: ["Comenzó hacia 1850 cuando los ferrocarriles latinoamericanos necesitaron financiamiento externo para su expansión", "Comenzó en 1822-1825 cuando los nuevos países independientes latinoamericanos tomaron préstamos en la Bolsa de Londres", "Comenzó en 1880 cuando la banca francesa comenzó a interesarse en los bonos de los países del Río de la Plata", "Comenzó en 1900 con la expansión del capital financiero americano hacia los mercados emergentes latinoamericanos"],
+            answer: 1,
+            explanation: "Marichal documenta que el primer ciclo de préstamos latinoamericanos se inició en 1822-1825: los banqueros de la City de Londres otorgaron créditos a los nuevos estados independientes (México, Colombia, Perú, Buenos Aires, Chile) que necesitaban financiar sus guerras de independencia y establecer sus administraciones."
+        },
+        {
+            question: "¿Qué ocurrió con la deuda externa latinoamericana en la segunda mitad de la década de 1820 según Marichal?",
+            options: ["Los países latinoamericanos pagaron puntualmente sus deudas gracias a los ingresos de sus exportaciones mineras y agrícolas", "Se produjo un default generalizado: casi todos los nuevos países latinoamericanos cesaron el pago de sus bonos externos", "Los préstamos fueron refinanciados con nuevos bonos en condiciones más favorables gracias a la negociación diplomática inglesa", "Gran Bretaña perdonó las deudas latinoamericanas como gesto de apoyo a las independencias que ella misma había alentado"],
+            answer: 1,
+            explanation: "Marichal documenta el default generalizado de los 1820s: casi todos los países latinoamericanos que habían tomado préstamos en Londres entre 1822 y 1825 cayeron en cesación de pagos hacia 1826-1828. La incapacidad de generar ingresos fiscales suficientes y la inestabilidad política hicieron imposible el servicio de la deuda."
+        },
+        {
+            question: "¿Cómo describe Marichal el proceso de renegociación de las deudas latinoamericanas en default durante el período 1825-1850?",
+            options: ["Fue un proceso rápido y ordenado gracias a la actuación del Banco de Inglaterra como mediador reconocido por ambas partes", "Fue un proceso largo y complicado, sin tribunal internacional, que tomó entre 10 y 25 años según el país involucrado", "Las deudas nunca se renegociaron: los tenedores de bonos europeos perdieron definitivamente su inversión en los años 1820s", "La renegociación fue simultánea para todos los países en 1840 gracias a una conferencia internacional en París"],
+            answer: 1,
+            explanation: "Marichal señala que las renegociaciones de los defaults de 1820s fueron procesos lentos e individuales, sin ningún mecanismo institucional internacional. Algunos países tardaron décadas en reconocer sus obligaciones. México, por ejemplo, no llegó a un acuerdo completo hasta los años 1880s."
+        },
+        {
+            question: "Según Marichal, ¿qué caracterizó al segundo ciclo de préstamos a América Latina en las décadas de 1860 y 1870?",
+            options: ["Fue financiado principalmente por bancos americanos que desplazaron a los ingleses del mercado latinoamericano de crédito", "Estuvo orientado a financiar ferrocarriles, obras públicas e infraestructura con capital predominantemente inglés", "Consistió en préstamos de gobierno a gobierno sin participación de los mercados financieros privados europeos", "Se destinó exclusivamente a países del Cono Sur, excluyendo a México, Centroamérica y la región andina"],
+            answer: 1,
+            explanation: "Marichal describe el segundo ciclo (1860s-1870s) orientado a la modernización: financió la construcción de ferrocarriles, puertos, telégrafos y obras de infraestructura. El capital fue predominantemente inglés y canalizó hacia Argentina, Brasil, Chile, Perú y México, cuyos gobiernos modernizadores necesitaban estos recursos."
+        },
+        {
+            question: "¿Cuál fue el papel de la banca Baring Brothers en la deuda argentina según Marichal?",
+            options: ["Fue un banco menor que solo participó puntualmente en uno de varios préstamos menores otorgados a la Argentina", "Fue el principal banco intermediario entre el mercado de capitales inglés y el gobierno argentino durante décadas del siglo XIX", "Fue un banco que prestó a Argentina con la condición de que el país adoptara el patrón oro para garantizar los pagos", "Fue una institución francesa que prestó a Argentina en los años 1880s para financiar sus guerras contra Paraguay"],
+            answer: 1,
+            explanation: "Marichal destaca el rol central de Baring Brothers: fue durante décadas el principal banco intermediario entre el mercado de capitales londiniense y el gobierno argentino. Esta relación privilegiada creó una dependencia financiera que se hizo evidente cuando la crisis de 1890 amenazó con arrastrar al propio Baring."
+        },
+        {
+            question: "¿Qué fue la Crisis Baring de 1890 y cuáles fueron sus consecuencias según Marichal?",
+            options: ["Fue una crisis bancaria inglesa que no afectó a Argentina porque el país había pagado puntualmente toda su deuda externa", "Fue una crisis de deuda argentina que amenazó con la quiebra de Baring Brothers y requirió un rescate coordinado por el Banco de Inglaterra", "Fue una crisis de sobreproducción agropecuaria argentina que redujo las exportaciones pero no afectó el servicio de la deuda", "Fue una crisis política en Argentina que interrumpió el pago de la deuda solo temporalmente antes de una rápida normalización"],
+            answer: 1,
+            explanation: "Marichal analiza la Crisis Baring de 1890 como hito: el sobreendeudamiento argentino de los 1880s y la caída de los precios de exportación colocaron a Argentina al borde del default. El Banco de Inglaterra organizó un consorcio de rescate para Baring Brothers, uno de los primeros 'rescates' internacionales de la historia financiera moderna."
+        },
+        {
+            question: "Según Marichal, ¿cómo funcionaban los Comités de Tenedores de Bonos de Londres para renegociar las deudas latinoamericanas?",
+            options: ["Eran organismos gubernamentales del Foreign Office británico que negociaban directamente en nombre del gobierno de Su Majestad", "Eran comités privados que representaban a los tenedores de bonos y negociaban reestructuraciones directamente con los gobiernos deudores", "Eran organismos de la Liga de Naciones que tenían atribuciones para embargar bienes de los países en default", "Eran comités mixtos integrados por representantes de bancos europeos y gobiernos latinoamericanos con igual poder de voto"],
+            answer: 1,
+            explanation: "Marichal explica el mecanismo de los Comités de Tenedores de Bonos de Londres (Corporation of Foreign Bondholders): eran organizaciones privadas que agrupaban a los poseedores de bonos latinoamericanos y negociaban los términos de la reestructuración directamente con los gobiernos deudores. No había poder coercitivo formal, solo presión del mercado y diplomática."
+        },
+        {
+            question: "¿Cuál fue el tercer ciclo de préstamos a América Latina (1900-1914) según el análisis de Marichal?",
+            options: ["Fue el ciclo más pequeño de todos porque las guerras de independencia del siglo XIX habían arruinado la reputación crediticia latinoamericana", "Fue un período de gran expansión del crédito: bonos latinoamericanos se colocaban en los mercados de Londres, París y Berlín simultáneamente", "Fue financiado exclusivamente por EEUU que aprovechó la Doctrina Monroe para monopolizar el crédito latinoamericano", "Se concentró solo en México porque era el único país latinoamericano con ingresos fiscales estables derivados del petróleo"],
+            answer: 1,
+            explanation: "Marichal describe el tercer ciclo pre-WWI (1900-1914) como un período de gran expansión financiera: los bonos latinoamericanos se colocaban simultáneamente en Londres, París y Berlín; los estados latinoamericanos accedieron a créditos más baratos y los montos prestados superaron los de los ciclos anteriores."
+        },
+        {
+            question: "Según Marichal, ¿cómo afectó la Primera Guerra Mundial a las finanzas latinoamericanas?",
+            options: ["La guerra fue beneficiosa para América Latina porque el alza de los precios de exportación compensó la interrupción del crédito europeo", "La guerra interrumpió el crédito europeo, afectó los flujos comerciales y generó desequilibrios fiscales en varios países", "América Latina fue completamente inmune a la guerra porque sus relaciones financieras eran exclusivamente con EEUU", "La guerra aceleró el crecimiento latinoamericano al generar una demanda extraordinaria de materias primas militares a precios muy altos"],
+            answer: 1,
+            explanation: "Marichal muestra la dualidad del impacto de WWI: los precios de algunas materias primas subieron, pero el crédito europeo se cortó abruptamente, los bancos europeos se retiraron del mercado latinoamericano y varios países enfrentaron crisis fiscales graves al perder el acceso a los mercados de capitales que habían financiado su gasto público."
+        },
+        {
+            question: "¿Cuál fue la situación de México con respecto a su deuda externa durante y después de la Revolución Mexicana según Marichal?",
+            options: ["México pagó toda su deuda durante la Revolución gracias a los ingresos del petróleo que compensaron los destrozos del conflicto", "México cayó en un prolongado default; la deuda revolucionaria y las deudas previas se convirtieron en objeto de negociación internacional compleja", "La deuda mexicana fue condonada por Europa y EEUU como gesto de apoyo a la Revolución democrática mexicana de 1910", "México no tenía deuda significativa antes de la Revolución porque el gobierno de Díaz había tenido disciplina fiscal estricta"],
+            answer: 1,
+            explanation: "Marichal documenta el caso mexicano como ejemplo de default prolongado: la Revolución interrumpió el servicio de la deuda y el Comité Internacional de Banqueros negoció durante años con los distintos gobiernos posrevolucionarios. Las deudas del porfiriato y las nuevas deudas de guerra tomaron décadas en resolverse."
+        },
+        {
+            question: "Según Marichal, ¿cómo operaba la 'dependencia financiera' de América Latina respecto a los ciclos externos de crédito?",
+            options: ["Los países latinoamericanos eran completamente independientes de los ciclos externos gracias a sus grandes reservas de oro y divisas", "Los ciclos de crédito externo determinaban el margen fiscal interno: cuando el crédito fluía, el gasto aumentaba; cuando se cortaba, la crisis fiscal era inevitable", "La dependencia fue solo comercial, no financiera: los países latinoamericanos se financiaban internamente con sus propios bancos centrales", "La dependencia financiera fue positiva porque los prestamistas externos impusieron disciplina fiscal que mejoró la gestión macroeconómica"],
+            answer: 1,
+            explanation: "Marichal analiza el núcleo del problema: la dependencia financiera cíclica. En los ciclos de crédito abundante (1870s, 1900s, 1920s), los gobiernos latinoamericanos ampliaban el gasto. Cuando el crédito se cortaba (1825, 1875, 1890, 1913, 1929), la crisis fiscal era inevitable porque los ingresos de exportación tampoco compensaban el vacío."
+        },
+        {
+            question: "¿Cuál fue el papel del sector exportador primario en el servicio de la deuda externa latinoamericana según Marichal?",
+            options: ["El sector exportador era irrelevante para el servicio de la deuda porque los bonos se pagaban con préstamos nuevos en un esquema Ponzi", "Las divisas generadas por las exportaciones eran la única fuente real de pago de la deuda externa: sin superávit exportador no había servicio posible", "El sector exportador fue substituido por las inversiones extranjeras directas como fuente de divisas para el servicio de la deuda en el siglo XX", "Los países latinoamericanos pagaban su deuda principalmente con minerales físicos entregados directamente a los acreedores europeos"],
+            answer: 1,
+            explanation: "Marichal subraya el nexo estructural: las divisas provenientes de las exportaciones (café brasileño, carne argentina, cobre chileno, plata mexicana) eran la fuente real del servicio de la deuda externa. Esta dependencia hizo a América Latina extremadamente vulnerable a las caídas de precios de las materias primas."
+        },
+        {
+            question: "Según Marichal, ¿cómo diferían los patrones de deuda y solvencia entre Argentina, México y Brasil en el siglo XIX?",
+            options: ["Los tres países tuvieron historias de solvencia idénticas porque estaban sujetos a los mismos ciclos externos de crédito internacional", "Argentina mantuvo mayor solvencia relativa en general; México tuvo defaults recurrentes; Brasil mantuvo un acceso continuo aunque con renegociaciones", "México fue el país más solvente gracias a los ingresos del petróleo; Argentina fue el más problemático por su inestabilidad política", "Los tres países cayeron en default simultáneamente en todas las crisis y se recuperaron al mismo ritmo después de cada una"],
+            answer: 1,
+            explanation: "Marichal traza las trayectorias diferenciadas: Argentina construyó cierta reputación crediticia pese a la crisis de 1890; Brasil mantuvo flujo continuo de préstamos aunque renegoció en varias ocasiones; México tuvo la historia más complicada con múltiples defaults, agravada por la inestabilidad política del siglo XIX y la Revolución."
+        },
+        {
+            question: "¿Cuál fue el impacto de la Gran Depresión sobre la deuda externa latinoamericana según Marichal?",
+            options: ["La Gran Depresión no afectó a la deuda latinoamericana porque los préstamos preexistentes tenían tasas fijas independientes del ciclo", "Provocó defaults generalizados: el colapso de los precios de exportación y el corte del crédito externo hicieron imposible el servicio de la deuda", "América Latina pagó su deuda durante la Depresión gracias al apoyo financiero del gobierno de Roosevelt a través de acuerdos bilaterales", "Solo México cayó en default durante la Depresión; los demás países latinoamericanos mantuvieron sus pagos con esfuerzo"],
+            answer: 1,
+            explanation: "Marichal documenta el default masivo de los años 1930: la caída de los precios de exportación del 50-70%, el corte abrupto del crédito externo y el agotamiento de reservas llevaron a defaults generalizados en casi toda América Latina. Argentina fue prácticamente la única excepción mayor al mantener el servicio de la deuda mediante el tratado Roca-Runciman."
+        },
+        {
+            question: "Según Marichal, ¿qué papel desempeñaron los bancos ingleses como Baring, Rothschild y posteriormente los bancos franceses en la deuda latinoamericana?",
+            options: ["Los bancos ingleses y franceses fueron rivales que lucharon por monopolizar el mercado latinoamericano de bonos sin colaborar", "Fueron los principales intermediarios financieros: colocaban los bonos latinoamericanos entre inversores europeos y cobraban comisiones sustanciales", "Fueron actores secundarios: el grueso de la deuda latinoamericana fue colocada en bolsas locales de Buenos Aires y Río de Janeiro", "Los bancos ingleses prestaron solo para infraestructura y los franceses solo para deuda pública soberana de los gobiernos nacionales"],
+            answer: 1,
+            explanation: "Marichal analiza el rol central de los bancos de inversión europeos como intermediarios: Baring Brothers, N.M. Rothschild y, más adelante, bancos franceses como el Crédit Lyonnais colocaban los bonos latinoamericanos entre inversores europeos, cobrando comisiones de emisión y manteniendo relaciones de largo plazo con los gobiernos deudores."
+        },
+        {
+            question: "¿Qué condiciones establecían generalmente los préstamos europeos a los países latinoamericanos según Marichal?",
+            options: ["Las condiciones fueron siempre muy favorables para los deudores porque los bancos europeos competían entre sí para otorgar los préstamos", "Las tasas de interés eran elevadas, los plazos variables y los bonos se colocaban generalmente por debajo del valor nominal", "Las condiciones contemplaban períodos de gracia de 10 años antes del primer pago de capital e intereses para facilitar la absorción", "Las tasas eran iguales a las pagadas por los gobiernos europeos porque los banqueros no distinguían entre prestatarios soberanos"],
+            answer: 1,
+            explanation: "Marichal explica las condiciones estructuralmente desventajosas: las tasas de interés eran más altas que las de los bonos europeos, compensando el mayor riesgo; los bonos se emitían por debajo del valor nominal (por ejemplo, al 85% del valor de rescate), lo que elevaba el costo real del crédito y captaba comisiones para los bancos intermediarios."
+        },
+        {
+            question: "Según Marichal, ¿cómo afectaban los shocks externos de precios a las finanzas públicas latinoamericanas?",
+            options: ["El impacto era mínimo porque los gobiernos latinoamericanos diversificaban sus ingresos con impuestos industriales y al consumo interno", "Eran el determinante central: como los ingresos fiscales dependían de los derechos de exportación, la caída de precios reducía automáticamente el presupuesto", "El Estado latinoamericano estaba protegido de los shocks externos por los acuerdos de estabilización del FMI previamente pactados", "Solo afectaban a los países que dependían de un único producto de exportación; los países diversificados eran relativamente inmunes"],
+            answer: 1,
+            explanation: "Marichal muestra la fragilidad estructural: en el siglo XIX los ingresos fiscales de los estados latinoamericanos dependían en gran medida de los aranceles de importación (financiados con las divisas de exportación) y los derechos de exportación. Una caída del 30-40% en los precios externos se traducía directamente en una crisis fiscal de similar magnitud."
+        },
+        {
+            question: "¿Cuál fue la relación entre endeudamiento externo y soberanía política en América Latina según el análisis de Marichal?",
+            options: ["La deuda externa reforzó la soberanía latinoamericana porque los países acreedores respetaban la independencia de sus deudores", "La deuda externa condicionó la soberanía: el riesgo de intervención extranjera (cañoneras) para cobrar deudas impagadas era un factor político real", "La deuda no tuvo nunca consecuencias políticas porque los acreedores europeos nunca intentaron cobrar por la fuerza sus acreencias", "La relación fue positiva: la deuda externa disciplinó a los gobiernos latinoamericanos y mejoró la calidad de sus instituciones"],
+            answer: 1,
+            explanation: "Marichal analiza la tensión deuda-soberanía: la amenaza de intervención naval para cobrar deudas (como la ejercida por Alemania, Gran Bretaña e Italia contra Venezuela en 1902-1903) era un factor político concreto. La Doctrina Drago (Argentina, 1902) fue precisely una respuesta de soberanía ante este problema."
+        },
+        {
+            question: "Según Marichal, ¿cuál fue la especificidad del capital inglés invertido en la infraestructura latinoamericana (ferrocarriles, puertos)?",
+            options: ["El capital inglés fue una donación altruista orientada al desarrollo de las naciones latinoamericanas sin retorno financiero esperado", "Las inversiones exigían garantías de rentabilidad mínima del Estado (como la garantía del 7% en ferrocarriles argentinos) que socializaban el riesgo", "El capital inglés de infraestructura llegó sin condiciones porque el libre mercado victoriano prohibía las garantías gubernamentales de rentabilidad", "Las inversiones se limitaron a financiar únicamente los tramos rentables de los ferrocarriles sin extender las líneas a zonas menos productivas"],
+            answer: 1,
+            explanation: "Marichal señala la lógica de la inversión ferroviaria inglesa en América Latina: las empresas exigían al Estado garantías de rentabilidad mínima (como la 'garantía del 7%' en Argentina). Si la rentabilidad real era inferior, el Estado compensaba la diferencia. Esto trasladaba el riesgo empresarial al presupuesto público latinoamericano."
+        },
+        {
+            question: "¿Cuál fue la 'vulnerabilidad estructural' de las economías latinoamericanas en la economía mundial que identifica Marichal?",
+            options: ["La vulnerabilidad fue exclusivamente comercial: dependencia de pocos productos de exportación sujetos a precios volátiles internacionales", "Fue una vulnerabilidad combinada: dependencia financiera (deuda) + dependencia comercial (exportaciones primarias) + fragilidad fiscal sincronizada", "La vulnerabilidad fue solo fiscal: los gobiernos latinoamericanos gastaban más de lo que tenían sin depender del exterior para compensar", "La vulnerabilidad fue demográfica: la falta de población limitaba el mercado interno y la capacidad productiva diversificada"],
+            answer: 1,
+            explanation: "Marichal identifica la trampa de la doble dependencia latinoamericana: la deuda externa y los precios de exportación se movían en ciclos sincronizados. En las crisis, los precios de exportación caían cuando más se necesitaban divisas para pagar la deuda, y el crédito se cortaba cuando el gasto fiscal más lo requería. Era la anatomía de la vulnerabilidad estructural."
+        },
+        {
+            question: "Según Marichal, ¿qué diferenciaba a los bancos de inversión que operaron en América Latina entre sí?",
+            options: ["Los bancos ingleses prestaban a largo plazo y los bancos franceses prestaban solo a corto plazo en operaciones de descuento comercial", "Los bancos ingleses se especializaban en bonos soberanos nacionales mientras los franceses también financiaban deudas provinciales y municipales", "Los bancos ingleses cobraban tasas más bajas y los franceses exigían condiciones de uso más estrictas para los fondos prestados", "No había diferencia: todos los bancos europeos utilizaban exactamente los mismos instrumentos financieros con idénticas condiciones"],
+            answer: 1,
+            explanation: "Marichal señala la especialización dentro del mercado de bonos latinoamericanos: los bancos ingleses (Baring, Rothschild) se concentraron principalmente en los grandes bonos soberanos nacionales, mientras la banca francesa en los años 1880-1910 diversificó también hacia deudas subnacionales (provincias, municipios, empresas de servicios públicos)."
+        },
+        {
+            question: "¿Cómo se formó lo que Marichal llama el 'ciclo de la deuda' en la historia financiera latinoamericana del siglo XIX?",
+            options: ["El ciclo fue siempre ascendente: cada nueva deuda financiaba desarrollo que generaba más recursos para pagar la deuda siguiente", "El ciclo fue recurrente: auge de crédito → sobreendeudamiento → default → renegociación → nuevo auge de crédito → nuevo sobreendeudamiento", "El ciclo fue descendente: cada crisis de deuda fue más grave que la anterior hasta la quiebra definitiva de los países deudores", "No hubo un ciclo propiamente dicho sino eventos aislados sin patrón reconocible en la historia de la deuda latinoamericana"],
+            answer: 1,
+            explanation: "Marichal identifica el patrón cíclico recurrente de la deuda latinoamericana: abundancia de crédito externo → endeudamiento creciente → shocks externos (caída de precios o suba de tasas) → cesación de pagos → prolongadas renegociaciones → reinserción en los mercados de capitales → nuevo ciclo. Este patrón se repitió en 1820s, 1870s, 1890 y 1930s."
+        },
+        {
+            question: "Según Marichal, ¿qué lecciones sobre el financiamiento externo se pueden extraer de la historia latinoamericana del siglo XIX?",
+            options: ["Que el endeudamiento externo siempre fue beneficioso porque permitió financiar infraestructura que el ahorro interno no podría haber financiado", "Que la dependencia del crédito externo creó ciclos de auge y crisis que condicionaron el desarrollo latinoamericano de manera estructural", "Que América Latina debería haberse negado a tomar deuda externa para preservar su soberanía económica plena desde la independencia", "Que el endeudamiento fue siempre perjudicial y que los países que no tomaron deuda (como Paraguay pre-Triple Alianza) se desarrollaron mejor"],
+            answer: 1,
+            explanation: "Marichal concluye que la deuda externa fue ambivalente: financió infraestructura necesaria, pero también creó dependencia estructural de ciclos externos que el Estado latinoamericano no controlaba. Las crisis recurrentes (1820s, 1870s, 1890, 1930s) muestran que el acceso al crédito internacional sin capacidad fiscal propia generó vulnerabilidades profundas."
+        },
+        {
+            question: "¿Qué fue el 'mercado internacional de capitales' del siglo XIX y cómo se relacionó con América Latina según Marichal?",
+            options: ["Fue un mercado exclusivamente entre las potencias industriales sin participación de las economías periféricas", "Fue un sistema centrado en Londres donde los bonos latinoamericanos se negociaban en la Bolsa junto con los bonos de otros países emergentes", "Fue una institución interestatal creada por los gobiernos europeos para financiar el desarrollo de sus colonias ultramarinas", "Fue irrelevante para América Latina porque los países latinoamericanos se financiaban principalmente en sus propios mercados locales"],
+            answer: 1,
+            explanation: "Marichal muestra que la City de Londres fue el centro del mercado internacional de capitales del siglo XIX. Los bonos latinoamericanos se colocaban y negociaban en la Bolsa de Londres, junto con los bonos turcos, egipcios, griegos y de otros 'mercados emergentes' de la época. América Latina fue uno de los principales destinos del capital exportado desde Gran Bretaña."
+        },
+        {
+            question: "Según Marichal, ¿cuál fue la relación entre independencia política y dependencia financiera en América Latina durante el siglo XIX?",
+            options: ["La independencia política eliminó la dependencia financiera porque los nuevos estados eran soberanos para administrar sus economías", "Las independencias crearon formal soberanía política pero inmediatamente generaron dependencia financiera mediante la primera ronda de préstamos", "La dependencia financiera existia ya en la época colonial y fue heredada sin modificaciones por los nuevos estados independientes", "La independencia generó décadas de autarquía financiera antes de que América Latina se insertara en los mercados de capitales internacionales"],
+            answer: 1,
+            explanation: "Marichal señala la paradoja fundacional: los estados latinoamericanos recién independizados necesitaron endeudarse para financiar sus propias guerras de independencia y consolidar sus instituciones. La independencia política se pagó con dependencia financiera. El primer ciclo de préstamos (1822-1825) fue casi simultáneo a las declaraciones de independencia."
+        },
+        {
+            question: "Según Saborido, ¿cómo se insertó América Latina en la primera globalización (1870-1914)?",
+            options: ["Como región industrializada que exportaba manufacturas hacia los mercados europeos y asiáticos", "Como exportadora de materias primas y alimentos que abastecían a los países industrializados europeos y norteamericanos", "Como región financieramente autónoma que evitó la dependencia de capital extranjero mediante bancos nacionales propios", "Como zona neutral que no participó de la globalización hasta que los países europeos la invitaron formalmente en 1890"],
+            answer: 1,
+            explanation: "Saborido explica la inserción periférica de América Latina: especializó su producción en materias primas y alimentos para los mercados industrializados (carne y trigo argentinos, café brasileño, cobre y salitre chilenos, plata y henequén mexicanos) dentro de la división internacional del trabajo de la primera globalización."
+        },
+        {
+            question: "¿Cuál fue la característica central del 'modelo agroexportador' latinoamericano según Saborido?",
+            options: ["La diversificación industrial que acompañó a las exportaciones primarias para reducir la vulnerabilidad externa", "La especialización en pocos productos de exportación primaria controlados por élites terratenientes y capital extranjero", "La industrialización paralela que transformó los excedentes de exportación en inversión manufacturera nacional", "El equilibrio entre el sector exportador y el mercado interno que garantizó un desarrollo equitativo y distribuido"],
+            answer: 1,
+            explanation: "Saborido caracteriza el modelo agroexportador por su concentración en unos pocos productos primarios (el monoproducto o dualismo exportador), el control de las tierras y la renta por élites oligárquicas locales, y la dependencia del capital, la tecnología y los mercados extranjeros para su funcionamiento."
+        },
+        {
+            question: "Según Saborido, ¿qué rol desempeñaron los ferrocarriles en el modelo agroexportador latinoamericano?",
+            options: ["Los ferrocarriles fueron construidos por los propios gobiernos latinoamericanos con capital nacional y operados como servicio público", "Fueron la infraestructura clave del modelo: conectaron las zonas productoras con los puertos para exportar, financiados con capital inglés", "Los ferrocarriles integraron el mercado interno latinoamericano y estimularon la industrialización al conectar regiones entre sí", "Los ferrocarriles fueron irrelevantes para el modelo agroexportador porque las exportaciones se realizaban principalmente por vía fluvial"],
+            answer: 1,
+            explanation: "Saborido muestra la función enclave de los ferrocarriles latinoamericanos: diseñados en 'espina de pez' para conectar las zonas productoras (Pampa, valles mineros, cafetales) con los puertos de exportación, financiados con capital inglés bajo la garantía de rentabilidad del Estado. Integraron el espacio exportador pero no necesariamente el mercado interno."
+        },
+        {
+            question: "¿Cómo describe Saborido la ideología de las 'oligarquías liberales' que gobernaron América Latina durante el modelo agroexportador?",
+            options: ["Las oligarquías fueron proteccionistas y estatistas, promoviendo la industria nacional frente a la competencia extranjera", "Adhirieron al liberalismo económico: libre comercio, laissez-faire, libre movimiento de capitales y exportaciones primarias como motor del crecimiento", "Aplicaron políticas redistributivas para ampliar el mercado interno y sostener la demanda doméstica de sus propias exportaciones", "Las oligarquías fueron indiferentes a la política económica y gobernaron solo con criterios de control político y orden social"],
+            answer: 1,
+            explanation: "Saborido analiza el liberalismo de las oligarquías agroexportadoras: eran la expresión política del modelo exportador. El libre comercio les permitía importar bienes manufacturados baratos; el laissez-faire protegía sus tierras; la libre circulación de capitales atraía inversión externa; el liberalismo era su interés de clase racionalizado como filosofía."
+        },
+        {
+            question: "Según Saborido, ¿qué caracterizó al 'porfiriato' en México (1876-1910) desde una perspectiva económica?",
+            options: ["Fue un período de redistribución agraria que amplió la pequeña propiedad y generó una clase media rural estable", "Fue una modernización económica acelerada pero concentrada: inversión extranjera, ferrocarriles y exportaciones junto con desposesión campesina", "Fue un período de industrialización autónoma que transformó México en un país manufacturero antes de la Revolución", "Fue un período de estancamiento económico en que la dictadura de Díaz impidió la inversión extranjera por razones nacionalistas"],
+            answer: 1,
+            explanation: "Saborido retrata el porfiriato como modernización sin distribución: Díaz atrajo inversión extranjera masiva (ferrocarriles, minería, petróleo), expandió las exportaciones y construyó infraestructura, pero lo hizo desposeyendo comunidades campesinas (Ley de Baldíos), concentrando las ganancias en una élite reducida y creando las condiciones sociales de la Revolución."
+        },
+        {
+            question: "¿Cómo describe Saborido la prosperidad argentina de la Belle Époque (1890-1914) y sus condicionantes?",
+            options: ["Fue una prosperidad sólida y diversificada que sentó las bases de un desarrollo industrial autónomo sin dependencia externa", "Fue una prosperidad real pero condicionada: basada en la expansión pampeana, el capital inglés y la demanda europea de alimentos", "Fue ficticia: Argentina estaba en recesión durante la Belle Époque y la apariencia de prosperidad era pura propaganda gubernamental", "Fue generalizada y distributiva: los ingresos del modelo exportador beneficiaron equitativamente a toda la sociedad argentina"],
+            answer: 1,
+            explanation: "Saborido analiza la prosperidad argentina de la Belle Époque: el boom del trigo, el maíz y la carne vacuna en los mercados europeos generó crecimiento acelerado, inmigración masiva y modernización urbana (Buenos Aires). Pero era un crecimiento condicionado por la demanda europea, la inversión inglesa y los precios externos, sin transformación estructural propia."
+        },
+        {
+            question: "Según Saborido, ¿qué estructura social generó el modelo agroexportador latinoamericano?",
+            options: ["Una clase media propietaria amplia y vigorosa que diversificó la economía y resistió la dependencia del capital extranjero", "Una estructura dual: oligarquía terrateniente local + capital extranjero en la cima, y masas de peones y trabajadores en la base", "Una clase obrera industrial urbana numerosa que desde el inicio del modelo presionó por mejores salarios y distribución", "Una estructura igualitaria de pequeños productores que recibieron tierras del Estado en los procesos de colonización agraria"],
+            answer: 1,
+            explanation: "Saborido describe la estructura social del modelo: en la cima, la oligarquía terrateniente que controlaba la tierra y el Estado, asociada al capital extranjero que controlaba el financiamiento y la infraestructura. En la base, peones rurales sin tierra (haciendas, estancias), trabajadores migrantes temporarios e inmigrantes en las ciudades. Escasa clase media propietaria salvo en casos excepcionales como Argentina."
+        },
+        {
+            question: "¿Cuáles fueron las principales limitaciones estructurales del modelo agroexportador según Saborido?",
+            options: ["La falta de recursos naturales que impedía aumentar las exportaciones más allá de los niveles ya alcanzados antes de 1914", "La dependencia de precios externos volátiles, la escasa diversificación productiva y el escaso encadenamiento hacia el mercado interno", "El exceso de gobierno que sofocaba la iniciativa privada y impedía la innovación tecnológica en el sector exportador", "La sobrepoblación que agotaba los recursos naturales antes de que las exportaciones pudieran generar suficiente capital para industrializarse"],
+            answer: 1,
+            explanation: "Saborido identifica las limitaciones del modelo: la vulnerabilidad a la volatilidad de precios externos, la escasa diversificación (concentración en 1-3 productos), los escasos encadenamientos 'hacia atrás y hacia adelante' con el resto de la economía (enclaves exportadores), y la distribución regresiva del ingreso que limitaba el mercado interno."
+        },
+        {
+            question: "Según Saborido, ¿cuál fue la relación entre el modelo agroexportador y la formación del Estado latinoamericano?",
+            options: ["El Estado se formó antes del modelo exportador y lo diseñó conscientemente para el desarrollo nacional equitativo", "El Estado se consolidó en función del modelo exportador: protegía la propiedad terrateniente, garantizaba el orden y atraía capital externo", "El Estado fue siempre débil frente al capital extranjero porque los ingresos de exportación se fugaban sin dejar renta al presupuesto público", "El Estado fue innecesario para el modelo exportador que se desarrolló exclusivamente por la iniciativa privada internacional"],
+            answer: 1,
+            explanation: "Saborido analiza la interdependencia Estado-modelo exportador: la consolidación estatal del siglo XIX (después de las guerras civiles) fue funcional al modelo agroexportador. El Estado garantizó los derechos de propiedad (tierras), mantuvo el 'orden' (represión de movimientos campesinos), construyó infraestructura y ofreció las garantías legales que el capital externo necesitaba."
+        },
+        {
+            question: "Según Saborido, ¿cómo afectó la Gran Depresión de 1929 al modelo agroexportador latinoamericano?",
+            options: ["La depresión no afectó al modelo porque los precios de exportación latinoamericanos estaban garantizados por contratos de largo plazo", "Fue un golpe devastador: los precios de las materias primas cayeron entre el 40% y el 70%, secando el ingreso de divisas y colapsando las finanzas públicas", "La depresión benefició al modelo porque la caída de los precios de importación mejoró los términos de intercambio latinoamericanos", "La depresión solo afectó a los países que dependían de exportaciones a EEUU sin impacto sobre los orientados a Europa"],
+            answer: 1,
+            explanation: "Saborido muestra que la Gran Depresión fue el quiebre del modelo agroexportador: los precios del café cayeron el 60%, los del trigo el 50%, los del cobre el 70%. El ingreso de divisas se desplomó, los ingresos fiscales colapsaron y la capacidad importadora se redujo drásticamente. El modelo que había sostenido el crecimiento latinoamericano era insostenible."
+        },
+        {
+            question: "¿Cómo respondieron los estados latinoamericanos a la crisis del modelo agroexportador en los años 1930 según Saborido?",
+            options: ["Aplicaron ajuste clásico: recortaron el gasto, defendieron el tipo de cambio y esperaron que los precios externos se recuperaran", "Giraron hacia la industrialización mediante el intervencionismo estatal: control de cambios, protección arancelaria y fomento industrial directo", "Optaron por la autarquía total: cerraron sus economías al comercio exterior y se limitaron a la producción de subsistencia", "Delegaron en el FMI las decisiones de política económica para acceder a fondos de emergencia que financiaran la transición"],
+            answer: 1,
+            explanation: "Saborido explica el 'giro industrialista' de los 30: ante el colapso del modelo exportador, los gobiernos latinoamericanos optaron por el intervencionismo. Establecieron controles de cambio para racionar divisas, elevaron aranceles para sustituir importaciones y comenzaron a financiar directamente la industria nacional, aunque inicialmente de forma reactiva y no como estrategia deliberada."
+        },
+        {
+            question: "Según Saborido, ¿qué fue la 'Industrialización por Sustitución de Importaciones' (ISI) y cuál fue su lógica?",
+            options: ["Fue un modelo de industrialización orientado a las exportaciones que aprovechó la infraestructura del modelo agroexportador anterior", "Fue la producción local de bienes manufacturados que antes se importaban, protegida por aranceles y subsidiada por el Estado", "Fue un modelo de libre mercado que eliminó los aranceles de importación para que las empresas nacionales compitieran y se fortalecieran", "Fue una política exclusivamente aplicada por Brasil y México que no tuvo equivalente en Argentina ni en el resto de América Latina"],
+            answer: 1,
+            explanation: "Saborido explica la ISI: ante la escasez de divisas para importar manufactura, los países latinoamericanos comenzaron a producirla localmente. El Estado protegía a la industria naciente con aranceles altos, le otorgaba crédito barato (bancos de desarrollo), subsidiaba insumos y en algunos casos fue directamente el empresario (empresas públicas)."
+        },
+        {
+            question: "¿Cuál fue el papel de Getúlio Vargas en Brasil y cómo ilustra el proceso que describe Saborido?",
+            options: ["Vargas fue un presidente liberal que redujo el tamaño del Estado y promovió la inversión extranjera sin restricciones en Brasil", "Vargas encarnó el Estado industrializador: su régimen (1930-1945) construyó la siderúrgica Volta Redonda y creó empresas estatales clave", "Vargas fue exclusivamente un líder político sin proyecto económico coherente que dejó la industrialización al sector privado", "Vargas fracasó en industrializar Brasil porque su Estado Novo priorizó la represión política sobre el desarrollo económico"],
+            answer: 1,
+            explanation: "Saborido presenta a Vargas como caso paradigmático del 'Estado industrializador': bajo su régimen se creó la compañía siderúrgica de Volta Redonda (1941), Petrobras (1953), el Banco Nacional de Desarrollo y se modernizó la industria textil y química. Vargas combinó autoritarismo político con intervención económica planificada."
+        },
+        {
+            question: "Según Saborido, ¿cuál fue la teoría de Raúl Prebisch y la CEPAL sobre el deterioro de los términos de intercambio?",
+            options: ["Que los términos de intercambio mejoraban sistemáticamente para los países exportadores de materias primas porque la demanda mundial crecía", "Que en el largo plazo los precios de las materias primas tendían a caer relativamente a los precios de las manufacturas, perjudicando a la periferia", "Que el problema era solo de política económica: con mejores políticas comerciales los países periféricos podían mejorar sus términos de intercambio", "Que los términos de intercambio eran irrelevantes para el desarrollo porque lo que importaba era el volumen total de exportaciones"],
+            answer: 1,
+            explanation: "Saborido explica la tesis Prebisch-CEPAL: en el largo plazo, los precios de los productos primarios (exportaciones de la periferia) crecen más lento que los precios de las manufacturas (importaciones de la periferia). Esto produce una transferencia de renta desde los países periféricos hacia el centro, que solo puede revertirse mediante la industrialización endógena."
+        },
+        {
+            question: "¿Cuáles fueron las principales limitaciones de la ISI que identifica Saborido?",
+            options: ["La ISI no tuvo limitaciones: fue un modelo exitoso que transformó a América Latina en potencia industrial en pocas décadas", "Las limitaciones fueron la tecnología dependiente, el mercado interno estrecho por la desigualdad, y la escasez crónica de divisas para importar bienes de capital", "La única limitación fue la resistencia del capital extranjero que bloqueó la industrialización para proteger sus exportaciones manufactureras", "Las limitaciones fueron exclusivamente políticas: los industrialistas nacionales no tenían poder suficiente frente a las oligarquías terratenientes"],
+            answer: 1,
+            explanation: "Saborido identifica las contradicciones estructurales de la ISI: requería importar maquinaria y tecnología (generando déficit en divisas), el mercado interno era estrecho por la distribución desigual del ingreso, las industrias sustitutivas eran muchas veces ineficientes por la falta de escala, y la protección arancelaria permanente impedía la competitividad internacional."
+        },
+        {
+            question: "Según Saborido, ¿qué nuevos actores sociales y políticos emergieron con la industrialización latinoamericana de los años 1930-1950?",
+            options: ["Las oligarquías terratenientes se fortalecieron porque la industrialización aumentó la demanda de alimentos para las ciudades", "Emergieron la burguesía industrial nacional, la clase obrera urbana organizada y sectores medios urbanos que transformaron la política de masas", "Solo emergió la burguesía industrial sin cambios en la clase obrera que siguió siendo rural y desorganizada hasta los años 1960", "No surgieron nuevos actores porque la industrialización fue controlada por el capital extranjero que importó su propia clase obrera"],
+            answer: 1,
+            explanation: "Saborido documenta la transformación social: la industrialización creó una burguesía industrial en ascenso (que chocaba con las oligarquías agroexportadoras), una clase obrera urbana concentrada en grandes fábricas con capacidad de organización sindical, y capas medias urbanas (empleados, profesionales, técnicos). Estos actores transformaron la política de masas latinoamericana."
+        },
+        {
+            question: "¿Cómo vincula Saborido el surgimiento del populismo latinoamericano (Perón, Vargas, Cárdenas) con el proceso de industrialización?",
+            options: ["El populismo fue un fenómeno exclusivamente cultural y étnico sin base económica ni vínculos con el proceso de industrialización", "El populismo fue la expresión política de la industrialización sustitutiva: combinó industrialismo nacional, movilización obrera y retórica anti-oligárquica", "El populismo surgió como reacción contra la industrialización que desplazó a los trabajadores rurales sin ofrecerles alternativas urbanas", "Los populismos (Perón, Vargas, Cárdenas) fueron movimientos exclusivamente conservadores que frenaron los procesos de industrialización"],
+            answer: 1,
+            explanation: "Saborido analiza el populismo industrial: Perón en Argentina (1946-1955), Vargas en Brasil (1930-1945) y Cárdenas en México (1934-1940) representaron la alianza entre industrialismo nacional, movilización de la clase obrera urbana y rechazo a la oligarquía agroexportadora. El modelo ISI encontró en el populismo su expresión política correspondiente."
+        },
+        {
+            question: "Según Saborido, ¿cuáles fueron las diferencias entre países en el proceso de industrialización latinoamericana por ISI?",
+            options: ["No hubo diferencias: todos los países latinoamericanos aplicaron el mismo modelo ISI con los mismos resultados y al mismo ritmo", "Brasil, Argentina y México lograron una industrialización más profunda; los países pequeños de Centroamérica y el Caribe quedaron marginados", "Los países más pequeños se industrializaron primero porque tenían economías más manejables para la planificación estatal", "Solo Brasil industrializó exitosamente; Argentina, México y los demás fracasaron por inestabilidad política permanente"],
+            answer: 1,
+            explanation: "Saborido diferencia las trayectorias: los países grandes (Brasil, Argentina, México) con mercados internos mayores y burguesías industriales más fuertes alcanzaron una ISI más profunda que incluyó bienes intermedios y de capital. Los países pequeños de Centroamérica y el Caribe, con mercados reducidos y economías de enclave, quedaron mayoritariamente atados al modelo agroexportador."
+        },
+        {
+            question: "¿Cuál es el legado ambivalente de la ISI para el desarrollo latinoamericano que señala Saborido?",
+            options: ["El legado fue completamente positivo: la ISI transformó a América Latina en potencia industrial y eliminó la pobreza en los países que la aplicaron", "El legado fue ambivalente: industrializó pero también generó ineficiencia, dependencia tecnológica, inflación y deuda que afectaron las décadas siguientes", "El legado fue completamente negativo: la ISI destruyó el sector exportador sin crear industria competitiva y empobrecó a América Latina", "No hubo legado porque la ISI fue interrumpida tan tempranamente que no dejó ninguna huella en la estructura productiva latinoamericana"],
+            answer: 1,
+            explanation: "Saborido evalúa la ISI con balance: por un lado, creó una base industrial donde no existía, generó empleo urbano, diversificó las economías y redujo la dependencia de las importaciones. Por otro, produjo industrias ineficientes por falta de competencia, inflación por el exceso de subsidios, Estado sobredimensionado y deuda externa para financiar las importaciones de capital que el modelo requería."
+        },
+        {
+            question: "Según Saborido, ¿cuál fue el impacto de la Primera Guerra Mundial sobre las economías latinoamericanas dependientes del modelo agroexportador?",
+            options: ["La guerra fue completamente irrelevante para América Latina porque la región se mantuvo neutral y aislada del conflicto", "Generó un efecto ambivalente: subió algunos precios de exportación pero interrumpió el crédito europeo y los suministros de manufactura", "Fue únicamente beneficiosa: la escasez de manufactura europea estimuló la industrialización latinoamericana durante los años de guerra", "Perjudicó exclusivamente a los países exportadores de alimentos y no afectó a los exportadores mineros como Chile o México"],
+            answer: 1,
+            explanation: "Saborido muestra el impacto ambivalente de WWI: algunos precios de exportación subieron (carnes, granos) estimulando ingresos, pero el crédito europeo se cortó abruptamente, los suministros de manufactura importada escasearon y la conexión comercial con Europa se interrumpió parcialmente. Para algunos países fue una primera señal de la vulnerabilidad del modelo."
+        },
+        {
+            question: "¿Cómo se relaciona la 'inserción subordinada' de América Latina en la división internacional del trabajo con su desarrollo posterior según Saborido?",
+            options: ["No hubo relación: la inserción exportadora del siglo XIX fue la plataforma óptima para el desarrollo industrial posterior", "La especialización como exportadores de materias primas creó estructuras productivas, institucionales y sociales que dificultaron la diversificación posterior", "La inserción subordinada fue voluntaria: los latinoamericanos eligieron conscientemente especializarse y rechazaron la industrialización cuando pudieron", "La inserción fue igualitaria: América Latina y los países industrializados se beneficiaron simétricamente de la división internacional del trabajo"],
+            answer: 1,
+            explanation: "Saborido explica el 'legado estructural': la especialización exportadora del siglo XIX no fue neutral. Creó estructuras de propiedad concentradas (latifundio), sistemas fiscales dependientes de las exportaciones, infraestructuras orientadas hacia afuera y élites con intereses en mantener el modelo. Estas estructuras frenaron la diversificación productiva cuando el modelo entró en crisis."
+        },
+        {
+            question: "Según Saborido, ¿qué fue el 'enclave exportador' y cuál era su limitación para el desarrollo económico latinoamericano?",
+            options: ["El enclave exportador fue un modelo exitoso porque generaba pleno empleo y distribuía equitativamente los ingresos en la región productora", "Era un sector exportador desconectado del resto de la economía: no generaba encadenamientos industriales ni distribuía sus ganancias internamente", "Fue un modelo de integración donde los ingresos de exportación financiaban directamente la industrialización del mercado interno", "El enclave exportador fue una política deliberada del Estado para controlar las ganancias de la minería y las plantaciones extranjeras"],
+            answer: 1,
+            explanation: "Saborido analiza el 'enclave': las zonas productoras para exportación (minas de cobre en Chile, plantaciones de café en Brasil, yacimientos petrolíferos en México) funcionaban como islas productivas. Importaban su maquinaria, exportaban su producto, repatriaban sus ganancias al extranjero y tenían escasos vínculos con la economía local. El crecimiento era sin desarrollo."
+        },
+        {
+            question: "¿Qué papel asumió el Estado latinoamericano como empresario directo dentro del proceso ISI según Saborido?",
+            options: ["El Estado solo reguló la economía sin nunca convertirse en empresario ni controlar directamente ninguna empresa productiva", "El Estado creó empresas públicas en sectores estratégicos: siderurgia (Volta Redonda), petróleo (PEMEX, YPF, Petrobras), energía y transporte", "El Estado actuó solo como prestamista de bancos de desarrollo sin tomar participación accionaria en ninguna empresa productiva", "El Estado rechazó el rol empresarial por razones ideológicas liberales y dejó la industrialización exclusivamente al sector privado nacional"],
+            answer: 1,
+            explanation: "Saborido documenta el Estado como empresario ISI: ante la incapacidad del capital privado nacional para financiar las inversiones de largo plazo en sectores pesados, el Estado tomó directamente ese rol. PEMEX en México (1938), YPF en Argentina, Petrobras en Brasil (1953), Volta Redonda siderúrgica (1941) son emblemas del Estado-empresario latinoamericano de la ISI."
+        },
+        {
+            question: "Según Saborido, ¿en qué se diferenciaba la 'primera fase' de la ISI de la 'segunda fase' en los países más industrializados de América Latina?",
+            options: ["No hubo fases distintas: la ISI fue un proceso uniforme desde el principio hasta el fin sin cambios cualitativos en los sectores industrializados", "La primera fase sustituyó importaciones de bienes de consumo livianos (textil, alimentos); la segunda intentó sustituir bienes intermedios y de capital", "La primera fase fue estatal y la segunda fase fue privada, cuando el Estado se retiró y las empresas privadas tomaron el liderazgo industrial", "La primera fase fue exitosa y la segunda fracasó completamente en todos los países latinoamericanos sin excepción alguna"],
+            answer: 1,
+            explanation: "Saborido describe la secuencia de la ISI: la primera fase (décadas 1930-1950) sustituyó importaciones fáciles (textil, alimentos procesados, productos de consumo liviano) que no requerían gran capital ni tecnología sofisticada. La segunda fase (1950-1970) intentó avanzar hacia bienes intermedios (acero, petroquímica) y de capital (maquinaria, automotores) con mayor dependencia tecnológica y de divisas."
+        },
+        ];
+
+        let quizzes = [];
+        let currentQuiz;
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        const quizSelectionScreen = document.getElementById('quiz-selection-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const questionElement = document.getElementById('question');
+        const optionsContainer = document.getElementById('options-container');
+        const currentQuestionNumberElement = document.getElementById('current-question-number');
+        const scoreElement = document.getElementById('score');
+        const nextButton = document.getElementById('next-button');
+        const feedbackMessage = document.getElementById('feedback-message');
+        const finalScoreElement = document.getElementById('final-score');
+
+        // Mezcla un array de forma aleatoria (algoritmo Fisher-Yates)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Genera los 6 exámenes, cada uno con 20 preguntas aleatorias del pool
+        function generateQuizzes() {
+            quizzes = [];
+            for (let i = 0; i < 6; i++) {
+                const shuffled = [...allQuestions];
+                shuffleArray(shuffled);
+                const selectedQuestions = shuffled.slice(0, 20);
+                quizzes.push({
+                    title: `Examen de Práctica ${i + 1}`,
+                    questions: selectedQuestions
+                });
+            }
+        }
+
+        // Inicia un examen específico por su índice
+        function startQuiz(quizIndex) {
+            currentQuiz = quizzes[quizIndex];
+            currentQuestionIndex = 0;
+            score = 0;
+
+            quizSelectionScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+
+            showQuestion();
+        }
+
+        // Muestra la pregunta actual y sus opciones
+        function showQuestion() {
+            const currentQuestionData = currentQuiz.questions[currentQuestionIndex];
+
+            currentQuestionNumberElement.textContent = currentQuestionIndex + 1;
+            scoreElement.textContent = score;
+            questionElement.textContent = currentQuestionData.question;
+            optionsContainer.innerHTML = '';
+            feedbackMessage.classList.add('hidden');
+            feedbackMessage.innerHTML = '';
+            nextButton.disabled = true;
+
+            currentQuestionData.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('answer-button', 'block');
+                button.onclick = () => checkAnswer(button, index);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        // Verifica la respuesta seleccionada
+        function checkAnswer(selectedButton, selectedIndex) {
+            const currentQuestionData = currentQuiz.questions[currentQuestionIndex];
+            const correctIndex = currentQuestionData.answer;
+
+            // Deshabilitar todos los botones para evitar cambios
+            Array.from(optionsContainer.children).forEach((button) => {
+                button.disabled = true;
+            });
+
+            // Marcar la respuesta correcta en verde
+            optionsContainer.children[correctIndex].classList.add('correct');
+
+            if (selectedIndex === correctIndex) {
+                score++;
+                feedbackMessage.textContent = '¡Respuesta Correcta!';
+                feedbackMessage.classList.remove('hidden', 'bg-red-100', 'text-red-700');
+                feedbackMessage.classList.add('bg-green-100', 'text-green-700');
+            } else {
+                // Marcar la respuesta incorrecta en rojo
+                selectedButton.classList.add('incorrect');
+                feedbackMessage.innerHTML = `
+                    <div class="font-bold mb-2">¡Respuesta Incorrecta!</div>
+                    <div class="explanation">
+                        <strong class="text-amber-700">Explicación:</strong>
+                        <p class="text-sm mt-1 text-gray-700">${currentQuestionData.explanation}</p>
+                    </div>
+                `;
+                feedbackMessage.classList.remove('hidden', 'bg-green-100', 'text-green-700');
+                feedbackMessage.classList.add('bg-red-100', 'text-red-700');
+            }
+
+            feedbackMessage.classList.remove('hidden');
+            scoreElement.textContent = score;
+            nextButton.disabled = false;
+            nextButton.focus();
+        }
+
+        // Pasa a la siguiente pregunta o finaliza el examen
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < currentQuiz.questions.length) {
+                showQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        // Muestra la pantalla de resultados finales
+        function endQuiz() {
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            finalScoreElement.textContent = score;
+        }
+
+        // Vuelve a la pantalla de selección de cuestionarios
+        function restartQuiz() {
+            resultsScreen.classList.add('hidden');
+            quizSelectionScreen.classList.remove('hidden');
+            generateQuizzes(); // Regenerar para que sean diferentes cada vez
+        }
+
+        // Inicializa la aplicación
+        window.onload = function() {
+            generateQuizzes();
+            quizSelectionScreen.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
